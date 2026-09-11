@@ -1,0 +1,9888 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Học tiếng Trung · HSK 5</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" />
+<style>
+  html, body { margin:0; padding:0; background:#EAE3D2; min-height:100vh; }
+  #root { padding: 24px 0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useMemo } = React;
+
+const VOCAB = [
+  {
+    "id": 1,
+    "hsk": 5,
+    "ch": "哎",
+    "py": "āi",
+    "vi": "thán từ"
+  },
+  {
+    "id": 2,
+    "hsk": 5,
+    "ch": "唉",
+    "py": "āi",
+    "vi": "thán từ"
+  },
+  {
+    "id": 3,
+    "hsk": 5,
+    "ch": "爱护",
+    "py": "ài hù",
+    "vi": "yêu thương, giữ gìn"
+  },
+  {
+    "id": 4,
+    "hsk": 5,
+    "ch": "爱惜",
+    "py": "ài xī",
+    "vi": "quý trọng"
+  },
+  {
+    "id": 5,
+    "hsk": 5,
+    "ch": "爱心",
+    "py": "ài xīn",
+    "vi": "lòng tốt"
+  },
+  {
+    "id": 7,
+    "hsk": 5,
+    "ch": "安装",
+    "py": "ān zhuāng",
+    "vi": "lắp đặt"
+  },
+  {
+    "id": 8,
+    "hsk": 5,
+    "ch": "岸",
+    "py": "àn",
+    "vi": "bờ"
+  },
+  {
+    "id": 9,
+    "hsk": 5,
+    "ch": "暗",
+    "py": "àn",
+    "vi": "tối"
+  },
+  {
+    "id": 10,
+    "hsk": 5,
+    "ch": "熬夜",
+    "py": "áo yè",
+    "vi": "thức đêm"
+  },
+  {
+    "id": 11,
+    "hsk": 5,
+    "ch": "把握",
+    "py": "bǎ wò",
+    "vi": "nắm chắc"
+  },
+  {
+    "id": 12,
+    "hsk": 5,
+    "ch": "摆",
+    "py": "bǎi",
+    "vi": "bày"
+  },
+  {
+    "id": 13,
+    "hsk": 5,
+    "ch": "办理",
+    "py": "bàn lǐ",
+    "vi": "làm (thủ tục)"
+  },
+  {
+    "id": 14,
+    "hsk": 5,
+    "ch": "傍晚",
+    "py": "bàng wǎn",
+    "vi": "chiều muộn"
+  },
+  {
+    "id": 15,
+    "hsk": 5,
+    "ch": "包裹",
+    "py": "bāo guǒ",
+    "vi": "bưu kiện"
+  },
+  {
+    "id": 16,
+    "hsk": 5,
+    "ch": "包含",
+    "py": "bāo hán",
+    "vi": "bao hàm"
+  },
+  {
+    "id": 17,
+    "hsk": 5,
+    "ch": "包括",
+    "py": "bāo kuò",
+    "vi": "bao gồm"
+  },
+  {
+    "id": 18,
+    "hsk": 5,
+    "ch": "薄",
+    "py": "báo",
+    "vi": "mỏng"
+  },
+  {
+    "id": 19,
+    "hsk": 5,
+    "ch": "宝贝",
+    "py": "bǎo bèi",
+    "vi": "bảo bối"
+  },
+  {
+    "id": 20,
+    "hsk": 5,
+    "ch": "宝贵",
+    "py": "bǎo guì",
+    "vi": "quí báu"
+  },
+  {
+    "id": 21,
+    "hsk": 5,
+    "ch": "保持",
+    "py": "bǎo chí",
+    "vi": "duy trì"
+  },
+  {
+    "id": 23,
+    "hsk": 5,
+    "ch": "保留",
+    "py": "bǎo liú",
+    "vi": "bảo lưu"
+  },
+  {
+    "id": 24,
+    "hsk": 5,
+    "ch": "保险",
+    "py": "bǎo xiǎn",
+    "vi": "bảo hiểm"
+  },
+  {
+    "id": 25,
+    "hsk": 5,
+    "ch": "报到",
+    "py": "bào dào",
+    "vi": "điểm danh"
+  },
+  {
+    "id": 26,
+    "hsk": 5,
+    "ch": "报道",
+    "py": "bào dào",
+    "vi": "đưa tin, bản tin"
+  },
+  {
+    "id": 27,
+    "hsk": 5,
+    "ch": "报告",
+    "py": "bào gào",
+    "vi": "báo cáo"
+  },
+  {
+    "id": 28,
+    "hsk": 5,
+    "ch": "报社",
+    "py": "bào shè",
+    "vi": "tòa soạn báo"
+  },
+  {
+    "id": 29,
+    "hsk": 5,
+    "ch": "抱怨",
+    "py": "bào yuàn",
+    "vi": "trách móc"
+  },
+  {
+    "id": 30,
+    "hsk": 5,
+    "ch": "背",
+    "py": "bèi",
+    "vi": "học thuộc"
+  },
+  {
+    "id": 31,
+    "hsk": 5,
+    "ch": "悲观",
+    "py": "bēi guān",
+    "vi": "bi quan"
+  },
+  {
+    "id": 32,
+    "hsk": 5,
+    "ch": "背景",
+    "py": "bèi jǐng",
+    "vi": "bối cảnh"
+  },
+  {
+    "id": 33,
+    "hsk": 5,
+    "ch": "被子",
+    "py": "bèi zi",
+    "vi": "chăn"
+  },
+  {
+    "id": 34,
+    "hsk": 5,
+    "ch": "本科",
+    "py": "běn kē",
+    "vi": "trình độ đại học"
+  },
+  {
+    "id": 35,
+    "hsk": 5,
+    "ch": "本领",
+    "py": "běn lǐng",
+    "vi": "bản lĩnh"
+  },
+  {
+    "id": 36,
+    "hsk": 5,
+    "ch": "本质",
+    "py": "běn zhì",
+    "vi": "bản chất"
+  },
+  {
+    "id": 37,
+    "hsk": 5,
+    "ch": "比例",
+    "py": "bǐ lì",
+    "vi": "tỉ lệ"
+  },
+  {
+    "id": 38,
+    "hsk": 5,
+    "ch": "彼此",
+    "py": "bǐ cǐ",
+    "vi": "lẫn nhau, với nhau, cả hai"
+  },
+  {
+    "id": 39,
+    "hsk": 5,
+    "ch": "必然",
+    "py": "bì rán",
+    "vi": "tất yếu"
+  },
+  {
+    "id": 40,
+    "hsk": 5,
+    "ch": "必要",
+    "py": "bì yào",
+    "vi": "cần thiết, cần"
+  },
+  {
+    "id": 42,
+    "hsk": 5,
+    "ch": "避免",
+    "py": "bì miǎn",
+    "vi": "tránh"
+  },
+  {
+    "id": 43,
+    "hsk": 5,
+    "ch": "编辑",
+    "py": "biān jí",
+    "vi": "biên tập"
+  },
+  {
+    "id": 44,
+    "hsk": 5,
+    "ch": "鞭炮",
+    "py": "biān pào",
+    "vi": "pháo"
+  },
+  {
+    "id": 45,
+    "hsk": 5,
+    "ch": "便",
+    "py": "biàn",
+    "vi": "liền"
+  },
+  {
+    "id": 46,
+    "hsk": 5,
+    "ch": "辩论",
+    "py": "biàn lùn",
+    "vi": "biện luận"
+  },
+  {
+    "id": 47,
+    "hsk": 5,
+    "ch": "标点",
+    "py": "biāo diǎn",
+    "vi": "dấu"
+  },
+  {
+    "id": 48,
+    "hsk": 5,
+    "ch": "标志",
+    "py": "biāo zhì",
+    "vi": "đánh dấu"
+  },
+  {
+    "id": 49,
+    "hsk": 5,
+    "ch": "表达",
+    "py": "biǎo dá",
+    "vi": "diễn đạt"
+  },
+  {
+    "id": 50,
+    "hsk": 5,
+    "ch": "表面",
+    "py": "biǎo miàn",
+    "vi": "bề mặt, bề ngoài"
+  },
+  {
+    "id": 51,
+    "hsk": 5,
+    "ch": "表明",
+    "py": "biǎo míng",
+    "vi": "cho thấy"
+  },
+  {
+    "id": 52,
+    "hsk": 5,
+    "ch": "表情",
+    "py": "biǎo qíng",
+    "vi": "biểu cảm"
+  },
+  {
+    "id": 53,
+    "hsk": 5,
+    "ch": "表现",
+    "py": "biǎo xiàn",
+    "vi": "biểu hiện"
+  },
+  {
+    "id": 54,
+    "hsk": 5,
+    "ch": "冰激凌",
+    "py": "bīng jī líng",
+    "vi": "kem"
+  },
+  {
+    "id": 55,
+    "hsk": 5,
+    "ch": "病毒",
+    "py": "bìng dú",
+    "vi": "vi rút"
+  },
+  {
+    "id": 56,
+    "hsk": 5,
+    "ch": "玻璃",
+    "py": "bō lí",
+    "vi": "thủy tinh"
+  },
+  {
+    "id": 57,
+    "hsk": 5,
+    "ch": "播放",
+    "py": "bō fàng",
+    "vi": "phát sóng"
+  },
+  {
+    "id": 58,
+    "hsk": 5,
+    "ch": "脖子",
+    "py": "bó zi",
+    "vi": "cổ"
+  },
+  {
+    "id": 59,
+    "hsk": 5,
+    "ch": "博物馆",
+    "py": "bó wù guǎn",
+    "vi": "bảo tàng"
+  },
+  {
+    "id": 60,
+    "hsk": 5,
+    "ch": "补充",
+    "py": "bǔ chōng",
+    "vi": "bổ sung"
+  },
+  {
+    "id": 61,
+    "hsk": 5,
+    "ch": "不安",
+    "py": "bú ān",
+    "vi": "bất an"
+  },
+  {
+    "id": 63,
+    "hsk": 5,
+    "ch": "不断",
+    "py": "bú duàn",
+    "vi": "không ngừng"
+  },
+  {
+    "id": 64,
+    "hsk": 5,
+    "ch": "不见得",
+    "py": "bú jiàn dé",
+    "vi": "chưa chắc"
+  },
+  {
+    "id": 65,
+    "hsk": 5,
+    "ch": "不耐烦",
+    "py": "bú nài fán",
+    "vi": "chán nản"
+  },
+  {
+    "id": 66,
+    "hsk": 5,
+    "ch": "不然",
+    "py": "bú rán",
+    "vi": "nếu không thì"
+  },
+  {
+    "id": 67,
+    "hsk": 5,
+    "ch": "不如",
+    "py": "bú rú",
+    "vi": "không bằng"
+  },
+  {
+    "id": 68,
+    "hsk": 5,
+    "ch": "不要紧",
+    "py": "bú yào jǐn",
+    "vi": "không sao"
+  },
+  {
+    "id": 69,
+    "hsk": 5,
+    "ch": "不足",
+    "py": "bú zú",
+    "vi": "không đủ"
+  },
+  {
+    "id": 70,
+    "hsk": 5,
+    "ch": "布",
+    "py": "bù",
+    "vi": "vải"
+  },
+  {
+    "id": 71,
+    "hsk": 5,
+    "ch": "步骤",
+    "py": "bù zhòu",
+    "vi": "bước"
+  },
+  {
+    "id": 72,
+    "hsk": 5,
+    "ch": "部门",
+    "py": "bù mén",
+    "vi": "ban ngành"
+  },
+  {
+    "id": 73,
+    "hsk": 5,
+    "ch": "财产",
+    "py": "cái chǎn",
+    "vi": "tài sản"
+  },
+  {
+    "id": 74,
+    "hsk": 5,
+    "ch": "采访",
+    "py": "cǎi fǎng",
+    "vi": "phỏng vấn"
+  },
+  {
+    "id": 75,
+    "hsk": 5,
+    "ch": "采取",
+    "py": "cǎi qǔ",
+    "vi": "chọn, dùng"
+  },
+  {
+    "id": 76,
+    "hsk": 5,
+    "ch": "彩虹",
+    "py": "cǎi hóng",
+    "vi": "cầu vồng"
+  },
+  {
+    "id": 77,
+    "hsk": 5,
+    "ch": "踩",
+    "py": "cǎi",
+    "vi": "giẫm"
+  },
+  {
+    "id": 78,
+    "hsk": 5,
+    "ch": "参考",
+    "py": "cān kǎo",
+    "vi": "tham khảo"
+  },
+  {
+    "id": 79,
+    "hsk": 5,
+    "ch": "参与",
+    "py": "cān yù",
+    "vi": "can dự"
+  },
+  {
+    "id": 80,
+    "hsk": 5,
+    "ch": "惭愧",
+    "py": "cán kuì",
+    "vi": "hổ thẹn"
+  },
+  {
+    "id": 81,
+    "hsk": 5,
+    "ch": "操场",
+    "py": "cāo chǎng",
+    "vi": "sân vận động"
+  },
+  {
+    "id": 82,
+    "hsk": 5,
+    "ch": "操心",
+    "py": "cāo xīn",
+    "vi": "lo lắng"
+  },
+  {
+    "id": 83,
+    "hsk": 5,
+    "ch": "册",
+    "py": "cè",
+    "vi": "quyển"
+  },
+  {
+    "id": 84,
+    "hsk": 5,
+    "ch": "测验",
+    "py": "cè yàn",
+    "vi": "thí nghiệm"
+  },
+  {
+    "id": 85,
+    "hsk": 5,
+    "ch": "曾经",
+    "py": "céng jīng",
+    "vi": "đã từng"
+  },
+  {
+    "id": 86,
+    "hsk": 5,
+    "ch": "叉子",
+    "py": "chā zi",
+    "vi": "cái dĩa, cái xiên, cái nĩa"
+  },
+  {
+    "id": 87,
+    "hsk": 5,
+    "ch": "差距",
+    "py": "chā jù",
+    "vi": "sự khác biệt"
+  },
+  {
+    "id": 88,
+    "hsk": 5,
+    "ch": "插",
+    "py": "chā",
+    "vi": "cắm"
+  },
+  {
+    "id": 89,
+    "hsk": 5,
+    "ch": "拆",
+    "py": "chāi",
+    "vi": "gỡ, dỡ"
+  },
+  {
+    "id": 90,
+    "hsk": 5,
+    "ch": "产品",
+    "py": "chǎn pǐn",
+    "vi": "sản phẩm"
+  },
+  {
+    "id": 91,
+    "hsk": 5,
+    "ch": "产生",
+    "py": "chǎn shēng",
+    "vi": "sản sinh, nảy sinh"
+  },
+  {
+    "id": 92,
+    "hsk": 5,
+    "ch": "长途",
+    "py": "cháng tú",
+    "vi": "đường dài"
+  },
+  {
+    "id": 93,
+    "hsk": 5,
+    "ch": "常识",
+    "py": "cháng shí",
+    "vi": "thường thức"
+  },
+  {
+    "id": 94,
+    "hsk": 5,
+    "ch": "抄",
+    "py": "chāo",
+    "vi": "chép"
+  },
+  {
+    "id": 95,
+    "hsk": 5,
+    "ch": "超级",
+    "py": "chāo jí",
+    "vi": "siêu cấp"
+  },
+  {
+    "id": 96,
+    "hsk": 5,
+    "ch": "朝",
+    "py": "cháo",
+    "vi": "về hướng"
+  },
+  {
+    "id": 97,
+    "hsk": 5,
+    "ch": "潮湿",
+    "py": "cháo shī",
+    "vi": "ẩm ướt"
+  },
+  {
+    "id": 98,
+    "hsk": 5,
+    "ch": "吵",
+    "py": "chǎo",
+    "vi": "ồn ào"
+  },
+  {
+    "id": 99,
+    "hsk": 5,
+    "ch": "吵架",
+    "py": "chǎo jià",
+    "vi": "cãi vã"
+  },
+  {
+    "id": 100,
+    "hsk": 5,
+    "ch": "炒",
+    "py": "chǎo",
+    "vi": "xào"
+  },
+  {
+    "id": 101,
+    "hsk": 5,
+    "ch": "车库",
+    "py": "chē kù",
+    "vi": "nhà xe"
+  },
+  {
+    "id": 102,
+    "hsk": 5,
+    "ch": "车厢",
+    "py": "chē xiāng",
+    "vi": "toa tàu"
+  },
+  {
+    "id": 103,
+    "hsk": 5,
+    "ch": "彻底",
+    "py": "chè dǐ",
+    "vi": "triệt để"
+  },
+  {
+    "id": 104,
+    "hsk": 5,
+    "ch": "沉默",
+    "py": "chén mò",
+    "vi": "im lặng"
+  },
+  {
+    "id": 105,
+    "hsk": 5,
+    "ch": "趁",
+    "py": "chèn",
+    "vi": "nhân"
+  },
+  {
+    "id": 106,
+    "hsk": 5,
+    "ch": "称",
+    "py": "chēng",
+    "vi": "cân"
+  },
+  {
+    "id": 107,
+    "hsk": 5,
+    "ch": "称呼",
+    "py": "chēng hū",
+    "vi": "xưng hô"
+  },
+  {
+    "id": 108,
+    "hsk": 5,
+    "ch": "称赞",
+    "py": "chēng zàn",
+    "vi": "tán thưởng"
+  },
+  {
+    "id": 109,
+    "hsk": 5,
+    "ch": "成分",
+    "py": "chéng fèn",
+    "vi": "thành phần"
+  },
+  {
+    "id": 110,
+    "hsk": 5,
+    "ch": "成果",
+    "py": "chéng guǒ",
+    "vi": "thành quả"
+  },
+  {
+    "id": 111,
+    "hsk": 5,
+    "ch": "成就",
+    "py": "chéng jiù",
+    "vi": "thành tựu"
+  },
+  {
+    "id": 112,
+    "hsk": 5,
+    "ch": "成立",
+    "py": "chéng lì",
+    "vi": "thành lập"
+  },
+  {
+    "id": 113,
+    "hsk": 5,
+    "ch": "成人",
+    "py": "chéng rén",
+    "vi": "người lớn"
+  },
+  {
+    "id": 114,
+    "hsk": 5,
+    "ch": "成熟",
+    "py": "chéng shú",
+    "vi": "thành thục"
+  },
+  {
+    "id": 115,
+    "hsk": 5,
+    "ch": "成语",
+    "py": "chéng yǔ",
+    "vi": "thành ngữ"
+  },
+  {
+    "id": 116,
+    "hsk": 5,
+    "ch": "成长",
+    "py": "chéng zhǎng",
+    "vi": "trưởng thành"
+  },
+  {
+    "id": 117,
+    "hsk": 5,
+    "ch": "诚恳",
+    "py": "chéng kěn",
+    "vi": "thành khẩn"
+  },
+  {
+    "id": 118,
+    "hsk": 5,
+    "ch": "承担",
+    "py": "chéng dān",
+    "vi": "chịu trách nhiệm"
+  },
+  {
+    "id": 119,
+    "hsk": 5,
+    "ch": "承认",
+    "py": "chéng rèn",
+    "vi": "thừa nhận"
+  },
+  {
+    "id": 120,
+    "hsk": 5,
+    "ch": "承受",
+    "py": "chéng shòu",
+    "vi": "chịu đựng"
+  },
+  {
+    "id": 121,
+    "hsk": 5,
+    "ch": "程度",
+    "py": "chéng dù",
+    "vi": "trình độ"
+  },
+  {
+    "id": 122,
+    "hsk": 5,
+    "ch": "程序",
+    "py": "chéng xù",
+    "vi": "trình tự"
+  },
+  {
+    "id": 123,
+    "hsk": 5,
+    "ch": "吃亏",
+    "py": "chī kuī",
+    "vi": "thiệt thòi"
+  },
+  {
+    "id": 124,
+    "hsk": 5,
+    "ch": "池塘",
+    "py": "chí táng",
+    "vi": "ao hồ"
+  },
+  {
+    "id": 125,
+    "hsk": 5,
+    "ch": "迟早",
+    "py": "chí zǎo",
+    "vi": "sớm muộn"
+  },
+  {
+    "id": 126,
+    "hsk": 5,
+    "ch": "持续",
+    "py": "chí xù",
+    "vi": "kéo dài"
+  },
+  {
+    "id": 127,
+    "hsk": 5,
+    "ch": "尺子",
+    "py": "chǐ zi",
+    "vi": "thước đo"
+  },
+  {
+    "id": 128,
+    "hsk": 5,
+    "ch": "翅膀",
+    "py": "chì bǎng",
+    "vi": "cánh"
+  },
+  {
+    "id": 129,
+    "hsk": 5,
+    "ch": "冲",
+    "py": "chōng",
+    "vi": "xông, xô đẩy"
+  },
+  {
+    "id": 131,
+    "hsk": 5,
+    "ch": "充分",
+    "py": "chōng fèn",
+    "vi": "đầy đủ"
+  },
+  {
+    "id": 132,
+    "hsk": 5,
+    "ch": "充满",
+    "py": "chōng mǎn",
+    "vi": "tràn đầy"
+  },
+  {
+    "id": 133,
+    "hsk": 5,
+    "ch": "重复",
+    "py": "chóng fù",
+    "vi": "lặp lại"
+  },
+  {
+    "id": 134,
+    "hsk": 5,
+    "ch": "宠物",
+    "py": "chǒng wù",
+    "vi": "thú cưng"
+  },
+  {
+    "id": 135,
+    "hsk": 5,
+    "ch": "抽屉",
+    "py": "chōu tì",
+    "vi": "ngăn kéo"
+  },
+  {
+    "id": 136,
+    "hsk": 5,
+    "ch": "抽象",
+    "py": "chōu xiàng",
+    "vi": "trừu tượng"
+  },
+  {
+    "id": 137,
+    "hsk": 5,
+    "ch": "丑",
+    "py": "chǒu",
+    "vi": "xấu"
+  },
+  {
+    "id": 138,
+    "hsk": 5,
+    "ch": "臭",
+    "py": "chòu",
+    "vi": "thối"
+  },
+  {
+    "id": 139,
+    "hsk": 5,
+    "ch": "出版",
+    "py": "chū bǎn",
+    "vi": "xuất bản"
+  },
+  {
+    "id": 140,
+    "hsk": 5,
+    "ch": "出口",
+    "py": "chū kǒu",
+    "vi": "lối ra, cửa ra"
+  },
+  {
+    "id": 141,
+    "hsk": 5,
+    "ch": "出色",
+    "py": "chū sè",
+    "vi": "xuất sắc"
+  },
+  {
+    "id": 142,
+    "hsk": 5,
+    "ch": "出示",
+    "py": "chū shì",
+    "vi": "xuất trình"
+  },
+  {
+    "id": 143,
+    "hsk": 5,
+    "ch": "出席",
+    "py": "chū xí",
+    "vi": "tham dự"
+  },
+  {
+    "id": 144,
+    "hsk": 5,
+    "ch": "初级",
+    "py": "chū jí",
+    "vi": "sơ cấp"
+  },
+  {
+    "id": 145,
+    "hsk": 5,
+    "ch": "除非",
+    "py": "chú fēi",
+    "vi": "trừ phi"
+  },
+  {
+    "id": 146,
+    "hsk": 5,
+    "ch": "除夕",
+    "py": "chú xī",
+    "vi": "giao thừa"
+  },
+  {
+    "id": 147,
+    "hsk": 5,
+    "ch": "处理",
+    "py": "chǔ lǐ",
+    "vi": "xử lý"
+  },
+  {
+    "id": 148,
+    "hsk": 5,
+    "ch": "传播",
+    "py": "chuán bō",
+    "vi": "lan truyền, lây lan"
+  },
+  {
+    "id": 149,
+    "hsk": 5,
+    "ch": "传染",
+    "py": "chuán rǎn",
+    "vi": "nhiễm"
+  },
+  {
+    "id": 150,
+    "hsk": 5,
+    "ch": "传说",
+    "py": "chuán shuō",
+    "vi": "truyền thuyết"
+  },
+  {
+    "id": 151,
+    "hsk": 5,
+    "ch": "传统",
+    "py": "chuán tǒng",
+    "vi": "truyền thống"
+  },
+  {
+    "id": 152,
+    "hsk": 5,
+    "ch": "窗帘",
+    "py": "chuāng lián",
+    "vi": "rèm cửa"
+  },
+  {
+    "id": 153,
+    "hsk": 5,
+    "ch": "闯",
+    "py": "chuǎng",
+    "vi": "xông vào, xông lên"
+  },
+  {
+    "id": 154,
+    "hsk": 5,
+    "ch": "创造",
+    "py": "chuàng zào",
+    "vi": "sáng tạo"
+  },
+  {
+    "id": 155,
+    "hsk": 5,
+    "ch": "吹",
+    "py": "chuī",
+    "vi": "thổi"
+  },
+  {
+    "id": 156,
+    "hsk": 5,
+    "ch": "词汇",
+    "py": "cí huì",
+    "vi": "từ vựng"
+  },
+  {
+    "id": 157,
+    "hsk": 5,
+    "ch": "辞职",
+    "py": "cí zhí",
+    "vi": "từ chức, bỏ việc"
+  },
+  {
+    "id": 158,
+    "hsk": 5,
+    "ch": "此外",
+    "py": "cǐ wài",
+    "vi": "ngoài ra"
+  },
+  {
+    "id": 159,
+    "hsk": 5,
+    "ch": "次要",
+    "py": "cì yào",
+    "vi": "thứ yếu"
+  },
+  {
+    "id": 160,
+    "hsk": 5,
+    "ch": "刺激",
+    "py": "cì jī",
+    "vi": "kích thích"
+  },
+  {
+    "id": 161,
+    "hsk": 5,
+    "ch": "匆忙",
+    "py": "cōng máng",
+    "vi": "vội vàng"
+  },
+  {
+    "id": 162,
+    "hsk": 5,
+    "ch": "从此",
+    "py": "cóng cǐ",
+    "vi": "từ đó"
+  },
+  {
+    "id": 163,
+    "hsk": 5,
+    "ch": "从而",
+    "py": "cóng ér",
+    "vi": "cho nên"
+  },
+  {
+    "id": 164,
+    "hsk": 5,
+    "ch": "从前",
+    "py": "cóng qián",
+    "vi": "từ trước"
+  },
+  {
+    "id": 165,
+    "hsk": 5,
+    "ch": "从事",
+    "py": "cóng shì",
+    "vi": "theo đuổi"
+  },
+  {
+    "id": 166,
+    "hsk": 5,
+    "ch": "粗糙",
+    "py": "cū cāo",
+    "vi": "thô ráp"
+  },
+  {
+    "id": 167,
+    "hsk": 5,
+    "ch": "促进",
+    "py": "cù jìn",
+    "vi": "xúc tiến"
+  },
+  {
+    "id": 168,
+    "hsk": 5,
+    "ch": "促使",
+    "py": "cù shǐ",
+    "vi": "thúc đẩy"
+  },
+  {
+    "id": 169,
+    "hsk": 5,
+    "ch": "醋",
+    "py": "cù",
+    "vi": "giấm"
+  },
+  {
+    "id": 170,
+    "hsk": 5,
+    "ch": "催",
+    "py": "cuī",
+    "vi": "giục"
+  },
+  {
+    "id": 171,
+    "hsk": 5,
+    "ch": "存在",
+    "py": "cún zài",
+    "vi": "tồn tại"
+  },
+  {
+    "id": 172,
+    "hsk": 5,
+    "ch": "措施",
+    "py": "cuò shī",
+    "vi": "sách lược, chính sách"
+  },
+  {
+    "id": 173,
+    "hsk": 5,
+    "ch": "答应",
+    "py": "dā yìng",
+    "vi": "hứa"
+  },
+  {
+    "id": 174,
+    "hsk": 5,
+    "ch": "达到",
+    "py": "dá dào",
+    "vi": "đạt đến"
+  },
+  {
+    "id": 175,
+    "hsk": 5,
+    "ch": "打工",
+    "py": "dǎ gōng",
+    "vi": "làm thêm"
+  },
+  {
+    "id": 176,
+    "hsk": 5,
+    "ch": "打交道",
+    "py": "dǎ jiāo dào",
+    "vi": "kết bạn"
+  },
+  {
+    "id": 177,
+    "hsk": 5,
+    "ch": "打喷嚏",
+    "py": "dǎ pēn tì",
+    "vi": "hắt xì"
+  },
+  {
+    "id": 178,
+    "hsk": 5,
+    "ch": "打听",
+    "py": "dǎ tīng",
+    "vi": "hỏi thăm"
+  },
+  {
+    "id": 179,
+    "hsk": 5,
+    "ch": "大方",
+    "py": "dà fāng",
+    "vi": "phóng khoáng"
+  },
+  {
+    "id": 180,
+    "hsk": 5,
+    "ch": "大厦",
+    "py": "dà shà",
+    "vi": "tòa nhà"
+  },
+  {
+    "id": 181,
+    "hsk": 5,
+    "ch": "大象",
+    "py": "dà xiàng",
+    "vi": "voi"
+  },
+  {
+    "id": 182,
+    "hsk": 5,
+    "ch": "大型",
+    "py": "dà xíng",
+    "vi": "lớn (qui mô)"
+  },
+  {
+    "id": 183,
+    "hsk": 5,
+    "ch": "呆",
+    "py": "dāi",
+    "vi": "ở lì, ở"
+  },
+  {
+    "id": 184,
+    "hsk": 5,
+    "ch": "代表",
+    "py": "dài biǎo",
+    "vi": "đại diện"
+  },
+  {
+    "id": 185,
+    "hsk": 5,
+    "ch": "代替",
+    "py": "dài tì",
+    "vi": "thay thế"
+  },
+  {
+    "id": 186,
+    "hsk": 5,
+    "ch": "贷款",
+    "py": "dài kuǎn",
+    "vi": "vay tiền"
+  },
+  {
+    "id": 187,
+    "hsk": 5,
+    "ch": "待遇",
+    "py": "dài yù",
+    "vi": "đãi ngộ"
+  },
+  {
+    "id": 188,
+    "hsk": 5,
+    "ch": "担任",
+    "py": "dān rèn",
+    "vi": "đảm nhiệm"
+  },
+  {
+    "id": 189,
+    "hsk": 5,
+    "ch": "单纯",
+    "py": "dān chún",
+    "vi": "đơn thuần,ngây thơ"
+  },
+  {
+    "id": 190,
+    "hsk": 5,
+    "ch": "单调",
+    "py": "dān diào",
+    "vi": "đơn điệu"
+  },
+  {
+    "id": 191,
+    "hsk": 5,
+    "ch": "单独",
+    "py": "dān dú",
+    "vi": "đơn độc"
+  },
+  {
+    "id": 192,
+    "hsk": 5,
+    "ch": "单位",
+    "py": "dān wèi",
+    "vi": "đơn vị"
+  },
+  {
+    "id": 193,
+    "hsk": 5,
+    "ch": "单元",
+    "py": "dān yuán",
+    "vi": "đơn nguyên, cụm"
+  },
+  {
+    "id": 194,
+    "hsk": 5,
+    "ch": "耽误",
+    "py": "dān wù",
+    "vi": "bỏ lỡ"
+  },
+  {
+    "id": 195,
+    "hsk": 5,
+    "ch": "胆小鬼",
+    "py": "dǎn xiǎo guǐ",
+    "vi": "kẻ nhát gan"
+  },
+  {
+    "id": 196,
+    "hsk": 5,
+    "ch": "淡",
+    "py": "dàn",
+    "vi": "nhạt"
+  },
+  {
+    "id": 197,
+    "hsk": 5,
+    "ch": "当地",
+    "py": "dāng dì",
+    "vi": "địa phương"
+  },
+  {
+    "id": 198,
+    "hsk": 5,
+    "ch": "当心",
+    "py": "dāng xīn",
+    "vi": "để tâm, lưu tâm"
+  },
+  {
+    "id": 199,
+    "hsk": 5,
+    "ch": "挡",
+    "py": "dǎng",
+    "vi": "chắn"
+  },
+  {
+    "id": 200,
+    "hsk": 5,
+    "ch": "导演",
+    "py": "dǎo yǎn",
+    "vi": "đạo diễn"
+  },
+  {
+    "id": 201,
+    "hsk": 5,
+    "ch": "导致",
+    "py": "dǎo zhì",
+    "vi": "gây ra"
+  },
+  {
+    "id": 202,
+    "hsk": 5,
+    "ch": "岛屿",
+    "py": "dǎo yǔ",
+    "vi": "đảo"
+  },
+  {
+    "id": 203,
+    "hsk": 5,
+    "ch": "倒霉",
+    "py": "dǎo méi",
+    "vi": "xui xẻo"
+  },
+  {
+    "id": 204,
+    "hsk": 5,
+    "ch": "到达",
+    "py": "dào dá",
+    "vi": "đến"
+  },
+  {
+    "id": 205,
+    "hsk": 5,
+    "ch": "道德",
+    "py": "dào dé",
+    "vi": "đạo đức"
+  },
+  {
+    "id": 206,
+    "hsk": 5,
+    "ch": "道理",
+    "py": "dào lǐ",
+    "vi": "đạo lí, bài học"
+  },
+  {
+    "id": 207,
+    "hsk": 5,
+    "ch": "登记",
+    "py": "dēng jì",
+    "vi": "đăng kí"
+  },
+  {
+    "id": 208,
+    "hsk": 5,
+    "ch": "等待",
+    "py": "děng dài",
+    "vi": "đợi, chờ đợi"
+  },
+  {
+    "id": 209,
+    "hsk": 5,
+    "ch": "等于",
+    "py": "děng yú",
+    "vi": "bằng"
+  },
+  {
+    "id": 210,
+    "hsk": 5,
+    "ch": "滴",
+    "py": "dī",
+    "vi": "giọt"
+  },
+  {
+    "id": 211,
+    "hsk": 5,
+    "ch": "的确",
+    "py": "dí què",
+    "vi": "đúng, thật (phó từ)"
+  },
+  {
+    "id": 212,
+    "hsk": 5,
+    "ch": "敌人",
+    "py": "dí rén",
+    "vi": "kẻ địch"
+  },
+  {
+    "id": 213,
+    "hsk": 5,
+    "ch": "地道",
+    "py": "dì dào",
+    "vi": "chuẩn bản địa (ngôn ngữ, món ăn)"
+  },
+  {
+    "id": 214,
+    "hsk": 5,
+    "ch": "地理",
+    "py": "dì lǐ",
+    "vi": "địa lý"
+  },
+  {
+    "id": 215,
+    "hsk": 5,
+    "ch": "地区",
+    "py": "dì qū",
+    "vi": "khu vực"
+  },
+  {
+    "id": 216,
+    "hsk": 5,
+    "ch": "地毯",
+    "py": "dì tǎn",
+    "vi": "thảm"
+  },
+  {
+    "id": 217,
+    "hsk": 5,
+    "ch": "地位",
+    "py": "dì wèi",
+    "vi": "địa vị"
+  },
+  {
+    "id": 218,
+    "hsk": 5,
+    "ch": "地震",
+    "py": "dì zhèn",
+    "vi": "động đất"
+  },
+  {
+    "id": 219,
+    "hsk": 5,
+    "ch": "递",
+    "py": "dì",
+    "vi": "truyền"
+  },
+  {
+    "id": 220,
+    "hsk": 5,
+    "ch": "点心",
+    "py": "diǎn xīn",
+    "vi": "điểm tâm"
+  },
+  {
+    "id": 221,
+    "hsk": 5,
+    "ch": "电池",
+    "py": "diàn chí",
+    "vi": "pin"
+  },
+  {
+    "id": 222,
+    "hsk": 5,
+    "ch": "电台",
+    "py": "diàn tái",
+    "vi": "đài truyền hình"
+  },
+  {
+    "id": 223,
+    "hsk": 5,
+    "ch": "钓",
+    "py": "diào",
+    "vi": "câu (cá)"
+  },
+  {
+    "id": 224,
+    "hsk": 5,
+    "ch": "顶",
+    "py": "dǐng",
+    "vi": "đội, cái (lượng từ cho mũ)"
+  },
+  {
+    "id": 225,
+    "hsk": 5,
+    "ch": "动画片",
+    "py": "dòng huà piàn",
+    "vi": "phim hoạt hình"
+  },
+  {
+    "id": 226,
+    "hsk": 5,
+    "ch": "冻",
+    "py": "dòng",
+    "vi": "đông cứng"
+  },
+  {
+    "id": 227,
+    "hsk": 5,
+    "ch": "洞",
+    "py": "dòng",
+    "vi": "hang động"
+  },
+  {
+    "id": 228,
+    "hsk": 5,
+    "ch": "豆腐",
+    "py": "dòu fǔ",
+    "vi": "đậu phụ"
+  },
+  {
+    "id": 229,
+    "hsk": 5,
+    "ch": "逗",
+    "py": "dòu",
+    "vi": "trêu"
+  },
+  {
+    "id": 230,
+    "hsk": 5,
+    "ch": "独立",
+    "py": "dú lì",
+    "vi": "độc lập"
+  },
+  {
+    "id": 231,
+    "hsk": 5,
+    "ch": "独特",
+    "py": "dú tè",
+    "vi": "độc đáo"
+  },
+  {
+    "id": 232,
+    "hsk": 5,
+    "ch": "度过",
+    "py": "dù guò",
+    "vi": "trải qua (thời kì, thời gian)"
+  },
+  {
+    "id": 233,
+    "hsk": 5,
+    "ch": "断",
+    "py": "duàn",
+    "vi": "đoạn, đứt"
+  },
+  {
+    "id": 234,
+    "hsk": 5,
+    "ch": "堆",
+    "py": "duī",
+    "vi": "đống"
+  },
+  {
+    "id": 235,
+    "hsk": 5,
+    "ch": "对比",
+    "py": "duì bǐ",
+    "vi": "đối chiếu"
+  },
+  {
+    "id": 236,
+    "hsk": 5,
+    "ch": "对待",
+    "py": "duì dài",
+    "vi": "đối đãi"
+  },
+  {
+    "id": 237,
+    "hsk": 5,
+    "ch": "对方",
+    "py": "duì fāng",
+    "vi": "đối phương"
+  },
+  {
+    "id": 238,
+    "hsk": 5,
+    "ch": "对手",
+    "py": "duì shǒu",
+    "vi": "đối thủ"
+  },
+  {
+    "id": 239,
+    "hsk": 5,
+    "ch": "对象",
+    "py": "duì xiàng",
+    "vi": "đối tượng"
+  },
+  {
+    "id": 240,
+    "hsk": 5,
+    "ch": "兑换",
+    "py": "duì huàn",
+    "vi": "đổi"
+  },
+  {
+    "id": 241,
+    "hsk": 5,
+    "ch": "吨",
+    "py": "dūn",
+    "vi": "tấn"
+  },
+  {
+    "id": 242,
+    "hsk": 5,
+    "ch": "蹲",
+    "py": "dūn",
+    "vi": "quì"
+  },
+  {
+    "id": 243,
+    "hsk": 5,
+    "ch": "顿",
+    "py": "dùn",
+    "vi": "bữa"
+  },
+  {
+    "id": 244,
+    "hsk": 5,
+    "ch": "多亏",
+    "py": "duō kuī",
+    "vi": "thiệt cho ai đó"
+  },
+  {
+    "id": 245,
+    "hsk": 5,
+    "ch": "多余",
+    "py": "duō yú",
+    "vi": "thừa thãi"
+  },
+  {
+    "id": 246,
+    "hsk": 5,
+    "ch": "朵",
+    "py": "duǒ",
+    "vi": "bông"
+  },
+  {
+    "id": 247,
+    "hsk": 5,
+    "ch": "躲藏",
+    "py": "duǒ cáng",
+    "vi": "trốn"
+  },
+  {
+    "id": 248,
+    "hsk": 5,
+    "ch": "恶劣",
+    "py": "è liè",
+    "vi": "khắc nghiệt, hà khắc"
+  },
+  {
+    "id": 249,
+    "hsk": 5,
+    "ch": "耳环",
+    "py": "ěr huán",
+    "vi": "khuyên tai"
+  },
+  {
+    "id": 250,
+    "hsk": 5,
+    "ch": "发表",
+    "py": "fā biǎo",
+    "vi": "phát biểu, đăng, ra mắt (tác phẩm)"
+  },
+  {
+    "id": 251,
+    "hsk": 5,
+    "ch": "发愁",
+    "py": "fā chóu",
+    "vi": "phát buồn, chán"
+  },
+  {
+    "id": 252,
+    "hsk": 5,
+    "ch": "发达",
+    "py": "fā dá",
+    "vi": "phát đạt, phát triển"
+  },
+  {
+    "id": 253,
+    "hsk": 5,
+    "ch": "发抖",
+    "py": "fā dǒu",
+    "vi": "run rẩy"
+  },
+  {
+    "id": 254,
+    "hsk": 5,
+    "ch": "发挥",
+    "py": "fā huī",
+    "vi": "phát huy"
+  },
+  {
+    "id": 255,
+    "hsk": 5,
+    "ch": "发明",
+    "py": "fā míng",
+    "vi": "phát minh"
+  },
+  {
+    "id": 256,
+    "hsk": 5,
+    "ch": "发票",
+    "py": "fā piào",
+    "vi": "hóa đơn giá trị gia tăng"
+  },
+  {
+    "id": 257,
+    "hsk": 5,
+    "ch": "发言",
+    "py": "fā yán",
+    "vi": "phát biểu (ý kiến)"
+  },
+  {
+    "id": 258,
+    "hsk": 5,
+    "ch": "罚款",
+    "py": "fá kuǎn",
+    "vi": "phạt tiền"
+  },
+  {
+    "id": 259,
+    "hsk": 5,
+    "ch": "法院",
+    "py": "fǎ yuàn",
+    "vi": "tòa án"
+  },
+  {
+    "id": 260,
+    "hsk": 5,
+    "ch": "翻",
+    "py": "fān",
+    "vi": "lật, giở"
+  },
+  {
+    "id": 261,
+    "hsk": 5,
+    "ch": "繁荣",
+    "py": "fán róng",
+    "vi": "phồn vinh"
+  },
+  {
+    "id": 262,
+    "hsk": 5,
+    "ch": "反而",
+    "py": "fǎn ér",
+    "vi": "ngược lại"
+  },
+  {
+    "id": 263,
+    "hsk": 5,
+    "ch": "反复",
+    "py": "fǎn fù",
+    "vi": "lặp đi lặp lại"
+  },
+  {
+    "id": 264,
+    "hsk": 5,
+    "ch": "反应",
+    "py": "fǎn yìng",
+    "vi": "phản ứng"
+  },
+  {
+    "id": 265,
+    "hsk": 5,
+    "ch": "反映",
+    "py": "fǎn yìng",
+    "vi": "phản ánh"
+  },
+  {
+    "id": 266,
+    "hsk": 5,
+    "ch": "反正",
+    "py": "fǎn zhèng",
+    "vi": "dù sao thì"
+  },
+  {
+    "id": 267,
+    "hsk": 5,
+    "ch": "范围",
+    "py": "fàn wéi",
+    "vi": "phạm vi"
+  },
+  {
+    "id": 268,
+    "hsk": 5,
+    "ch": "方",
+    "py": "fāng",
+    "vi": "phương"
+  },
+  {
+    "id": 269,
+    "hsk": 5,
+    "ch": "方案",
+    "py": "fāng àn",
+    "vi": "phương án"
+  },
+  {
+    "id": 270,
+    "hsk": 5,
+    "ch": "方式",
+    "py": "fāng shì",
+    "vi": "phương thức"
+  },
+  {
+    "id": 271,
+    "hsk": 5,
+    "ch": "妨碍",
+    "py": "fáng ài",
+    "vi": "trở ngại, cản trở"
+  },
+  {
+    "id": 272,
+    "hsk": 5,
+    "ch": "仿佛",
+    "py": "fǎng fú",
+    "vi": "dường như"
+  },
+  {
+    "id": 273,
+    "hsk": 5,
+    "ch": "非",
+    "py": "fēi",
+    "vi": "phi, không"
+  },
+  {
+    "id": 274,
+    "hsk": 5,
+    "ch": "肥皂",
+    "py": "féi zào",
+    "vi": "bánh xà phòng"
+  },
+  {
+    "id": 275,
+    "hsk": 5,
+    "ch": "废话",
+    "py": "fèi huà",
+    "vi": "lời nói thừa thãi"
+  },
+  {
+    "id": 276,
+    "hsk": 5,
+    "ch": "分别",
+    "py": "fēn bié",
+    "vi": "phân biệt, lần lượt, xa nhau"
+  },
+  {
+    "id": 277,
+    "hsk": 5,
+    "ch": "分布",
+    "py": "fēn bù",
+    "vi": "phân bố"
+  },
+  {
+    "id": 278,
+    "hsk": 5,
+    "ch": "分配",
+    "py": "fēn pèi",
+    "vi": "chia sẻ, phân chia, phân công"
+  },
+  {
+    "id": 279,
+    "hsk": 5,
+    "ch": "分手",
+    "py": "fēn shǒu",
+    "vi": "chia tay"
+  },
+  {
+    "id": 280,
+    "hsk": 5,
+    "ch": "分析",
+    "py": "fēn xī",
+    "vi": "phân tích"
+  },
+  {
+    "id": 281,
+    "hsk": 5,
+    "ch": "纷纷",
+    "py": "fēn fēn",
+    "vi": "lũ lượt"
+  },
+  {
+    "id": 282,
+    "hsk": 5,
+    "ch": "奋斗",
+    "py": "fèn dòu",
+    "vi": "phấn đấu"
+  },
+  {
+    "id": 283,
+    "hsk": 5,
+    "ch": "风格",
+    "py": "fēng gé",
+    "vi": "phong cách"
+  },
+  {
+    "id": 284,
+    "hsk": 5,
+    "ch": "风景",
+    "py": "fēng jǐng",
+    "vi": "phong cảnh"
+  },
+  {
+    "id": 285,
+    "hsk": 5,
+    "ch": "风俗",
+    "py": "fēng sú",
+    "vi": "phong tục"
+  },
+  {
+    "id": 286,
+    "hsk": 5,
+    "ch": "风险",
+    "py": "fēng xiǎn",
+    "vi": "mạo hiểm, hiểm nguy"
+  },
+  {
+    "id": 287,
+    "hsk": 5,
+    "ch": "疯狂",
+    "py": "fēng kuáng",
+    "vi": "điên rồ"
+  },
+  {
+    "id": 288,
+    "hsk": 5,
+    "ch": "讽刺",
+    "py": "fěng cì",
+    "vi": "châm biếm"
+  },
+  {
+    "id": 289,
+    "hsk": 5,
+    "ch": "否定",
+    "py": "fǒu dìng",
+    "vi": "phủ định"
+  },
+  {
+    "id": 290,
+    "hsk": 5,
+    "ch": "否认",
+    "py": "fǒu rèn",
+    "vi": "phủ nhận"
+  },
+  {
+    "id": 291,
+    "hsk": 5,
+    "ch": "扶",
+    "py": "fú",
+    "vi": "vịn"
+  },
+  {
+    "id": 292,
+    "hsk": 5,
+    "ch": "服装",
+    "py": "fú zhuāng",
+    "vi": "phục trang, quần áo"
+  },
+  {
+    "id": 293,
+    "hsk": 5,
+    "ch": "幅",
+    "py": "fú",
+    "vi": "bức (lượng từ cho tranh)"
+  },
+  {
+    "id": 294,
+    "hsk": 5,
+    "ch": "辅导",
+    "py": "fǔ dǎo",
+    "vi": "phụ đạo, bổ trợ"
+  },
+  {
+    "id": 295,
+    "hsk": 5,
+    "ch": "妇女",
+    "py": "fù nǚ",
+    "vi": "phụ nữ"
+  },
+  {
+    "id": 296,
+    "hsk": 5,
+    "ch": "复制",
+    "py": "fù zhì",
+    "vi": "copy"
+  },
+  {
+    "id": 297,
+    "hsk": 5,
+    "ch": "改革",
+    "py": "gǎi gé",
+    "vi": "cải cách"
+  },
+  {
+    "id": 298,
+    "hsk": 5,
+    "ch": "改进",
+    "py": "gǎi jìn",
+    "vi": "cải tiến"
+  },
+  {
+    "id": 299,
+    "hsk": 5,
+    "ch": "改善",
+    "py": "gǎi shàn",
+    "vi": "cải thiện"
+  },
+  {
+    "id": 300,
+    "hsk": 5,
+    "ch": "改正",
+    "py": "gǎi zhèng",
+    "vi": "đính chính"
+  },
+  {
+    "id": 301,
+    "hsk": 5,
+    "ch": "盖",
+    "py": "gài",
+    "vi": "đậy"
+  },
+  {
+    "id": 302,
+    "hsk": 5,
+    "ch": "概括",
+    "py": "gài kuò",
+    "vi": "khái quát"
+  },
+  {
+    "id": 303,
+    "hsk": 5,
+    "ch": "概念",
+    "py": "gài niàn",
+    "vi": "khái niệm"
+  },
+  {
+    "id": 304,
+    "hsk": 5,
+    "ch": "干脆",
+    "py": "gān cuì",
+    "vi": "dứt khoát"
+  },
+  {
+    "id": 305,
+    "hsk": 5,
+    "ch": "干燥",
+    "py": "gān zào",
+    "vi": "khô ráo, khô hanh"
+  },
+  {
+    "id": 306,
+    "hsk": 5,
+    "ch": "赶紧",
+    "py": "gǎn jǐn",
+    "vi": "mau chóng"
+  },
+  {
+    "id": 307,
+    "hsk": 5,
+    "ch": "赶快",
+    "py": "gǎn kuài",
+    "vi": "mau chóng"
+  },
+  {
+    "id": 308,
+    "hsk": 5,
+    "ch": "感激",
+    "py": "gǎn jī",
+    "vi": "cảm kích, biết ơn"
+  },
+  {
+    "id": 309,
+    "hsk": 5,
+    "ch": "感受",
+    "py": "gǎn shòu",
+    "vi": "cảm nhận"
+  },
+  {
+    "id": 310,
+    "hsk": 5,
+    "ch": "感想",
+    "py": "gǎn xiǎng",
+    "vi": "cảm tưởng, suy nghĩ"
+  },
+  {
+    "id": 311,
+    "hsk": 5,
+    "ch": "干活儿",
+    "py": "gàn huó ér",
+    "vi": "lao động"
+  },
+  {
+    "id": 312,
+    "hsk": 5,
+    "ch": "钢铁",
+    "py": "gāng tiě",
+    "vi": "sắt thép"
+  },
+  {
+    "id": 313,
+    "hsk": 5,
+    "ch": "高档",
+    "py": "gāo dàng",
+    "vi": "cao cấp"
+  },
+  {
+    "id": 314,
+    "hsk": 5,
+    "ch": "高级",
+    "py": "gāo jí",
+    "vi": "cao cấp"
+  },
+  {
+    "id": 315,
+    "hsk": 5,
+    "ch": "搞",
+    "py": "gǎo",
+    "vi": "làm"
+  },
+  {
+    "id": 316,
+    "hsk": 5,
+    "ch": "告别",
+    "py": "gào bié",
+    "vi": "từ biệt"
+  },
+  {
+    "id": 317,
+    "hsk": 5,
+    "ch": "格外",
+    "py": "gé wài",
+    "vi": "đặc biệt"
+  },
+  {
+    "id": 318,
+    "hsk": 5,
+    "ch": "隔壁",
+    "py": "gé bì",
+    "vi": "sát vách, ngay cạnh"
+  },
+  {
+    "id": 319,
+    "hsk": 5,
+    "ch": "个别",
+    "py": "gè bié",
+    "vi": "cá biệt"
+  },
+  {
+    "id": 320,
+    "hsk": 5,
+    "ch": "个人",
+    "py": "gè rén",
+    "vi": "cá nhân"
+  },
+  {
+    "id": 321,
+    "hsk": 5,
+    "ch": "个性",
+    "py": "gè xìng",
+    "vi": "cá tính"
+  },
+  {
+    "id": 322,
+    "hsk": 5,
+    "ch": "各自",
+    "py": "gè zì",
+    "vi": "tự, mỗi"
+  },
+  {
+    "id": 323,
+    "hsk": 5,
+    "ch": "根",
+    "py": "gēn",
+    "vi": "lượng từ: sợi, cành, khúc, ngón"
+  },
+  {
+    "id": 324,
+    "hsk": 5,
+    "ch": "根本",
+    "py": "gēn běn",
+    "vi": "vốn"
+  },
+  {
+    "id": 325,
+    "hsk": 5,
+    "ch": "工厂",
+    "py": "gōng chǎng",
+    "vi": "xưởng, xí nghiệp"
+  },
+  {
+    "id": 326,
+    "hsk": 5,
+    "ch": "工程师",
+    "py": "gōng chéng shī",
+    "vi": "kỹ sư"
+  },
+  {
+    "id": 327,
+    "hsk": 5,
+    "ch": "工具",
+    "py": "gōng jù",
+    "vi": "công cụ"
+  },
+  {
+    "id": 328,
+    "hsk": 5,
+    "ch": "工人",
+    "py": "gōng rén",
+    "vi": "công nhân"
+  },
+  {
+    "id": 329,
+    "hsk": 5,
+    "ch": "工业",
+    "py": "gōng yè",
+    "vi": "công nghiệp"
+  },
+  {
+    "id": 330,
+    "hsk": 5,
+    "ch": "公布",
+    "py": "gōng bù",
+    "vi": "công bố"
+  },
+  {
+    "id": 331,
+    "hsk": 5,
+    "ch": "公开",
+    "py": "gōng kāi",
+    "vi": "công khai"
+  },
+  {
+    "id": 332,
+    "hsk": 5,
+    "ch": "公平",
+    "py": "gōng píng",
+    "vi": "công bằng"
+  },
+  {
+    "id": 333,
+    "hsk": 5,
+    "ch": "公寓",
+    "py": "gōng yù",
+    "vi": "chung cư"
+  },
+  {
+    "id": 334,
+    "hsk": 5,
+    "ch": "公元",
+    "py": "gōng yuán",
+    "vi": "công nguyên"
+  },
+  {
+    "id": 335,
+    "hsk": 5,
+    "ch": "公主",
+    "py": "gōng zhǔ",
+    "vi": "công chúa"
+  },
+  {
+    "id": 336,
+    "hsk": 5,
+    "ch": "功能",
+    "py": "gōng néng",
+    "vi": "công năng"
+  },
+  {
+    "id": 337,
+    "hsk": 5,
+    "ch": "恭喜",
+    "py": "gōng xǐ",
+    "vi": "chúc mừng"
+  },
+  {
+    "id": 338,
+    "hsk": 5,
+    "ch": "贡献",
+    "py": "gòng xiàn",
+    "vi": "cống hiến"
+  },
+  {
+    "id": 339,
+    "hsk": 5,
+    "ch": "沟通",
+    "py": "gōu tōng",
+    "vi": "trao đổi, thấu hiểu"
+  },
+  {
+    "id": 340,
+    "hsk": 5,
+    "ch": "构成",
+    "py": "gòu chéng",
+    "vi": "tạo thành, cấu thành"
+  },
+  {
+    "id": 341,
+    "hsk": 5,
+    "ch": "姑姑",
+    "py": "gū gu",
+    "vi": "cô"
+  },
+  {
+    "id": 342,
+    "hsk": 5,
+    "ch": "姑娘",
+    "py": "gū niang",
+    "vi": "cô gái"
+  },
+  {
+    "id": 343,
+    "hsk": 5,
+    "ch": "古代",
+    "py": "gǔ dài",
+    "vi": "cổ đại"
+  },
+  {
+    "id": 344,
+    "hsk": 5,
+    "ch": "古典",
+    "py": "gǔ diǎn",
+    "vi": "cổ điển"
+  },
+  {
+    "id": 345,
+    "hsk": 5,
+    "ch": "股票",
+    "py": "gǔ piào",
+    "vi": "cổ phiếu"
+  },
+  {
+    "id": 346,
+    "hsk": 5,
+    "ch": "骨头",
+    "py": "gǔ tou",
+    "vi": "xương"
+  },
+  {
+    "id": 347,
+    "hsk": 5,
+    "ch": "鼓舞",
+    "py": "gǔ wǔ",
+    "vi": "cổ vũ"
+  },
+  {
+    "id": 348,
+    "hsk": 5,
+    "ch": "鼓掌",
+    "py": "gǔ zhǎng",
+    "vi": "vỗ tay"
+  },
+  {
+    "id": 349,
+    "hsk": 5,
+    "ch": "固定",
+    "py": "gù dìng",
+    "vi": "cố định"
+  },
+  {
+    "id": 350,
+    "hsk": 5,
+    "ch": "挂号",
+    "py": "guà hào",
+    "vi": "xếp số"
+  },
+  {
+    "id": 351,
+    "hsk": 5,
+    "ch": "乖",
+    "py": "guāi",
+    "vi": "ngoan"
+  },
+  {
+    "id": 352,
+    "hsk": 5,
+    "ch": "拐弯",
+    "py": "guǎi wān",
+    "vi": "rẽ"
+  },
+  {
+    "id": 353,
+    "hsk": 5,
+    "ch": "怪不得",
+    "py": "guài bù dé",
+    "vi": "chẳng trách"
+  },
+  {
+    "id": 354,
+    "hsk": 5,
+    "ch": "关闭",
+    "py": "guān bì",
+    "vi": "đóng"
+  },
+  {
+    "id": 355,
+    "hsk": 5,
+    "ch": "观察",
+    "py": "guān chá",
+    "vi": "quan sát"
+  },
+  {
+    "id": 356,
+    "hsk": 5,
+    "ch": "观点",
+    "py": "guān diǎn",
+    "vi": "quan điểm"
+  },
+  {
+    "id": 357,
+    "hsk": 5,
+    "ch": "观念",
+    "py": "guān niàn",
+    "vi": "quan niệm"
+  },
+  {
+    "id": 358,
+    "hsk": 5,
+    "ch": "官",
+    "py": "guān",
+    "vi": "quan"
+  },
+  {
+    "id": 359,
+    "hsk": 5,
+    "ch": "管子",
+    "py": "guǎn zi",
+    "vi": "cái ống"
+  },
+  {
+    "id": 360,
+    "hsk": 5,
+    "ch": "冠军",
+    "py": "guàn jūn",
+    "vi": "quán quân"
+  },
+  {
+    "id": 361,
+    "hsk": 5,
+    "ch": "光滑",
+    "py": "guāng huá",
+    "vi": "bóng mượt"
+  },
+  {
+    "id": 362,
+    "hsk": 5,
+    "ch": "光临",
+    "py": "guāng lín",
+    "vi": "đến, có mặt"
+  },
+  {
+    "id": 363,
+    "hsk": 5,
+    "ch": "光明",
+    "py": "guāng míng",
+    "vi": "quang minh, sáng sủa"
+  },
+  {
+    "id": 364,
+    "hsk": 5,
+    "ch": "光盘",
+    "py": "guāng pán",
+    "vi": "đĩa CD, VCD,DVD"
+  },
+  {
+    "id": 365,
+    "hsk": 5,
+    "ch": "广场",
+    "py": "guǎng chǎng",
+    "vi": "quảng trường"
+  },
+  {
+    "id": 366,
+    "hsk": 5,
+    "ch": "广大",
+    "py": "guǎng dà",
+    "vi": "quảng đại, rộng lớn"
+  },
+  {
+    "id": 367,
+    "hsk": 5,
+    "ch": "广泛",
+    "py": "guǎng fàn",
+    "vi": "rộng khắp"
+  },
+  {
+    "id": 368,
+    "hsk": 5,
+    "ch": "归纳",
+    "py": "guī nà",
+    "vi": "tóm tắt"
+  },
+  {
+    "id": 369,
+    "hsk": 5,
+    "ch": "规矩",
+    "py": "guī ju",
+    "vi": "qui tắc"
+  },
+  {
+    "id": 370,
+    "hsk": 5,
+    "ch": "规律",
+    "py": "guī lǜ",
+    "vi": "qui luật"
+  },
+  {
+    "id": 371,
+    "hsk": 5,
+    "ch": "规模",
+    "py": "guī mó",
+    "vi": "qui mô"
+  },
+  {
+    "id": 372,
+    "hsk": 5,
+    "ch": "规则",
+    "py": "guī zé",
+    "vi": "nội qui"
+  },
+  {
+    "id": 373,
+    "hsk": 5,
+    "ch": "柜台",
+    "py": "guì tái",
+    "vi": "quầy ba"
+  },
+  {
+    "id": 374,
+    "hsk": 5,
+    "ch": "滚",
+    "py": "gǔn",
+    "vi": "cút, cuộn"
+  },
+  {
+    "id": 375,
+    "hsk": 5,
+    "ch": "锅",
+    "py": "guō",
+    "vi": "nồi"
+  },
+  {
+    "id": 376,
+    "hsk": 5,
+    "ch": "国庆节",
+    "py": "guó qìng jié",
+    "vi": "quốc khánh"
+  },
+  {
+    "id": 377,
+    "hsk": 5,
+    "ch": "国王",
+    "py": "guó wáng",
+    "vi": "quốc vương"
+  },
+  {
+    "id": 378,
+    "hsk": 5,
+    "ch": "果然",
+    "py": "guǒ rán",
+    "vi": "quả nhiên"
+  },
+  {
+    "id": 379,
+    "hsk": 5,
+    "ch": "果实",
+    "py": "guǒ shí",
+    "vi": "quả thật"
+  },
+  {
+    "id": 380,
+    "hsk": 5,
+    "ch": "过分",
+    "py": "guò fèn",
+    "vi": "quá đáng"
+  },
+  {
+    "id": 381,
+    "hsk": 5,
+    "ch": "过敏",
+    "py": "guò mǐn",
+    "vi": "mẫn cảm, dị ứng"
+  },
+  {
+    "id": 382,
+    "hsk": 5,
+    "ch": "过期",
+    "py": "guò qī",
+    "vi": "quá hạn"
+  },
+  {
+    "id": 383,
+    "hsk": 5,
+    "ch": "哈",
+    "py": "hā",
+    "vi": "ha ha"
+  },
+  {
+    "id": 384,
+    "hsk": 5,
+    "ch": "海关",
+    "py": "hǎi guān",
+    "vi": "hải quan"
+  },
+  {
+    "id": 385,
+    "hsk": 5,
+    "ch": "海鲜",
+    "py": "hǎi xiān",
+    "vi": "hải sản"
+  },
+  {
+    "id": 386,
+    "hsk": 5,
+    "ch": "喊",
+    "py": "hǎn",
+    "vi": "hét"
+  },
+  {
+    "id": 387,
+    "hsk": 5,
+    "ch": "行业",
+    "py": "háng yè",
+    "vi": "ngành nghề"
+  },
+  {
+    "id": 388,
+    "hsk": 5,
+    "ch": "豪华",
+    "py": "háo huá",
+    "vi": "sang trọng"
+  },
+  {
+    "id": 389,
+    "hsk": 5,
+    "ch": "好客",
+    "py": "hào kè",
+    "vi": "hiếu khách"
+  },
+  {
+    "id": 390,
+    "hsk": 5,
+    "ch": "好奇",
+    "py": "hào qí",
+    "vi": "hiếu kì"
+  },
+  {
+    "id": 391,
+    "hsk": 5,
+    "ch": "合法",
+    "py": "hé fǎ",
+    "vi": "hợp pháp"
+  },
+  {
+    "id": 392,
+    "hsk": 5,
+    "ch": "合理",
+    "py": "hé lǐ",
+    "vi": "hợp lý"
+  },
+  {
+    "id": 393,
+    "hsk": 5,
+    "ch": "合同",
+    "py": "hé tóng",
+    "vi": "hợp đồng"
+  },
+  {
+    "id": 394,
+    "hsk": 5,
+    "ch": "合影",
+    "py": "hé yǐng",
+    "vi": "chụp ảnh chung, chụp ảnh tập thể"
+  },
+  {
+    "id": 395,
+    "hsk": 5,
+    "ch": "合作",
+    "py": "hé zuò",
+    "vi": "hợp tác"
+  },
+  {
+    "id": 396,
+    "hsk": 5,
+    "ch": "何必",
+    "py": "hé bì",
+    "vi": "hà tất"
+  },
+  {
+    "id": 397,
+    "hsk": 5,
+    "ch": "何况",
+    "py": "hé kuàng",
+    "vi": "huống hồ"
+  },
+  {
+    "id": 398,
+    "hsk": 5,
+    "ch": "和平",
+    "py": "hé píng",
+    "vi": "hòa bình"
+  },
+  {
+    "id": 399,
+    "hsk": 5,
+    "ch": "核心",
+    "py": "hé xīn",
+    "vi": "trọng tâm"
+  },
+  {
+    "id": 400,
+    "hsk": 5,
+    "ch": "恨",
+    "py": "hèn",
+    "vi": "hận"
+  },
+  {
+    "id": 401,
+    "hsk": 5,
+    "ch": "猴子",
+    "py": "hóu zi",
+    "vi": "khỉ"
+  },
+  {
+    "id": 402,
+    "hsk": 5,
+    "ch": "后背",
+    "py": "hòu bèi",
+    "vi": "phía sau"
+  },
+  {
+    "id": 403,
+    "hsk": 5,
+    "ch": "后果",
+    "py": "hòu guǒ",
+    "vi": "hậu quả"
+  },
+  {
+    "id": 404,
+    "hsk": 5,
+    "ch": "呼吸",
+    "py": "hū xī",
+    "vi": "hít thở"
+  },
+  {
+    "id": 405,
+    "hsk": 5,
+    "ch": "忽然",
+    "py": "hū rán",
+    "vi": "bỗng nhiên"
+  },
+  {
+    "id": 406,
+    "hsk": 5,
+    "ch": "忽视",
+    "py": "hū shì",
+    "vi": "không coi trọng (kinh tế, ngành nghề, vấn đề nhỏ, nghiên cứ"
+  },
+  {
+    "id": 407,
+    "hsk": 5,
+    "ch": "胡说",
+    "py": "hú shuō",
+    "vi": "nói nhăng quậy"
+  },
+  {
+    "id": 408,
+    "hsk": 5,
+    "ch": "胡同",
+    "py": "hú tòng",
+    "vi": "ngõ, hẻm"
+  },
+  {
+    "id": 409,
+    "hsk": 5,
+    "ch": "壶",
+    "py": "hú",
+    "vi": "bình, ấm"
+  },
+  {
+    "id": 410,
+    "hsk": 5,
+    "ch": "蝴蝶",
+    "py": "hú dié",
+    "vi": "con bướm"
+  },
+  {
+    "id": 411,
+    "hsk": 5,
+    "ch": "糊涂",
+    "py": "hú tú",
+    "vi": "hồ đồ"
+  },
+  {
+    "id": 412,
+    "hsk": 5,
+    "ch": "花生",
+    "py": "huā shēng",
+    "vi": "lạc"
+  },
+  {
+    "id": 413,
+    "hsk": 5,
+    "ch": "划",
+    "py": "huá",
+    "vi": "chèo (thuyền)"
+  },
+  {
+    "id": 414,
+    "hsk": 5,
+    "ch": "华裔",
+    "py": "huá yì",
+    "vi": "hoa kiều"
+  },
+  {
+    "id": 415,
+    "hsk": 5,
+    "ch": "滑",
+    "py": "huá",
+    "vi": "trượt, trơn"
+  },
+  {
+    "id": 416,
+    "hsk": 5,
+    "ch": "化学",
+    "py": "huà xué",
+    "vi": "hóa học"
+  },
+  {
+    "id": 417,
+    "hsk": 5,
+    "ch": "话题",
+    "py": "huà tí",
+    "vi": "chủ đề"
+  },
+  {
+    "id": 418,
+    "hsk": 5,
+    "ch": "怀念",
+    "py": "huái niàn",
+    "vi": "hoài niệm"
+  },
+  {
+    "id": 419,
+    "hsk": 5,
+    "ch": "怀孕",
+    "py": "huái yùn",
+    "vi": "mang bầu"
+  },
+  {
+    "id": 420,
+    "hsk": 5,
+    "ch": "缓解",
+    "py": "huǎn jiě",
+    "vi": "thả lỏng, giảm"
+  },
+  {
+    "id": 421,
+    "hsk": 5,
+    "ch": "幻想",
+    "py": "huàn xiǎng",
+    "vi": "hoang tưởng"
+  },
+  {
+    "id": 422,
+    "hsk": 5,
+    "ch": "慌张",
+    "py": "huāng zhāng",
+    "vi": "hoảng sợ, rối rắm, rối"
+  },
+  {
+    "id": 423,
+    "hsk": 5,
+    "ch": "黄金",
+    "py": "huáng jīn",
+    "vi": "vàng"
+  },
+  {
+    "id": 424,
+    "hsk": 5,
+    "ch": "灰",
+    "py": "huī",
+    "vi": "màu xám"
+  },
+  {
+    "id": 425,
+    "hsk": 5,
+    "ch": "灰尘",
+    "py": "huī chén",
+    "vi": "tro bụi"
+  },
+  {
+    "id": 426,
+    "hsk": 5,
+    "ch": "灰心",
+    "py": "huī xīn",
+    "vi": "nản lòng"
+  },
+  {
+    "id": 427,
+    "hsk": 5,
+    "ch": "挥",
+    "py": "huī",
+    "vi": "vẫy"
+  },
+  {
+    "id": 428,
+    "hsk": 5,
+    "ch": "恢复",
+    "py": "huī fù",
+    "vi": "hồi phục, khôi phục"
+  },
+  {
+    "id": 429,
+    "hsk": 5,
+    "ch": "汇率",
+    "py": "huì lǜ",
+    "vi": "tỷ giá"
+  },
+  {
+    "id": 430,
+    "hsk": 5,
+    "ch": "婚礼",
+    "py": "hūn lǐ",
+    "vi": "hôn lễ"
+  },
+  {
+    "id": 431,
+    "hsk": 5,
+    "ch": "婚姻",
+    "py": "hūn yīn",
+    "vi": "hôn nhân"
+  },
+  {
+    "id": 432,
+    "hsk": 5,
+    "ch": "活跃",
+    "py": "huó yuè",
+    "vi": "sôi nổi"
+  },
+  {
+    "id": 433,
+    "hsk": 5,
+    "ch": "火柴",
+    "py": "huǒ chái",
+    "vi": "diêm"
+  },
+  {
+    "id": 434,
+    "hsk": 5,
+    "ch": "伙伴",
+    "py": "huǒ bàn",
+    "vi": "bạn đồng hành"
+  },
+  {
+    "id": 435,
+    "hsk": 5,
+    "ch": "或许",
+    "py": "huò xǔ",
+    "vi": "có lẽ"
+  },
+  {
+    "id": 436,
+    "hsk": 5,
+    "ch": "机器",
+    "py": "jī qì",
+    "vi": "máy móc"
+  },
+  {
+    "id": 437,
+    "hsk": 5,
+    "ch": "肌肉",
+    "py": "jī ròu",
+    "vi": "cơ bắp"
+  },
+  {
+    "id": 438,
+    "hsk": 5,
+    "ch": "基本",
+    "py": "jī běn",
+    "vi": "cơ bản, căn bản"
+  },
+  {
+    "id": 439,
+    "hsk": 5,
+    "ch": "激烈",
+    "py": "jī liè",
+    "vi": "khốc liệt, kịch liệt"
+  },
+  {
+    "id": 440,
+    "hsk": 5,
+    "ch": "及格",
+    "py": "jí gé",
+    "vi": "đạt điểm qua"
+  },
+  {
+    "id": 441,
+    "hsk": 5,
+    "ch": "极其",
+    "py": "jí qí",
+    "vi": "cực kì"
+  },
+  {
+    "id": 442,
+    "hsk": 5,
+    "ch": "急忙",
+    "py": "jí máng",
+    "vi": "vội vàng"
+  },
+  {
+    "id": 443,
+    "hsk": 5,
+    "ch": "急诊",
+    "py": "jí zhěn",
+    "vi": "cấp cứu"
+  },
+  {
+    "id": 444,
+    "hsk": 5,
+    "ch": "集合",
+    "py": "jí hé",
+    "vi": "tập hợp"
+  },
+  {
+    "id": 445,
+    "hsk": 5,
+    "ch": "集体",
+    "py": "jí tǐ",
+    "vi": "tập thể"
+  },
+  {
+    "id": 446,
+    "hsk": 5,
+    "ch": "集中",
+    "py": "jí zhōng",
+    "vi": "tập trung"
+  },
+  {
+    "id": 447,
+    "hsk": 5,
+    "ch": "计算",
+    "py": "jì suàn",
+    "vi": "tính toán"
+  },
+  {
+    "id": 448,
+    "hsk": 5,
+    "ch": "记录",
+    "py": "jì lù",
+    "vi": "ghi chép"
+  },
+  {
+    "id": 449,
+    "hsk": 5,
+    "ch": "记忆",
+    "py": "jì yì",
+    "vi": "ký ức"
+  },
+  {
+    "id": 450,
+    "hsk": 5,
+    "ch": "纪录",
+    "py": "jì lù",
+    "vi": "kỷ lục"
+  },
+  {
+    "id": 451,
+    "hsk": 5,
+    "ch": "纪律",
+    "py": "jì lǜ",
+    "vi": "kỷ luật"
+  },
+  {
+    "id": 452,
+    "hsk": 5,
+    "ch": "纪念",
+    "py": "jì niàn",
+    "vi": "kỉ niệm"
+  },
+  {
+    "id": 453,
+    "hsk": 5,
+    "ch": "系领带",
+    "py": "jì lǐng dài",
+    "vi": "thắt cà vạt"
+  },
+  {
+    "id": 454,
+    "hsk": 5,
+    "ch": "寂寞",
+    "py": "jì mò",
+    "vi": "cô đơn"
+  },
+  {
+    "id": 455,
+    "hsk": 5,
+    "ch": "夹子",
+    "py": "jiā zi",
+    "vi": "cái kẹp"
+  },
+  {
+    "id": 456,
+    "hsk": 5,
+    "ch": "家庭",
+    "py": "jiā tíng",
+    "vi": "gia đình"
+  },
+  {
+    "id": 457,
+    "hsk": 5,
+    "ch": "家务",
+    "py": "jiā wù",
+    "vi": "việc nhà"
+  },
+  {
+    "id": 458,
+    "hsk": 5,
+    "ch": "家乡",
+    "py": "jiā xiāng",
+    "vi": "quê hương"
+  },
+  {
+    "id": 459,
+    "hsk": 5,
+    "ch": "嘉宾",
+    "py": "jiā bīn",
+    "vi": "khách mời"
+  },
+  {
+    "id": 460,
+    "hsk": 5,
+    "ch": "甲",
+    "py": "jiǎ",
+    "vi": "giáp"
+  },
+  {
+    "id": 461,
+    "hsk": 5,
+    "ch": "假如",
+    "py": "jiǎ rú",
+    "vi": "giả dụ"
+  },
+  {
+    "id": 462,
+    "hsk": 5,
+    "ch": "假设",
+    "py": "jiǎ shè",
+    "vi": "giả thuyết"
+  },
+  {
+    "id": 463,
+    "hsk": 5,
+    "ch": "假装",
+    "py": "jiǎ zhuāng",
+    "vi": "giả vờ"
+  },
+  {
+    "id": 464,
+    "hsk": 5,
+    "ch": "价值",
+    "py": "jià zhí",
+    "vi": "giá trị"
+  },
+  {
+    "id": 465,
+    "hsk": 5,
+    "ch": "驾驶",
+    "py": "jià shǐ",
+    "vi": "lái xe"
+  },
+  {
+    "id": 466,
+    "hsk": 5,
+    "ch": "嫁",
+    "py": "jià",
+    "vi": "gả chồng"
+  },
+  {
+    "id": 467,
+    "hsk": 5,
+    "ch": "坚决",
+    "py": "jiān jué",
+    "vi": "kiên quyết"
+  },
+  {
+    "id": 468,
+    "hsk": 5,
+    "ch": "坚强",
+    "py": "jiān qiáng",
+    "vi": "kiên cường"
+  },
+  {
+    "id": 469,
+    "hsk": 5,
+    "ch": "肩膀",
+    "py": "jiān bǎng",
+    "vi": "bờ vai"
+  },
+  {
+    "id": 470,
+    "hsk": 5,
+    "ch": "艰巨",
+    "py": "jiān jù",
+    "vi": "khó khăn (công việc, nhiệm vụ)"
+  },
+  {
+    "id": 471,
+    "hsk": 5,
+    "ch": "艰苦",
+    "py": "jiān kǔ",
+    "vi": "gian khổ, gian khóa"
+  },
+  {
+    "id": 472,
+    "hsk": 5,
+    "ch": "兼职",
+    "py": "jiān zhí",
+    "vi": "kiêm nhiệm"
+  },
+  {
+    "id": 473,
+    "hsk": 5,
+    "ch": "捡",
+    "py": "jiǎn",
+    "vi": "nhặt"
+  },
+  {
+    "id": 474,
+    "hsk": 5,
+    "ch": "剪刀",
+    "py": "jiǎn dāo",
+    "vi": "cái kéo"
+  },
+  {
+    "id": 475,
+    "hsk": 5,
+    "ch": "简历",
+    "py": "jiǎn lì",
+    "vi": "sơ yếu lý lịch"
+  },
+  {
+    "id": 476,
+    "hsk": 5,
+    "ch": "简直",
+    "py": "jiǎn zhí",
+    "vi": "gần như"
+  },
+  {
+    "id": 477,
+    "hsk": 5,
+    "ch": "建立",
+    "py": "jiàn lì",
+    "vi": "thành lập (tổ chức, trường học), thiết lập (quan hệ)"
+  },
+  {
+    "id": 478,
+    "hsk": 5,
+    "ch": "建设",
+    "py": "jiàn shè",
+    "vi": "dựng xây, xây dựng"
+  },
+  {
+    "id": 479,
+    "hsk": 5,
+    "ch": "建筑",
+    "py": "jiàn zhù",
+    "vi": "công trình xây dưng, (công ty) xây dựng, (ngành) xây dựng"
+  },
+  {
+    "id": 480,
+    "hsk": 5,
+    "ch": "健身",
+    "py": "jiàn shēn",
+    "vi": "tập thể dục"
+  },
+  {
+    "id": 481,
+    "hsk": 5,
+    "ch": "键盘",
+    "py": "jiàn pán",
+    "vi": "bàn phím"
+  },
+  {
+    "id": 482,
+    "hsk": 5,
+    "ch": "讲究",
+    "py": "jiǎng jiū",
+    "vi": "coi trọng"
+  },
+  {
+    "id": 483,
+    "hsk": 5,
+    "ch": "讲座",
+    "py": "jiǎng zuò",
+    "vi": "buổi diễn thuyết"
+  },
+  {
+    "id": 484,
+    "hsk": 5,
+    "ch": "酱油",
+    "py": "jiàng yóu",
+    "vi": "xì dầu"
+  },
+  {
+    "id": 485,
+    "hsk": 5,
+    "ch": "交换",
+    "py": "jiāo huàn",
+    "vi": "trao đổi"
+  },
+  {
+    "id": 486,
+    "hsk": 5,
+    "ch": "交际",
+    "py": "jiāo jì",
+    "vi": "giao tiếp"
+  },
+  {
+    "id": 487,
+    "hsk": 5,
+    "ch": "交往",
+    "py": "jiāo wǎng",
+    "vi": "đi lại, giao thiệp"
+  },
+  {
+    "id": 488,
+    "hsk": 5,
+    "ch": "浇",
+    "py": "jiāo",
+    "vi": "tưới nước"
+  },
+  {
+    "id": 489,
+    "hsk": 5,
+    "ch": "胶水",
+    "py": "jiāo shuǐ",
+    "vi": "keo dán"
+  },
+  {
+    "id": 490,
+    "hsk": 5,
+    "ch": "角度",
+    "py": "jiǎo dù",
+    "vi": "góc độ"
+  },
+  {
+    "id": 491,
+    "hsk": 5,
+    "ch": "狡猾",
+    "py": "jiǎo huá",
+    "vi": "giảo hoạt"
+  },
+  {
+    "id": 492,
+    "hsk": 5,
+    "ch": "教材",
+    "py": "jiào cái",
+    "vi": "giao trình"
+  },
+  {
+    "id": 493,
+    "hsk": 5,
+    "ch": "教练",
+    "py": "jiào liàn",
+    "vi": "huấn luyện viên"
+  },
+  {
+    "id": 494,
+    "hsk": 5,
+    "ch": "教训",
+    "py": "jiào xùn",
+    "vi": "giáo huấn, bài học"
+  },
+  {
+    "id": 495,
+    "hsk": 5,
+    "ch": "阶段",
+    "py": "jiē duàn",
+    "vi": "giai đoạn"
+  },
+  {
+    "id": 496,
+    "hsk": 5,
+    "ch": "结实",
+    "py": "jiē shi",
+    "vi": "chắc chắn"
+  },
+  {
+    "id": 497,
+    "hsk": 5,
+    "ch": "接触",
+    "py": "jiē chù",
+    "vi": "tiếp xúc"
+  },
+  {
+    "id": 498,
+    "hsk": 5,
+    "ch": "接待",
+    "py": "jiē dài",
+    "vi": "tiếp đãi"
+  },
+  {
+    "id": 499,
+    "hsk": 5,
+    "ch": "接近",
+    "py": "jiē jìn",
+    "vi": "tiếp cận"
+  },
+  {
+    "id": 500,
+    "hsk": 5,
+    "ch": "节省",
+    "py": "jié shěng",
+    "vi": "tiết kiệm"
+  },
+  {
+    "id": 501,
+    "hsk": 5,
+    "ch": "结构",
+    "py": "jié gòu",
+    "vi": "kết cấu"
+  },
+  {
+    "id": 502,
+    "hsk": 5,
+    "ch": "结合",
+    "py": "jié hé",
+    "vi": "kết hợp"
+  },
+  {
+    "id": 503,
+    "hsk": 5,
+    "ch": "结论",
+    "py": "jié lùn",
+    "vi": "kết luận"
+  },
+  {
+    "id": 504,
+    "hsk": 5,
+    "ch": "结账",
+    "py": "jié zhàng",
+    "vi": "thanh toán"
+  },
+  {
+    "id": 505,
+    "hsk": 5,
+    "ch": "戒",
+    "py": "jiè",
+    "vi": "cai (thuốc, rượu, nghiện)"
+  },
+  {
+    "id": 506,
+    "hsk": 5,
+    "ch": "戒指",
+    "py": "jiè zhǐ",
+    "vi": "nhẫn"
+  },
+  {
+    "id": 507,
+    "hsk": 5,
+    "ch": "届",
+    "py": "jiè",
+    "vi": "khóa"
+  },
+  {
+    "id": 508,
+    "hsk": 5,
+    "ch": "借口",
+    "py": "jiè kǒu",
+    "vi": "cớ, lí do"
+  },
+  {
+    "id": 509,
+    "hsk": 5,
+    "ch": "金属",
+    "py": "jīn shǔ",
+    "vi": "kim loại"
+  },
+  {
+    "id": 510,
+    "hsk": 5,
+    "ch": "尽快",
+    "py": "jǐn kuài",
+    "vi": "mau chóng"
+  },
+  {
+    "id": 511,
+    "hsk": 5,
+    "ch": "尽量",
+    "py": "jǐn liàng",
+    "vi": "cố gắng"
+  },
+  {
+    "id": 512,
+    "hsk": 5,
+    "ch": "紧急",
+    "py": "jǐn jí",
+    "vi": "cấp bách"
+  },
+  {
+    "id": 513,
+    "hsk": 5,
+    "ch": "谨慎",
+    "py": "jǐn shèn",
+    "vi": "cẩn thận, thận trọng"
+  },
+  {
+    "id": 514,
+    "hsk": 5,
+    "ch": "尽力",
+    "py": "jìn lì",
+    "vi": "dốc hết sức"
+  },
+  {
+    "id": 515,
+    "hsk": 5,
+    "ch": "进步",
+    "py": "jìn bù",
+    "vi": "tiến bộ"
+  },
+  {
+    "id": 516,
+    "hsk": 5,
+    "ch": "进口",
+    "py": "jìn kǒu",
+    "vi": "nhập khẩu"
+  },
+  {
+    "id": 517,
+    "hsk": 5,
+    "ch": "近代",
+    "py": "jìn dài",
+    "vi": "cận đại"
+  },
+  {
+    "id": 518,
+    "hsk": 5,
+    "ch": "经典",
+    "py": "jīng diǎn",
+    "vi": "kinh điển"
+  },
+  {
+    "id": 519,
+    "hsk": 5,
+    "ch": "经商",
+    "py": "jīng shāng",
+    "vi": "kinh doanh"
+  },
+  {
+    "id": 520,
+    "hsk": 5,
+    "ch": "经营",
+    "py": "jīng yíng",
+    "vi": "kinh doanh (cửa hàng), vận hành (công ty)"
+  },
+  {
+    "id": 521,
+    "hsk": 5,
+    "ch": "精力",
+    "py": "jīng lì",
+    "vi": "tinh lực"
+  },
+  {
+    "id": 522,
+    "hsk": 5,
+    "ch": "精神",
+    "py": "jīng shén",
+    "vi": "tinh thần"
+  },
+  {
+    "id": 523,
+    "hsk": 5,
+    "ch": "酒吧",
+    "py": "jiǔ bā",
+    "vi": "quán ba"
+  },
+  {
+    "id": 524,
+    "hsk": 5,
+    "ch": "救",
+    "py": "jiù",
+    "vi": "cứu"
+  },
+  {
+    "id": 525,
+    "hsk": 5,
+    "ch": "救护车",
+    "py": "jiù hù chē",
+    "vi": "xe cứu thương"
+  },
+  {
+    "id": 526,
+    "hsk": 5,
+    "ch": "舅舅",
+    "py": "jiù jiù",
+    "vi": "cậu (em mẹ)"
+  },
+  {
+    "id": 527,
+    "hsk": 5,
+    "ch": "居然",
+    "py": "jū rán",
+    "vi": "không ngờ lại"
+  },
+  {
+    "id": 528,
+    "hsk": 5,
+    "ch": "桔子",
+    "py": "jú zi",
+    "vi": "quýt"
+  },
+  {
+    "id": 529,
+    "hsk": 5,
+    "ch": "巨大",
+    "py": "jù dà",
+    "vi": "lớn (thành tựu, thay đổi, ảnh hưởng, tác hại)"
+  },
+  {
+    "id": 530,
+    "hsk": 5,
+    "ch": "具备",
+    "py": "jù bèi",
+    "vi": "chuẩn bị đủ, có đủ (tư cách, điều kiện, tinh lực)"
+  },
+  {
+    "id": 531,
+    "hsk": 5,
+    "ch": "具体",
+    "py": "jù tǐ",
+    "vi": "cụ thể"
+  },
+  {
+    "id": 532,
+    "hsk": 5,
+    "ch": "俱乐部",
+    "py": "jù lè bù",
+    "vi": "câu lạc bộ"
+  },
+  {
+    "id": 533,
+    "hsk": 5,
+    "ch": "据说",
+    "py": "jù shuō",
+    "vi": "nghe nói, nghe đồn"
+  },
+  {
+    "id": 534,
+    "hsk": 5,
+    "ch": "捐",
+    "py": "juān",
+    "vi": "quyên góp"
+  },
+  {
+    "id": 535,
+    "hsk": 5,
+    "ch": "决赛",
+    "py": "jué sài",
+    "vi": "trận chung kết"
+  },
+  {
+    "id": 536,
+    "hsk": 5,
+    "ch": "决心",
+    "py": "jué xīn",
+    "vi": "quyết tâm"
+  },
+  {
+    "id": 537,
+    "hsk": 5,
+    "ch": "角色",
+    "py": "jué sè",
+    "vi": "nhân vật"
+  },
+  {
+    "id": 538,
+    "hsk": 5,
+    "ch": "绝对",
+    "py": "jué duì",
+    "vi": "tuyệt đối"
+  },
+  {
+    "id": 539,
+    "hsk": 5,
+    "ch": "军事",
+    "py": "jūn shì",
+    "vi": "quân sự"
+  },
+  {
+    "id": 540,
+    "hsk": 5,
+    "ch": "均匀",
+    "py": "jūn yún",
+    "vi": "bình quân, trung bình"
+  },
+  {
+    "id": 541,
+    "hsk": 5,
+    "ch": "卡车",
+    "py": "kǎ chē",
+    "vi": "xe tải"
+  },
+  {
+    "id": 542,
+    "hsk": 5,
+    "ch": "开发",
+    "py": "kāi fā",
+    "vi": "phát triển (hệ thống, ngành nghề, kĩ thuật, sản phẩm)"
+  },
+  {
+    "id": 543,
+    "hsk": 5,
+    "ch": "开放",
+    "py": "kāi fàng",
+    "vi": "mở cửa"
+  },
+  {
+    "id": 544,
+    "hsk": 5,
+    "ch": "开幕式",
+    "py": "kāi mù shì",
+    "vi": "lễ khai mạc"
+  },
+  {
+    "id": 545,
+    "hsk": 5,
+    "ch": "开水",
+    "py": "kāi shuǐ",
+    "vi": "nước sôi"
+  },
+  {
+    "id": 546,
+    "hsk": 5,
+    "ch": "砍",
+    "py": "kǎn",
+    "vi": "chặt, chém"
+  },
+  {
+    "id": 547,
+    "hsk": 5,
+    "ch": "看不起",
+    "py": "kàn bù qǐ",
+    "vi": "coi khinh"
+  },
+  {
+    "id": 548,
+    "hsk": 5,
+    "ch": "看望",
+    "py": "kàn wàng",
+    "vi": "đi thăm"
+  },
+  {
+    "id": 549,
+    "hsk": 5,
+    "ch": "靠",
+    "py": "kào",
+    "vi": "dựa dẫm, dựa vào"
+  },
+  {
+    "id": 550,
+    "hsk": 5,
+    "ch": "颗",
+    "py": "kē",
+    "vi": "quả (lượng từ)"
+  },
+  {
+    "id": 551,
+    "hsk": 5,
+    "ch": "可见",
+    "py": "kě jiàn",
+    "vi": "cho thấy (đứng đầu vế câu thứ hai)"
+  },
+  {
+    "id": 552,
+    "hsk": 5,
+    "ch": "可靠",
+    "py": "kě kào",
+    "vi": "đáng tin cậy"
+  },
+  {
+    "id": 553,
+    "hsk": 5,
+    "ch": "可怕",
+    "py": "kě pà",
+    "vi": "đáng sợ"
+  },
+  {
+    "id": 554,
+    "hsk": 5,
+    "ch": "克",
+    "py": "kè",
+    "vi": "gram"
+  },
+  {
+    "id": 555,
+    "hsk": 5,
+    "ch": "克服",
+    "py": "kè fú",
+    "vi": "khắc phục"
+  },
+  {
+    "id": 556,
+    "hsk": 5,
+    "ch": "刻苦",
+    "py": "kè kǔ",
+    "vi": "khắc khổ, chịu khó"
+  },
+  {
+    "id": 557,
+    "hsk": 5,
+    "ch": "客观",
+    "py": "kè guān",
+    "vi": "khách quan"
+  },
+  {
+    "id": 558,
+    "hsk": 5,
+    "ch": "课程",
+    "py": "kè chéng",
+    "vi": "môn học"
+  },
+  {
+    "id": 559,
+    "hsk": 5,
+    "ch": "空间",
+    "py": "kōng jiān",
+    "vi": "không gian"
+  },
+  {
+    "id": 560,
+    "hsk": 5,
+    "ch": "空闲",
+    "py": "kòng xián",
+    "vi": "rảnh rỗi (thời gian)"
+  },
+  {
+    "id": 561,
+    "hsk": 5,
+    "ch": "控制",
+    "py": "kòng zhì",
+    "vi": "kiềm chế (cảm xúc, tình cảm), kiểm soát"
+  },
+  {
+    "id": 562,
+    "hsk": 5,
+    "ch": "口味",
+    "py": "kǒu wèi",
+    "vi": "khẩu vị"
+  },
+  {
+    "id": 563,
+    "hsk": 5,
+    "ch": "夸",
+    "py": "kuā",
+    "vi": "khen"
+  },
+  {
+    "id": 564,
+    "hsk": 5,
+    "ch": "夸张",
+    "py": "kuā zhāng",
+    "vi": "phóng đại"
+  },
+  {
+    "id": 565,
+    "hsk": 5,
+    "ch": "会计",
+    "py": "kuàì jì",
+    "vi": "kế toán"
+  },
+  {
+    "id": 566,
+    "hsk": 5,
+    "ch": "宽",
+    "py": "kuān",
+    "vi": "rộng"
+  },
+  {
+    "id": 567,
+    "hsk": 5,
+    "ch": "昆虫",
+    "py": "kūn chóng",
+    "vi": "côn trùng"
+  },
+  {
+    "id": 568,
+    "hsk": 5,
+    "ch": "扩大",
+    "py": "kuò dà",
+    "vi": "mở rộng (phạm vi, khoảng cách, thị trường)"
+  },
+  {
+    "id": 569,
+    "hsk": 5,
+    "ch": "辣椒",
+    "py": "là jiāo",
+    "vi": "ớt"
+  },
+  {
+    "id": 570,
+    "hsk": 5,
+    "ch": "拦",
+    "py": "lán",
+    "vi": "ngăn, chặn"
+  },
+  {
+    "id": 571,
+    "hsk": 5,
+    "ch": "烂",
+    "py": "làn",
+    "vi": "nát, loét, rách, thối rữa"
+  },
+  {
+    "id": 572,
+    "hsk": 5,
+    "ch": "朗读",
+    "py": "lǎng dú",
+    "vi": "đọc to"
+  },
+  {
+    "id": 573,
+    "hsk": 5,
+    "ch": "劳动",
+    "py": "láo dòng",
+    "vi": "lao động"
+  },
+  {
+    "id": 574,
+    "hsk": 5,
+    "ch": "劳驾",
+    "py": "láo jià",
+    "vi": "làm ơn, xin phiền"
+  },
+  {
+    "id": 575,
+    "hsk": 5,
+    "ch": "老百姓",
+    "py": "lǎo bǎi xìng",
+    "vi": "lão bách tính"
+  },
+  {
+    "id": 576,
+    "hsk": 5,
+    "ch": "老板",
+    "py": "lǎo bǎn",
+    "vi": "ông chủ"
+  },
+  {
+    "id": 577,
+    "hsk": 5,
+    "ch": "老婆",
+    "py": "lǎo pó",
+    "vi": "bà xã"
+  },
+  {
+    "id": 578,
+    "hsk": 5,
+    "ch": "老实",
+    "py": "lǎo shí",
+    "vi": "thật thà"
+  },
+  {
+    "id": 579,
+    "hsk": 5,
+    "ch": "老鼠",
+    "py": "lǎo shǔ",
+    "vi": "con chuột"
+  },
+  {
+    "id": 580,
+    "hsk": 5,
+    "ch": "姥姥",
+    "py": "lǎo lǎo",
+    "vi": "bà ngoại"
+  },
+  {
+    "id": 581,
+    "hsk": 5,
+    "ch": "乐观",
+    "py": "lè guān",
+    "vi": "lạc quan"
+  },
+  {
+    "id": 582,
+    "hsk": 5,
+    "ch": "雷",
+    "py": "léi",
+    "vi": "sấm"
+  },
+  {
+    "id": 583,
+    "hsk": 5,
+    "ch": "类型",
+    "py": "lèi xíng",
+    "vi": "loại hình"
+  },
+  {
+    "id": 584,
+    "hsk": 5,
+    "ch": "冷淡",
+    "py": "lěng dàn",
+    "vi": "lãnh đạm, lạnh nhạt, lạnh lùng"
+  },
+  {
+    "id": 585,
+    "hsk": 5,
+    "ch": "厘米",
+    "py": "lí mǐ",
+    "vi": "cm"
+  },
+  {
+    "id": 586,
+    "hsk": 5,
+    "ch": "离婚",
+    "py": "lí hūn",
+    "vi": "li hôn"
+  },
+  {
+    "id": 587,
+    "hsk": 5,
+    "ch": "梨",
+    "py": "lí",
+    "vi": "quả lê"
+  },
+  {
+    "id": 588,
+    "hsk": 5,
+    "ch": "理论",
+    "py": "lǐ lùn",
+    "vi": "lý luận"
+  },
+  {
+    "id": 589,
+    "hsk": 5,
+    "ch": "理由",
+    "py": "lǐ yóu",
+    "vi": "lí do"
+  },
+  {
+    "id": 590,
+    "hsk": 5,
+    "ch": "力量",
+    "py": "lì liàng",
+    "vi": "sức mạnh"
+  },
+  {
+    "id": 591,
+    "hsk": 5,
+    "ch": "立即",
+    "py": "lì jí",
+    "vi": "lập tức"
+  },
+  {
+    "id": 592,
+    "hsk": 5,
+    "ch": "立刻",
+    "py": "lì kè",
+    "vi": "lập tức"
+  },
+  {
+    "id": 593,
+    "hsk": 5,
+    "ch": "利润",
+    "py": "lì rùn",
+    "vi": "lợi nhuận"
+  },
+  {
+    "id": 594,
+    "hsk": 5,
+    "ch": "利息",
+    "py": "lì xī",
+    "vi": "lợi tức"
+  },
+  {
+    "id": 595,
+    "hsk": 5,
+    "ch": "利益",
+    "py": "lì yì",
+    "vi": "lợi ích"
+  },
+  {
+    "id": 596,
+    "hsk": 5,
+    "ch": "利用",
+    "py": "lì yòng",
+    "vi": "tận dụng, lợi dụng"
+  },
+  {
+    "id": 597,
+    "hsk": 5,
+    "ch": "连忙",
+    "py": "lián máng",
+    "vi": "vội vã"
+  },
+  {
+    "id": 598,
+    "hsk": 5,
+    "ch": "连续",
+    "py": "lián xù",
+    "vi": "liên tục"
+  },
+  {
+    "id": 599,
+    "hsk": 5,
+    "ch": "联合",
+    "py": "lián hé",
+    "vi": "liên hiệp"
+  },
+  {
+    "id": 600,
+    "hsk": 5,
+    "ch": "恋爱",
+    "py": "liàn ài",
+    "vi": "yêu đương"
+  },
+  {
+    "id": 601,
+    "hsk": 5,
+    "ch": "良好",
+    "py": "liáng hǎo",
+    "vi": "tốt đẹp"
+  },
+  {
+    "id": 602,
+    "hsk": 5,
+    "ch": "粮食",
+    "py": "liáng shí",
+    "vi": "lương thực"
+  },
+  {
+    "id": 603,
+    "hsk": 5,
+    "ch": "亮",
+    "py": "liàng",
+    "vi": "sáng"
+  },
+  {
+    "id": 604,
+    "hsk": 5,
+    "ch": "了不起",
+    "py": "liǎo bù qǐ",
+    "vi": "giỏi giang"
+  },
+  {
+    "id": 605,
+    "hsk": 5,
+    "ch": "列车",
+    "py": "liè chē",
+    "vi": "tàu hỏa"
+  },
+  {
+    "id": 606,
+    "hsk": 5,
+    "ch": "临时",
+    "py": "lín shí",
+    "vi": "lâm thời, thời vụ, tạm thời"
+  },
+  {
+    "id": 607,
+    "hsk": 5,
+    "ch": "灵活",
+    "py": "líng huó",
+    "vi": "linh hoạt"
+  },
+  {
+    "id": 608,
+    "hsk": 5,
+    "ch": "铃",
+    "py": "líng",
+    "vi": "chuông"
+  },
+  {
+    "id": 609,
+    "hsk": 5,
+    "ch": "零件",
+    "py": "líng jiàn",
+    "vi": "linh kiện"
+  },
+  {
+    "id": 610,
+    "hsk": 5,
+    "ch": "零食",
+    "py": "líng shí",
+    "vi": "đồ ăn vặt"
+  },
+  {
+    "id": 611,
+    "hsk": 5,
+    "ch": "领导",
+    "py": "lǐng dǎo",
+    "vi": "lãnh đạo"
+  },
+  {
+    "id": 612,
+    "hsk": 5,
+    "ch": "领域",
+    "py": "lǐng yù",
+    "vi": "lĩnh vực"
+  },
+  {
+    "id": 613,
+    "hsk": 5,
+    "ch": "浏览",
+    "py": "liú lǎn",
+    "vi": "đọc lướt"
+  },
+  {
+    "id": 614,
+    "hsk": 5,
+    "ch": "流传",
+    "py": "liú chuán",
+    "vi": "lưu truyền, lan truyền"
+  },
+  {
+    "id": 615,
+    "hsk": 5,
+    "ch": "流泪",
+    "py": "liú lèi",
+    "vi": "rơi lệ"
+  },
+  {
+    "id": 616,
+    "hsk": 5,
+    "ch": "龙",
+    "py": "lóng",
+    "vi": "rồng"
+  },
+  {
+    "id": 617,
+    "hsk": 5,
+    "ch": "漏",
+    "py": "lòu",
+    "vi": "dột"
+  },
+  {
+    "id": 618,
+    "hsk": 5,
+    "ch": "陆地",
+    "py": "lù dì",
+    "vi": "lục địa, đất liền"
+  },
+  {
+    "id": 619,
+    "hsk": 5,
+    "ch": "陆续",
+    "py": "lù xù",
+    "vi": "lục tục, liên tiếp"
+  },
+  {
+    "id": 620,
+    "hsk": 5,
+    "ch": "录取",
+    "py": "lù qǔ",
+    "vi": "tuyển chọn"
+  },
+  {
+    "id": 621,
+    "hsk": 5,
+    "ch": "录音",
+    "py": "lù yīn",
+    "vi": "ghi âm"
+  },
+  {
+    "id": 622,
+    "hsk": 5,
+    "ch": "轮流",
+    "py": "lún liú",
+    "vi": "luân lưu, thay phiên"
+  },
+  {
+    "id": 623,
+    "hsk": 5,
+    "ch": "论文",
+    "py": "lùn wén",
+    "vi": "luận văn"
+  },
+  {
+    "id": 624,
+    "hsk": 5,
+    "ch": "逻辑",
+    "py": "luó jí",
+    "vi": "logic"
+  },
+  {
+    "id": 625,
+    "hsk": 5,
+    "ch": "落后",
+    "py": "luò hòu",
+    "vi": "lạc hậu"
+  },
+  {
+    "id": 626,
+    "hsk": 5,
+    "ch": "骂",
+    "py": "mà",
+    "vi": "mắng mỏ"
+  },
+  {
+    "id": 627,
+    "hsk": 5,
+    "ch": "麦克风",
+    "py": "mài kè fēng",
+    "vi": "microphone"
+  },
+  {
+    "id": 628,
+    "hsk": 5,
+    "ch": "馒头",
+    "py": "mán tóu",
+    "vi": "bánh bao không nhân, màn thầu"
+  },
+  {
+    "id": 629,
+    "hsk": 5,
+    "ch": "满足",
+    "py": "mǎn zú",
+    "vi": "đáp ứng (yêu cầu, điều kiện, tính tò mò, lòng tham)"
+  },
+  {
+    "id": 630,
+    "hsk": 5,
+    "ch": "毛病",
+    "py": "máo bìng",
+    "vi": "tật xấu, lỗi"
+  },
+  {
+    "id": 631,
+    "hsk": 5,
+    "ch": "矛盾",
+    "py": "máo dùn",
+    "vi": "mâu thuẫn"
+  },
+  {
+    "id": 632,
+    "hsk": 5,
+    "ch": "冒险",
+    "py": "mào xiǎn",
+    "vi": "mạo hiểm"
+  },
+  {
+    "id": 633,
+    "hsk": 5,
+    "ch": "贸易",
+    "py": "mào yì",
+    "vi": "thương mại"
+  },
+  {
+    "id": 634,
+    "hsk": 5,
+    "ch": "眉毛",
+    "py": "méi máo",
+    "vi": "lông mày"
+  },
+  {
+    "id": 635,
+    "hsk": 5,
+    "ch": "媒体",
+    "py": "méi tǐ",
+    "vi": "truyền thông, báo chí"
+  },
+  {
+    "id": 636,
+    "hsk": 5,
+    "ch": "煤炭",
+    "py": "méi tàn",
+    "vi": "than"
+  },
+  {
+    "id": 637,
+    "hsk": 5,
+    "ch": "美术",
+    "py": "měi shù",
+    "vi": "mỹ thuật"
+  },
+  {
+    "id": 638,
+    "hsk": 5,
+    "ch": "魅力",
+    "py": "mèi lì",
+    "vi": "sức hút"
+  },
+  {
+    "id": 639,
+    "hsk": 5,
+    "ch": "梦想",
+    "py": "mèng xiǎng",
+    "vi": "ước mơ"
+  },
+  {
+    "id": 640,
+    "hsk": 5,
+    "ch": "秘密",
+    "py": "mì mì",
+    "vi": "bí mật"
+  },
+  {
+    "id": 641,
+    "hsk": 5,
+    "ch": "秘书",
+    "py": "mì shū",
+    "vi": "thư ký"
+  },
+  {
+    "id": 642,
+    "hsk": 5,
+    "ch": "密切",
+    "py": "mì qiè",
+    "vi": "mật thiết"
+  },
+  {
+    "id": 643,
+    "hsk": 5,
+    "ch": "蜜蜂",
+    "py": "mì fēng",
+    "vi": "con ong"
+  },
+  {
+    "id": 644,
+    "hsk": 5,
+    "ch": "面对",
+    "py": "miàn duì",
+    "vi": "đối mặt (chứng cứ, tương lai, khủng hoảng, thách thức), đối"
+  },
+  {
+    "id": 645,
+    "hsk": 5,
+    "ch": "面积",
+    "py": "miàn jī",
+    "vi": "diện tích"
+  },
+  {
+    "id": 646,
+    "hsk": 5,
+    "ch": "面临",
+    "py": "miàn lín",
+    "vi": "đứng trước (khó khăn, nguy hiểm, thách thức)"
+  },
+  {
+    "id": 647,
+    "hsk": 5,
+    "ch": "苗条",
+    "py": "miáo tiáo",
+    "vi": "thon thả"
+  },
+  {
+    "id": 648,
+    "hsk": 5,
+    "ch": "描写",
+    "py": "miáo xiě",
+    "vi": "miêu tả"
+  },
+  {
+    "id": 649,
+    "hsk": 5,
+    "ch": "敏感",
+    "py": "mǐn gǎn",
+    "vi": "nhạy cảm"
+  },
+  {
+    "id": 650,
+    "hsk": 5,
+    "ch": "名牌",
+    "py": "míng pái",
+    "vi": "thương hiệu nổi tiếng"
+  },
+  {
+    "id": 651,
+    "hsk": 5,
+    "ch": "名片",
+    "py": "míng piàn",
+    "vi": "danh thiếp"
+  },
+  {
+    "id": 652,
+    "hsk": 5,
+    "ch": "名胜古迹",
+    "py": "míng shèng gǔ jì",
+    "vi": "danh lam thắng cảnh"
+  },
+  {
+    "id": 653,
+    "hsk": 5,
+    "ch": "明确",
+    "py": "míng què",
+    "vi": "rõ ràng, rành mạch"
+  },
+  {
+    "id": 654,
+    "hsk": 5,
+    "ch": "明显",
+    "py": "míng xiǎn",
+    "vi": "rõ ràng"
+  },
+  {
+    "id": 655,
+    "hsk": 5,
+    "ch": "明星",
+    "py": "míng xīng",
+    "vi": "minh tinh"
+  },
+  {
+    "id": 656,
+    "hsk": 5,
+    "ch": "命令",
+    "py": "mìng lìng",
+    "vi": "mệnh lệnh"
+  },
+  {
+    "id": 657,
+    "hsk": 5,
+    "ch": "命运",
+    "py": "mìng yùn",
+    "vi": "vận mệnh"
+  },
+  {
+    "id": 658,
+    "hsk": 5,
+    "ch": "摸",
+    "py": "mō",
+    "vi": "sờ"
+  },
+  {
+    "id": 659,
+    "hsk": 5,
+    "ch": "模仿",
+    "py": "mó fǎng",
+    "vi": "bắt chước"
+  },
+  {
+    "id": 660,
+    "hsk": 5,
+    "ch": "模糊",
+    "py": "mó hu",
+    "vi": "mơ hồ"
+  },
+  {
+    "id": 661,
+    "hsk": 5,
+    "ch": "模特",
+    "py": "mó tè",
+    "vi": "người mẫu"
+  },
+  {
+    "id": 662,
+    "hsk": 5,
+    "ch": "摩托车",
+    "py": "mó tuō chē",
+    "vi": "xe máy"
+  },
+  {
+    "id": 663,
+    "hsk": 5,
+    "ch": "陌生",
+    "py": "mò shēng",
+    "vi": "lạ lẫm"
+  },
+  {
+    "id": 664,
+    "hsk": 5,
+    "ch": "某",
+    "py": "mǒu",
+    "vi": "nào đó"
+  },
+  {
+    "id": 665,
+    "hsk": 5,
+    "ch": "木头",
+    "py": "mù tóu",
+    "vi": "khúc gỗ"
+  },
+  {
+    "id": 666,
+    "hsk": 5,
+    "ch": "目标",
+    "py": "mù biāo",
+    "vi": "mục tiêu"
+  },
+  {
+    "id": 667,
+    "hsk": 5,
+    "ch": "目录",
+    "py": "mù lù",
+    "vi": "mục lục"
+  },
+  {
+    "id": 668,
+    "hsk": 5,
+    "ch": "目前",
+    "py": "mù qián",
+    "vi": "trước mắt, hiện nay"
+  },
+  {
+    "id": 669,
+    "hsk": 5,
+    "ch": "哪怕",
+    "py": "nǎ pà",
+    "vi": "cho dù"
+  },
+  {
+    "id": 670,
+    "hsk": 5,
+    "ch": "难怪",
+    "py": "nán guài",
+    "vi": "chẳng trách"
+  },
+  {
+    "id": 671,
+    "hsk": 5,
+    "ch": "难免",
+    "py": "nán miǎn",
+    "vi": "khó tránh"
+  },
+  {
+    "id": 672,
+    "hsk": 5,
+    "ch": "脑袋",
+    "py": "nǎo dài",
+    "vi": "não"
+  },
+  {
+    "id": 673,
+    "hsk": 5,
+    "ch": "内部",
+    "py": "nèi bù",
+    "vi": "nội bộ"
+  },
+  {
+    "id": 674,
+    "hsk": 5,
+    "ch": "内科",
+    "py": "nèi kē",
+    "vi": "khoa nội"
+  },
+  {
+    "id": 675,
+    "hsk": 5,
+    "ch": "嫩",
+    "py": "nèn",
+    "vi": "mềm, non"
+  },
+  {
+    "id": 676,
+    "hsk": 5,
+    "ch": "能干",
+    "py": "néng gàn",
+    "vi": "được việc"
+  },
+  {
+    "id": 677,
+    "hsk": 5,
+    "ch": "能源",
+    "py": "néng yuán",
+    "vi": "tài nguyên"
+  },
+  {
+    "id": 678,
+    "hsk": 5,
+    "ch": "嗯",
+    "py": "ńg",
+    "vi": "ừ, ừm"
+  },
+  {
+    "id": 679,
+    "hsk": 5,
+    "ch": "年代",
+    "py": "nián dài",
+    "vi": "thời đại"
+  },
+  {
+    "id": 680,
+    "hsk": 5,
+    "ch": "年纪",
+    "py": "nián jì",
+    "vi": "tuổi tác"
+  },
+  {
+    "id": 681,
+    "hsk": 5,
+    "ch": "念",
+    "py": "niàn",
+    "vi": "đọc"
+  },
+  {
+    "id": 682,
+    "hsk": 5,
+    "ch": "宁可",
+    "py": "nìng kě",
+    "vi": "thà"
+  },
+  {
+    "id": 683,
+    "hsk": 5,
+    "ch": "牛仔裤",
+    "py": "niú zǎi kù",
+    "vi": "quần bò"
+  },
+  {
+    "id": 684,
+    "hsk": 5,
+    "ch": "农村",
+    "py": "nóng cūn",
+    "vi": "nông thôn"
+  },
+  {
+    "id": 685,
+    "hsk": 5,
+    "ch": "农民",
+    "py": "nóng mín",
+    "vi": "nông dân"
+  },
+  {
+    "id": 686,
+    "hsk": 5,
+    "ch": "农业",
+    "py": "nóng yè",
+    "vi": "nông nghiệp"
+  },
+  {
+    "id": 687,
+    "hsk": 5,
+    "ch": "浓",
+    "py": "nóng",
+    "vi": "nồng, đậm"
+  },
+  {
+    "id": 688,
+    "hsk": 5,
+    "ch": "女士",
+    "py": "nǚ shì",
+    "vi": "quý cô, quý bà"
+  },
+  {
+    "id": 689,
+    "hsk": 5,
+    "ch": "欧洲",
+    "py": "ōu zhōu",
+    "vi": "châu Âu"
+  },
+  {
+    "id": 690,
+    "hsk": 5,
+    "ch": "偶然",
+    "py": "ǒu rán",
+    "vi": "ngẫu nhiên"
+  },
+  {
+    "id": 691,
+    "hsk": 5,
+    "ch": "拍",
+    "py": "pāi",
+    "vi": "vỗ"
+  },
+  {
+    "id": 692,
+    "hsk": 5,
+    "ch": "派",
+    "py": "pài",
+    "vi": "cử, phái"
+  },
+  {
+    "id": 693,
+    "hsk": 5,
+    "ch": "盼望",
+    "py": "pàn wàng",
+    "vi": "mong chờ"
+  },
+  {
+    "id": 694,
+    "hsk": 5,
+    "ch": "培训",
+    "py": "péi xùn",
+    "vi": "bồi dưỡng, tập huấn"
+  },
+  {
+    "id": 695,
+    "hsk": 5,
+    "ch": "培养",
+    "py": "péi yǎng",
+    "vi": "nuôi dưỡng, hình thành"
+  },
+  {
+    "id": 696,
+    "hsk": 5,
+    "ch": "赔偿",
+    "py": "péi cháng",
+    "vi": "bồi thường"
+  },
+  {
+    "id": 697,
+    "hsk": 5,
+    "ch": "佩服",
+    "py": "pèi fú",
+    "vi": "khâm phục"
+  },
+  {
+    "id": 698,
+    "hsk": 5,
+    "ch": "配合",
+    "py": "pèi hé",
+    "vi": "phối hợp"
+  },
+  {
+    "id": 699,
+    "hsk": 5,
+    "ch": "盆",
+    "py": "pén",
+    "vi": "chậu"
+  },
+  {
+    "id": 700,
+    "hsk": 5,
+    "ch": "碰",
+    "py": "pèng",
+    "vi": "gặp phải"
+  },
+  {
+    "id": 701,
+    "hsk": 5,
+    "ch": "批",
+    "py": "pī",
+    "vi": "loạt, lô (lượng từ)"
+  },
+  {
+    "id": 702,
+    "hsk": 5,
+    "ch": "批准",
+    "py": "pī zhǔn",
+    "vi": "phê chuẩn, đồng ý"
+  },
+  {
+    "id": 703,
+    "hsk": 5,
+    "ch": "披",
+    "py": "pī",
+    "vi": "khoác"
+  },
+  {
+    "id": 704,
+    "hsk": 5,
+    "ch": "疲劳",
+    "py": "pí láo",
+    "vi": "mệt mỏi"
+  },
+  {
+    "id": 705,
+    "hsk": 5,
+    "ch": "匹",
+    "py": "pǐ",
+    "vi": "con (lượng từ cho ngựa)"
+  },
+  {
+    "id": 706,
+    "hsk": 5,
+    "ch": "片",
+    "py": "piàn",
+    "vi": "chiếc, lát, mảnh (lượng từ cho lá, bánh mì, đất đai )"
+  },
+  {
+    "id": 707,
+    "hsk": 5,
+    "ch": "片面",
+    "py": "piàn miàn",
+    "vi": "phiến diện"
+  },
+  {
+    "id": 708,
+    "hsk": 5,
+    "ch": "飘",
+    "py": "piāo",
+    "vi": "bay"
+  },
+  {
+    "id": 709,
+    "hsk": 5,
+    "ch": "拼音",
+    "py": "pīn yīn",
+    "vi": "phiên âm"
+  },
+  {
+    "id": 710,
+    "hsk": 5,
+    "ch": "频道",
+    "py": "pín dào",
+    "vi": "kênh"
+  },
+  {
+    "id": 711,
+    "hsk": 5,
+    "ch": "平",
+    "py": "píng",
+    "vi": "bằng, đều"
+  },
+  {
+    "id": 712,
+    "hsk": 5,
+    "ch": "平安",
+    "py": "píng ān",
+    "vi": "bình an"
+  },
+  {
+    "id": 713,
+    "hsk": 5,
+    "ch": "平常",
+    "py": "píng cháng",
+    "vi": "bình thường"
+  },
+  {
+    "id": 714,
+    "hsk": 5,
+    "ch": "平等",
+    "py": "píng děng",
+    "vi": "bình đẳng"
+  },
+  {
+    "id": 715,
+    "hsk": 5,
+    "ch": "平方",
+    "py": "píng fāng",
+    "vi": "bình phương"
+  },
+  {
+    "id": 716,
+    "hsk": 5,
+    "ch": "平衡",
+    "py": "píng héng",
+    "vi": "cân bằng"
+  },
+  {
+    "id": 717,
+    "hsk": 5,
+    "ch": "平静",
+    "py": "píng jìng",
+    "vi": "bình tĩnh"
+  },
+  {
+    "id": 718,
+    "hsk": 5,
+    "ch": "平均",
+    "py": "píng jūn",
+    "vi": "trung bình, bình quân"
+  },
+  {
+    "id": 719,
+    "hsk": 5,
+    "ch": "评价",
+    "py": "píng jià",
+    "vi": "đánh giá"
+  },
+  {
+    "id": 720,
+    "hsk": 5,
+    "ch": "凭",
+    "py": "píng",
+    "vi": "dựa vào"
+  },
+  {
+    "id": 721,
+    "hsk": 5,
+    "ch": "迫切",
+    "py": "pò qiè",
+    "vi": "cấp bách"
+  },
+  {
+    "id": 722,
+    "hsk": 5,
+    "ch": "破产",
+    "py": "pò chǎn",
+    "vi": "phá sản"
+  },
+  {
+    "id": 723,
+    "hsk": 5,
+    "ch": "破坏",
+    "py": "pò huài",
+    "vi": "phá hoại"
+  },
+  {
+    "id": 724,
+    "hsk": 5,
+    "ch": "期待",
+    "py": "qī dài",
+    "vi": "kỳ vọng"
+  },
+  {
+    "id": 725,
+    "hsk": 5,
+    "ch": "期间",
+    "py": "qī jiān",
+    "vi": "khoảng thời gian"
+  },
+  {
+    "id": 726,
+    "hsk": 5,
+    "ch": "其余",
+    "py": "qí yú",
+    "vi": "còn lại"
+  },
+  {
+    "id": 727,
+    "hsk": 5,
+    "ch": "奇迹",
+    "py": "qí jì",
+    "vi": "kỳ tích"
+  },
+  {
+    "id": 728,
+    "hsk": 5,
+    "ch": "企业",
+    "py": "qǐ yè",
+    "vi": "nhà máy, xí nghiệp"
+  },
+  {
+    "id": 729,
+    "hsk": 5,
+    "ch": "启发",
+    "py": "qǐ fā",
+    "vi": "gợi mở, gợi ý"
+  },
+  {
+    "id": 730,
+    "hsk": 5,
+    "ch": "气氛",
+    "py": "qì fēn",
+    "vi": "không khí (cuộc họp, buổi tiệc)"
+  },
+  {
+    "id": 731,
+    "hsk": 5,
+    "ch": "汽油",
+    "py": "qì yóu",
+    "vi": "xăng"
+  },
+  {
+    "id": 732,
+    "hsk": 5,
+    "ch": "谦虚",
+    "py": "qiān xū",
+    "vi": "khiêm tốn"
+  },
+  {
+    "id": 733,
+    "hsk": 5,
+    "ch": "签",
+    "py": "qiān",
+    "vi": "ký (tên)"
+  },
+  {
+    "id": 734,
+    "hsk": 5,
+    "ch": "前途",
+    "py": "qián tú",
+    "vi": "tiền đồ"
+  },
+  {
+    "id": 735,
+    "hsk": 5,
+    "ch": "浅",
+    "py": "qiǎn",
+    "vi": "nhạt"
+  },
+  {
+    "id": 736,
+    "hsk": 5,
+    "ch": "欠",
+    "py": "qiàn",
+    "vi": "nợ"
+  },
+  {
+    "id": 737,
+    "hsk": 5,
+    "ch": "枪",
+    "py": "qiāng",
+    "vi": "súng"
+  },
+  {
+    "id": 738,
+    "hsk": 5,
+    "ch": "强调",
+    "py": "qiáng diào",
+    "vi": "nhấn mạnh"
+  },
+  {
+    "id": 739,
+    "hsk": 5,
+    "ch": "强烈",
+    "py": "qiáng liè",
+    "vi": "mãnh liệt, mạnh mẽ"
+  },
+  {
+    "id": 740,
+    "hsk": 5,
+    "ch": "墙",
+    "py": "qiáng",
+    "vi": "tường"
+  },
+  {
+    "id": 741,
+    "hsk": 5,
+    "ch": "抢",
+    "py": "qiǎng",
+    "vi": "cướp"
+  },
+  {
+    "id": 742,
+    "hsk": 5,
+    "ch": "悄悄",
+    "py": "qiāo qiāo",
+    "vi": "lặng lẽ"
+  },
+  {
+    "id": 743,
+    "hsk": 5,
+    "ch": "瞧",
+    "py": "qiáo",
+    "vi": "liếc nhìn"
+  },
+  {
+    "id": 744,
+    "hsk": 5,
+    "ch": "巧妙",
+    "py": "qiǎo miào",
+    "vi": "khéo léo"
+  },
+  {
+    "id": 745,
+    "hsk": 5,
+    "ch": "切",
+    "py": "qiè",
+    "vi": "cắt"
+  },
+  {
+    "id": 746,
+    "hsk": 5,
+    "ch": "亲爱",
+    "py": "qīn ài",
+    "vi": "thân yêu"
+  },
+  {
+    "id": 747,
+    "hsk": 5,
+    "ch": "亲切",
+    "py": "qīn qiè",
+    "vi": "thân thiết"
+  },
+  {
+    "id": 748,
+    "hsk": 5,
+    "ch": "亲自",
+    "py": "qīn zì",
+    "vi": "tự thân"
+  },
+  {
+    "id": 749,
+    "hsk": 5,
+    "ch": "勤奋",
+    "py": "qín fèn",
+    "vi": "cần cù"
+  },
+  {
+    "id": 750,
+    "hsk": 5,
+    "ch": "青",
+    "py": "qīng",
+    "vi": "màu xanh non"
+  },
+  {
+    "id": 751,
+    "hsk": 5,
+    "ch": "青春",
+    "py": "qīng chūn",
+    "vi": "thanh xuân"
+  },
+  {
+    "id": 752,
+    "hsk": 5,
+    "ch": "青少年",
+    "py": "qīng shào nián",
+    "vi": "thanh thiếu niên"
+  },
+  {
+    "id": 753,
+    "hsk": 5,
+    "ch": "轻视",
+    "py": "qīng shì",
+    "vi": "coi khinh, khinh thường"
+  },
+  {
+    "id": 754,
+    "hsk": 5,
+    "ch": "轻易",
+    "py": "qīng yì",
+    "vi": "dễ dàng (làm trạng ngữ), khinh suất"
+  },
+  {
+    "id": 755,
+    "hsk": 5,
+    "ch": "清淡",
+    "py": "qīng dàn",
+    "vi": "thanh đạm"
+  },
+  {
+    "id": 756,
+    "hsk": 5,
+    "ch": "情景",
+    "py": "qíng jǐng",
+    "vi": "cảnh tượng"
+  },
+  {
+    "id": 757,
+    "hsk": 5,
+    "ch": "情绪",
+    "py": "qíng xù",
+    "vi": "tâm trạng"
+  },
+  {
+    "id": 758,
+    "hsk": 5,
+    "ch": "请求",
+    "py": "qǐng qiú",
+    "vi": "thỉnh cầu"
+  },
+  {
+    "id": 759,
+    "hsk": 5,
+    "ch": "庆祝",
+    "py": "qìng zhù",
+    "vi": "chúc mừng"
+  },
+  {
+    "id": 760,
+    "hsk": 5,
+    "ch": "球迷",
+    "py": "qiú mí",
+    "vi": "người hâm mộ bóng"
+  },
+  {
+    "id": 761,
+    "hsk": 5,
+    "ch": "趋势",
+    "py": "qū shì",
+    "vi": "xu thế"
+  },
+  {
+    "id": 762,
+    "hsk": 5,
+    "ch": "取消",
+    "py": "qǔ xiāo",
+    "vi": "hủy bỏ"
+  },
+  {
+    "id": 763,
+    "hsk": 5,
+    "ch": "娶",
+    "py": "qǔ",
+    "vi": "lấy (vợ)"
+  },
+  {
+    "id": 764,
+    "hsk": 5,
+    "ch": "去世",
+    "py": "qù shì",
+    "vi": "tạ thế"
+  },
+  {
+    "id": 765,
+    "hsk": 5,
+    "ch": "圈",
+    "py": "quān",
+    "vi": "vòng"
+  },
+  {
+    "id": 766,
+    "hsk": 5,
+    "ch": "权力",
+    "py": "quán lì",
+    "vi": "quyền lực"
+  },
+  {
+    "id": 767,
+    "hsk": 5,
+    "ch": "权利",
+    "py": "quán lì",
+    "vi": "quyền lợi"
+  },
+  {
+    "id": 768,
+    "hsk": 5,
+    "ch": "全面",
+    "py": "quán miàn",
+    "vi": "toàn diện"
+  },
+  {
+    "id": 769,
+    "hsk": 5,
+    "ch": "劝",
+    "py": "quàn",
+    "vi": "khuyên"
+  },
+  {
+    "id": 770,
+    "hsk": 5,
+    "ch": "缺乏",
+    "py": "quē fá",
+    "vi": "thiếu"
+  },
+  {
+    "id": 771,
+    "hsk": 5,
+    "ch": "确定",
+    "py": "què dìng",
+    "vi": "xác định"
+  },
+  {
+    "id": 772,
+    "hsk": 5,
+    "ch": "确认",
+    "py": "què rèn",
+    "vi": "xác nhận"
+  },
+  {
+    "id": 773,
+    "hsk": 5,
+    "ch": "群",
+    "py": "qún",
+    "vi": "đám"
+  },
+  {
+    "id": 774,
+    "hsk": 5,
+    "ch": "燃烧",
+    "py": "rán shāo",
+    "vi": "đốt cháy"
+  },
+  {
+    "id": 775,
+    "hsk": 5,
+    "ch": "绕",
+    "py": "rào",
+    "vi": "vòng vèo"
+  },
+  {
+    "id": 776,
+    "hsk": 5,
+    "ch": "热爱",
+    "py": "rè ài",
+    "vi": "yêu (cuộc sống, học sinh, thiên nhiên, âm nhạc, bạn bè, ngư"
+  },
+  {
+    "id": 777,
+    "hsk": 5,
+    "ch": "热烈",
+    "py": "rè liè",
+    "vi": "nhiệt liệt"
+  },
+  {
+    "id": 778,
+    "hsk": 5,
+    "ch": "热心",
+    "py": "rè xīn",
+    "vi": "nhiệt tình (người, người bạn), nhiệt huyết"
+  },
+  {
+    "id": 779,
+    "hsk": 5,
+    "ch": "人才",
+    "py": "rén cái",
+    "vi": "nhân tài"
+  },
+  {
+    "id": 780,
+    "hsk": 5,
+    "ch": "人口",
+    "py": "rén kǒu",
+    "vi": "dân số"
+  },
+  {
+    "id": 781,
+    "hsk": 5,
+    "ch": "人类",
+    "py": "rén lèi",
+    "vi": "loài người"
+  },
+  {
+    "id": 782,
+    "hsk": 5,
+    "ch": "人民币",
+    "py": "rén mín bì",
+    "vi": "nhân dân tệ"
+  },
+  {
+    "id": 783,
+    "hsk": 5,
+    "ch": "人生",
+    "py": "rén shēng",
+    "vi": "đời người"
+  },
+  {
+    "id": 784,
+    "hsk": 5,
+    "ch": "人事",
+    "py": "rén shì",
+    "vi": "nhân sự"
+  },
+  {
+    "id": 785,
+    "hsk": 5,
+    "ch": "人物",
+    "py": "rén wù",
+    "vi": "nhân vật"
+  },
+  {
+    "id": 786,
+    "hsk": 5,
+    "ch": "人员",
+    "py": "rén yuán",
+    "vi": "nhân viên"
+  },
+  {
+    "id": 787,
+    "hsk": 5,
+    "ch": "忍不住",
+    "py": "rěn bù zhù",
+    "vi": "không nhịn được"
+  },
+  {
+    "id": 788,
+    "hsk": 5,
+    "ch": "日常",
+    "py": "rì cháng",
+    "vi": "thường ngày"
+  },
+  {
+    "id": 789,
+    "hsk": 5,
+    "ch": "日程",
+    "py": "rì chéng",
+    "vi": "lịch trình"
+  },
+  {
+    "id": 790,
+    "hsk": 5,
+    "ch": "日历",
+    "py": "rì lì",
+    "vi": "quyển lịch"
+  },
+  {
+    "id": 791,
+    "hsk": 5,
+    "ch": "日期",
+    "py": "rì qī",
+    "vi": "ngày tháng"
+  },
+  {
+    "id": 792,
+    "hsk": 5,
+    "ch": "日用品",
+    "py": "rì yòng pǐn",
+    "vi": "đồ dùng"
+  },
+  {
+    "id": 793,
+    "hsk": 5,
+    "ch": "日子",
+    "py": "rì zi",
+    "vi": "ngày"
+  },
+  {
+    "id": 794,
+    "hsk": 5,
+    "ch": "如何",
+    "py": "rú hé",
+    "vi": "như thế nào"
+  },
+  {
+    "id": 795,
+    "hsk": 5,
+    "ch": "如今",
+    "py": "rú jīn",
+    "vi": "hiện nay"
+  },
+  {
+    "id": 796,
+    "hsk": 5,
+    "ch": "软",
+    "py": "ruǎn",
+    "vi": "mềm"
+  },
+  {
+    "id": 797,
+    "hsk": 5,
+    "ch": "软件",
+    "py": "ruǎn jiàn",
+    "vi": "phần mềm"
+  },
+  {
+    "id": 798,
+    "hsk": 5,
+    "ch": "弱",
+    "py": "ruò",
+    "vi": "yếu ớt"
+  },
+  {
+    "id": 799,
+    "hsk": 5,
+    "ch": "洒",
+    "py": "sǎ",
+    "vi": "vãi, vung"
+  },
+  {
+    "id": 800,
+    "hsk": 5,
+    "ch": "嗓子",
+    "py": "sǎng zi",
+    "vi": "cổ họng"
+  },
+  {
+    "id": 801,
+    "hsk": 5,
+    "ch": "色彩",
+    "py": "sè cǎi",
+    "vi": "màu sắc"
+  },
+  {
+    "id": 802,
+    "hsk": 5,
+    "ch": "杀",
+    "py": "shā",
+    "vi": "giết"
+  },
+  {
+    "id": 803,
+    "hsk": 5,
+    "ch": "沙漠",
+    "py": "shā mò",
+    "vi": "sa mạc"
+  },
+  {
+    "id": 804,
+    "hsk": 5,
+    "ch": "沙滩",
+    "py": "shā tān",
+    "vi": "bãi cát"
+  },
+  {
+    "id": 805,
+    "hsk": 5,
+    "ch": "傻",
+    "py": "shǎ",
+    "vi": "ngốc nghếch"
+  },
+  {
+    "id": 806,
+    "hsk": 5,
+    "ch": "晒",
+    "py": "shài",
+    "vi": "phơi, tắm nắng"
+  },
+  {
+    "id": 807,
+    "hsk": 5,
+    "ch": "删除",
+    "py": "shān chú",
+    "vi": "xóa bỏ"
+  },
+  {
+    "id": 808,
+    "hsk": 5,
+    "ch": "闪电",
+    "py": "shǎn diàn",
+    "vi": "chớp"
+  },
+  {
+    "id": 809,
+    "hsk": 5,
+    "ch": "扇子",
+    "py": "shàn zi",
+    "vi": "cái quạt"
+  },
+  {
+    "id": 810,
+    "hsk": 5,
+    "ch": "善良",
+    "py": "shàn liáng",
+    "vi": "lương thiện, hiền lành"
+  },
+  {
+    "id": 811,
+    "hsk": 5,
+    "ch": "善于",
+    "py": "shàn yú",
+    "vi": "giỏi về việc gì đó"
+  },
+  {
+    "id": 812,
+    "hsk": 5,
+    "ch": "伤害",
+    "py": "shāng hài",
+    "vi": "làm hại"
+  },
+  {
+    "id": 813,
+    "hsk": 5,
+    "ch": "商品",
+    "py": "shāng pǐn",
+    "vi": "sản phẩm"
+  },
+  {
+    "id": 814,
+    "hsk": 5,
+    "ch": "商务",
+    "py": "shāng wù",
+    "vi": "thương gia (hạng, khoang),"
+  },
+  {
+    "id": 815,
+    "hsk": 5,
+    "ch": "商业",
+    "py": "shāng yè",
+    "vi": "thương mại"
+  },
+  {
+    "id": 816,
+    "hsk": 5,
+    "ch": "上当",
+    "py": "shàng dàng",
+    "vi": "mắc lừa"
+  },
+  {
+    "id": 817,
+    "hsk": 5,
+    "ch": "蛇",
+    "py": "shé",
+    "vi": "rắn"
+  },
+  {
+    "id": 818,
+    "hsk": 5,
+    "ch": "舍不得",
+    "py": "shě bù dé",
+    "vi": "không nỡ lòng"
+  },
+  {
+    "id": 819,
+    "hsk": 5,
+    "ch": "设备",
+    "py": "shè bèi",
+    "vi": "thiết bị"
+  },
+  {
+    "id": 820,
+    "hsk": 5,
+    "ch": "设计",
+    "py": "shè jì",
+    "vi": "thiết kế"
+  },
+  {
+    "id": 821,
+    "hsk": 5,
+    "ch": "设施",
+    "py": "shè shī",
+    "vi": "cơ sở vật chất"
+  },
+  {
+    "id": 822,
+    "hsk": 5,
+    "ch": "射击",
+    "py": "shè jī",
+    "vi": "bắn"
+  },
+  {
+    "id": 823,
+    "hsk": 5,
+    "ch": "摄影",
+    "py": "shè yǐng",
+    "vi": "quay phim, chụp ảnh"
+  },
+  {
+    "id": 824,
+    "hsk": 5,
+    "ch": "伸",
+    "py": "shēn",
+    "vi": "vươn, duỗi, kéo dài"
+  },
+  {
+    "id": 825,
+    "hsk": 5,
+    "ch": "身材",
+    "py": "shēn cái",
+    "vi": "cơ thể, dáng"
+  },
+  {
+    "id": 826,
+    "hsk": 5,
+    "ch": "身份",
+    "py": "shēn fèn",
+    "vi": "thân phận"
+  },
+  {
+    "id": 827,
+    "hsk": 5,
+    "ch": "深刻",
+    "py": "shēn kè",
+    "vi": "sâu sắc"
+  },
+  {
+    "id": 828,
+    "hsk": 5,
+    "ch": "神话",
+    "py": "shén huà",
+    "vi": "thần thoại"
+  },
+  {
+    "id": 829,
+    "hsk": 5,
+    "ch": "神秘",
+    "py": "shén mì",
+    "vi": "thần bí"
+  },
+  {
+    "id": 830,
+    "hsk": 5,
+    "ch": "升",
+    "py": "shēng",
+    "vi": "thăng, lên, lít (đơn vị đo thể tích)"
+  },
+  {
+    "id": 831,
+    "hsk": 5,
+    "ch": "生产",
+    "py": "shēng chǎn",
+    "vi": "sản xuất"
+  },
+  {
+    "id": 832,
+    "hsk": 5,
+    "ch": "生动",
+    "py": "shēng dòng",
+    "vi": "sinh động"
+  },
+  {
+    "id": 833,
+    "hsk": 5,
+    "ch": "生长",
+    "py": "shēng zhǎng",
+    "vi": "sinh trưởng, lớn"
+  },
+  {
+    "id": 834,
+    "hsk": 5,
+    "ch": "声调",
+    "py": "shēng diào",
+    "vi": "thanh điệu"
+  },
+  {
+    "id": 835,
+    "hsk": 5,
+    "ch": "绳子",
+    "py": "shéng zi",
+    "vi": "dây thừng"
+  },
+  {
+    "id": 836,
+    "hsk": 5,
+    "ch": "省略",
+    "py": "shěng lüè",
+    "vi": "tỉnh lược"
+  },
+  {
+    "id": 837,
+    "hsk": 5,
+    "ch": "胜利",
+    "py": "shèng lì",
+    "vi": "thắng lợi"
+  },
+  {
+    "id": 838,
+    "hsk": 5,
+    "ch": "失眠",
+    "py": "shī mián",
+    "vi": "mất ngủ"
+  },
+  {
+    "id": 839,
+    "hsk": 5,
+    "ch": "失去",
+    "py": "shī qù",
+    "vi": "mất đi"
+  },
+  {
+    "id": 840,
+    "hsk": 5,
+    "ch": "失业",
+    "py": "shī yè",
+    "vi": "thất nghiệp"
+  },
+  {
+    "id": 841,
+    "hsk": 5,
+    "ch": "诗",
+    "py": "shī",
+    "vi": "thơ"
+  },
+  {
+    "id": 842,
+    "hsk": 5,
+    "ch": "狮子",
+    "py": "shī zi",
+    "vi": "sư tử"
+  },
+  {
+    "id": 843,
+    "hsk": 5,
+    "ch": "湿润",
+    "py": "shī rùn",
+    "vi": "ẩm ướt"
+  },
+  {
+    "id": 844,
+    "hsk": 5,
+    "ch": "石头",
+    "py": "shí tou",
+    "vi": "hòn đá"
+  },
+  {
+    "id": 845,
+    "hsk": 5,
+    "ch": "时差",
+    "py": "shí chā",
+    "vi": "lệch múi giờ"
+  },
+  {
+    "id": 846,
+    "hsk": 5,
+    "ch": "时代",
+    "py": "shí dài",
+    "vi": "thời đại"
+  },
+  {
+    "id": 847,
+    "hsk": 5,
+    "ch": "时刻",
+    "py": "shí kè",
+    "vi": "khoảnh khắc"
+  },
+  {
+    "id": 848,
+    "hsk": 5,
+    "ch": "时髦",
+    "py": "shí máo",
+    "vi": "mốt"
+  },
+  {
+    "id": 849,
+    "hsk": 5,
+    "ch": "时期",
+    "py": "shí qī",
+    "vi": "thời kì"
+  },
+  {
+    "id": 850,
+    "hsk": 5,
+    "ch": "时尚",
+    "py": "shí shàng",
+    "vi": "thời thượng"
+  },
+  {
+    "id": 851,
+    "hsk": 5,
+    "ch": "实话",
+    "py": "shí huà",
+    "vi": "lời nói thật"
+  },
+  {
+    "id": 852,
+    "hsk": 5,
+    "ch": "实践",
+    "py": "shí jiàn",
+    "vi": "thực tiễn"
+  },
+  {
+    "id": 853,
+    "hsk": 5,
+    "ch": "实习",
+    "py": "shí xí",
+    "vi": "thực tập"
+  },
+  {
+    "id": 854,
+    "hsk": 5,
+    "ch": "实现",
+    "py": "shí xiàn",
+    "vi": "thực hiện (kế hoạch, nguyện vọng, ước mơ)"
+  },
+  {
+    "id": 855,
+    "hsk": 5,
+    "ch": "实验",
+    "py": "shí yàn",
+    "vi": "thí nghiệm"
+  },
+  {
+    "id": 856,
+    "hsk": 5,
+    "ch": "实用",
+    "py": "shí yòng",
+    "vi": "hữu ích"
+  },
+  {
+    "id": 857,
+    "hsk": 5,
+    "ch": "食物",
+    "py": "shí wù",
+    "vi": "đồ ăn"
+  },
+  {
+    "id": 858,
+    "hsk": 5,
+    "ch": "使劲儿",
+    "py": "shǐ jìn ér",
+    "vi": "ra sức, lấy sức"
+  },
+  {
+    "id": 859,
+    "hsk": 5,
+    "ch": "始终",
+    "py": "shǐ zhōng",
+    "vi": "từ đầu đến cuối"
+  },
+  {
+    "id": 860,
+    "hsk": 5,
+    "ch": "士兵",
+    "py": "shì bīng",
+    "vi": "binh sĩ"
+  },
+  {
+    "id": 861,
+    "hsk": 5,
+    "ch": "市场",
+    "py": "shì chǎng",
+    "vi": "chợ"
+  },
+  {
+    "id": 862,
+    "hsk": 5,
+    "ch": "似的",
+    "py": "shì de",
+    "vi": "giống như…."
+  },
+  {
+    "id": 863,
+    "hsk": 5,
+    "ch": "事实",
+    "py": "shì shí",
+    "vi": "sự thật"
+  },
+  {
+    "id": 864,
+    "hsk": 5,
+    "ch": "事物",
+    "py": "shì wù",
+    "vi": "sự vật"
+  },
+  {
+    "id": 865,
+    "hsk": 5,
+    "ch": "事先",
+    "py": "shì xiān",
+    "vi": "trước khi việc xảy ra"
+  },
+  {
+    "id": 866,
+    "hsk": 5,
+    "ch": "试卷",
+    "py": "shì juàn",
+    "vi": "bài thi"
+  },
+  {
+    "id": 867,
+    "hsk": 5,
+    "ch": "收获",
+    "py": "shōu huò",
+    "vi": "thu hoạch"
+  },
+  {
+    "id": 868,
+    "hsk": 5,
+    "ch": "收据",
+    "py": "shōu jù",
+    "vi": "giấy biên nhận"
+  },
+  {
+    "id": 869,
+    "hsk": 5,
+    "ch": "手工",
+    "py": "shǒu gōng",
+    "vi": "thủ công"
+  },
+  {
+    "id": 870,
+    "hsk": 5,
+    "ch": "手术",
+    "py": "shǒu shù",
+    "vi": "phẫu thuật"
+  },
+  {
+    "id": 871,
+    "hsk": 5,
+    "ch": "手套",
+    "py": "shǒu tào",
+    "vi": "găng tay"
+  },
+  {
+    "id": 872,
+    "hsk": 5,
+    "ch": "手续",
+    "py": "shǒu xù",
+    "vi": "thủ tục"
+  },
+  {
+    "id": 873,
+    "hsk": 5,
+    "ch": "手指",
+    "py": "shǒu zhǐ",
+    "vi": "ngón tay"
+  },
+  {
+    "id": 874,
+    "hsk": 5,
+    "ch": "首",
+    "py": "shǒu",
+    "vi": "đầu"
+  },
+  {
+    "id": 875,
+    "hsk": 5,
+    "ch": "寿命",
+    "py": "shòu mìng",
+    "vi": "tuổi thọ"
+  },
+  {
+    "id": 876,
+    "hsk": 5,
+    "ch": "受伤",
+    "py": "shòu shāng",
+    "vi": "bị thương"
+  },
+  {
+    "id": 877,
+    "hsk": 5,
+    "ch": "书架",
+    "py": "shū jià",
+    "vi": "giá sách"
+  },
+  {
+    "id": 878,
+    "hsk": 5,
+    "ch": "梳子",
+    "py": "shū zi",
+    "vi": "cái lược"
+  },
+  {
+    "id": 879,
+    "hsk": 5,
+    "ch": "舒适",
+    "py": "shū shì",
+    "vi": "thoải mái"
+  },
+  {
+    "id": 880,
+    "hsk": 5,
+    "ch": "输入",
+    "py": "shū rù",
+    "vi": "nhập"
+  },
+  {
+    "id": 881,
+    "hsk": 5,
+    "ch": "蔬菜",
+    "py": "shū cài",
+    "vi": "rau xanh"
+  },
+  {
+    "id": 882,
+    "hsk": 5,
+    "ch": "熟练",
+    "py": "shú liàn",
+    "vi": "thành thục"
+  },
+  {
+    "id": 883,
+    "hsk": 5,
+    "ch": "属于",
+    "py": "shǔ yú",
+    "vi": "thuộc về"
+  },
+  {
+    "id": 884,
+    "hsk": 5,
+    "ch": "鼠标",
+    "py": "shǔ biāo",
+    "vi": "chuột máy tính"
+  },
+  {
+    "id": 885,
+    "hsk": 5,
+    "ch": "数",
+    "py": "shǔ",
+    "vi": "đếm"
+  },
+  {
+    "id": 886,
+    "hsk": 5,
+    "ch": "数据",
+    "py": "shù jù",
+    "vi": "số liệu"
+  },
+  {
+    "id": 887,
+    "hsk": 5,
+    "ch": "数码",
+    "py": "shù mǎ",
+    "vi": "kỹ thuật số"
+  },
+  {
+    "id": 888,
+    "hsk": 5,
+    "ch": "摔倒",
+    "py": "shuāi dǎo",
+    "vi": "ngã nhào"
+  },
+  {
+    "id": 889,
+    "hsk": 5,
+    "ch": "甩",
+    "py": "shuǎi",
+    "vi": "vung, hất, bỏ lại"
+  },
+  {
+    "id": 890,
+    "hsk": 5,
+    "ch": "双方",
+    "py": "shuāng fāng",
+    "vi": "hai bên, song phương"
+  },
+  {
+    "id": 891,
+    "hsk": 5,
+    "ch": "税",
+    "py": "shuì",
+    "vi": "thuế"
+  },
+  {
+    "id": 892,
+    "hsk": 5,
+    "ch": "说不定",
+    "py": "shuō bù dìng",
+    "vi": "chưa biết chừng"
+  },
+  {
+    "id": 893,
+    "hsk": 5,
+    "ch": "说服",
+    "py": "shuō fú",
+    "vi": "thuyết phục"
+  },
+  {
+    "id": 894,
+    "hsk": 5,
+    "ch": "丝绸",
+    "py": "sī chóu",
+    "vi": "tơ lụa"
+  },
+  {
+    "id": 895,
+    "hsk": 5,
+    "ch": "丝毫",
+    "py": "sī háo",
+    "vi": "một chút (dùng dạng phủ định)"
+  },
+  {
+    "id": 896,
+    "hsk": 5,
+    "ch": "私人",
+    "py": "sī rén",
+    "vi": "tư nhân"
+  },
+  {
+    "id": 897,
+    "hsk": 5,
+    "ch": "思考",
+    "py": "sī kǎo",
+    "vi": "suy nghĩ"
+  },
+  {
+    "id": 898,
+    "hsk": 5,
+    "ch": "思想",
+    "py": "sī xiǎng",
+    "vi": "tư tưởng"
+  },
+  {
+    "id": 899,
+    "hsk": 5,
+    "ch": "撕",
+    "py": "sī",
+    "vi": "xé"
+  },
+  {
+    "id": 900,
+    "hsk": 5,
+    "ch": "似乎",
+    "py": "sì hū",
+    "vi": "dường như"
+  },
+  {
+    "id": 901,
+    "hsk": 5,
+    "ch": "搜索",
+    "py": "sōu suǒ",
+    "vi": "tìm kiếm"
+  },
+  {
+    "id": 902,
+    "hsk": 5,
+    "ch": "宿舍",
+    "py": "sù shè",
+    "vi": "ký túc xá"
+  },
+  {
+    "id": 903,
+    "hsk": 5,
+    "ch": "随身",
+    "py": "suí shēn",
+    "vi": "mang theo người"
+  },
+  {
+    "id": 904,
+    "hsk": 5,
+    "ch": "随时",
+    "py": "suí shí",
+    "vi": "bất cứ lúc nào"
+  },
+  {
+    "id": 905,
+    "hsk": 5,
+    "ch": "随手",
+    "py": "suí shǒu",
+    "vi": "tiện tay"
+  },
+  {
+    "id": 906,
+    "hsk": 5,
+    "ch": "碎",
+    "py": "suì",
+    "vi": "vỡ vụn"
+  },
+  {
+    "id": 907,
+    "hsk": 5,
+    "ch": "损失",
+    "py": "sǔn shī",
+    "vi": "tổn thất"
+  },
+  {
+    "id": 908,
+    "hsk": 5,
+    "ch": "缩短",
+    "py": "suō duǎn",
+    "vi": "thu hẹp (khoảng cách), rút ngắn (thời gian), cắt ngắn (câu ch"
+  },
+  {
+    "id": 909,
+    "hsk": 5,
+    "ch": "所",
+    "py": "suǒ",
+    "vi": "trợ từ"
+  },
+  {
+    "id": 910,
+    "hsk": 5,
+    "ch": "锁",
+    "py": "suǒ",
+    "vi": "khóa"
+  },
+  {
+    "id": 911,
+    "hsk": 5,
+    "ch": "台阶",
+    "py": "tái jiē",
+    "vi": "bậc thềm, bậc"
+  },
+  {
+    "id": 912,
+    "hsk": 5,
+    "ch": "太极拳",
+    "py": "tài jí quán",
+    "vi": "thái cực quyền"
+  },
+  {
+    "id": 913,
+    "hsk": 5,
+    "ch": "太太",
+    "py": "tài tai",
+    "vi": "vợ"
+  },
+  {
+    "id": 914,
+    "hsk": 5,
+    "ch": "谈判",
+    "py": "tán pàn",
+    "vi": "đàm phán"
+  },
+  {
+    "id": 915,
+    "hsk": 5,
+    "ch": "坦率",
+    "py": "tǎn shuài",
+    "vi": "thẳng thắn"
+  },
+  {
+    "id": 916,
+    "hsk": 5,
+    "ch": "烫",
+    "py": "tàng",
+    "vi": "bỏng"
+  },
+  {
+    "id": 917,
+    "hsk": 5,
+    "ch": "逃",
+    "py": "táo",
+    "vi": "chạy trốn"
+  },
+  {
+    "id": 918,
+    "hsk": 5,
+    "ch": "逃避",
+    "py": "táo bì",
+    "vi": "trốn tránh"
+  },
+  {
+    "id": 919,
+    "hsk": 5,
+    "ch": "桃",
+    "py": "táo",
+    "vi": "đào"
+  },
+  {
+    "id": 920,
+    "hsk": 5,
+    "ch": "淘气",
+    "py": "táo qì",
+    "vi": "tinh nghịch"
+  },
+  {
+    "id": 921,
+    "hsk": 5,
+    "ch": "讨价还价",
+    "py": "tǎo jià huán jià",
+    "vi": "mặc cả"
+  },
+  {
+    "id": 922,
+    "hsk": 5,
+    "ch": "套",
+    "py": "tào",
+    "vi": "bộ (quần áo), căn (nhà)"
+  },
+  {
+    "id": 923,
+    "hsk": 5,
+    "ch": "特色",
+    "py": "tè sè",
+    "vi": "đặc sắc"
+  },
+  {
+    "id": 924,
+    "hsk": 5,
+    "ch": "特殊",
+    "py": "tè shū",
+    "vi": "đặc biệt, đặc thù (quan hệ, nghi lễ, yêu cầu, đãi ngộ)"
+  },
+  {
+    "id": 925,
+    "hsk": 5,
+    "ch": "特征",
+    "py": "tè zhēng",
+    "vi": "đặc trưng"
+  },
+  {
+    "id": 926,
+    "hsk": 5,
+    "ch": "疼爱",
+    "py": "téng ài",
+    "vi": "chiều chuộng, yêu chiều"
+  },
+  {
+    "id": 927,
+    "hsk": 5,
+    "ch": "提倡",
+    "py": "tí chàng",
+    "vi": "đề xướng"
+  },
+  {
+    "id": 928,
+    "hsk": 5,
+    "ch": "提纲",
+    "py": "tí gāng",
+    "vi": "đề cương"
+  },
+  {
+    "id": 929,
+    "hsk": 5,
+    "ch": "提问",
+    "py": "tí wèn",
+    "vi": "hỏi"
+  },
+  {
+    "id": 930,
+    "hsk": 5,
+    "ch": "题目",
+    "py": "tí mù",
+    "vi": "đề mục"
+  },
+  {
+    "id": 931,
+    "hsk": 5,
+    "ch": "体会",
+    "py": "tǐ huì",
+    "vi": "cảm nhận"
+  },
+  {
+    "id": 932,
+    "hsk": 5,
+    "ch": "体贴",
+    "py": "tǐ tiē",
+    "vi": "sống tình cảm, chu đáo"
+  },
+  {
+    "id": 933,
+    "hsk": 5,
+    "ch": "体现",
+    "py": "tǐ xiàn",
+    "vi": "thể hiện"
+  },
+  {
+    "id": 934,
+    "hsk": 5,
+    "ch": "体验",
+    "py": "tǐ yàn",
+    "vi": "trải nghiệm"
+  },
+  {
+    "id": 935,
+    "hsk": 5,
+    "ch": "天空",
+    "py": "tiān kōng",
+    "vi": "bầu trời"
+  },
+  {
+    "id": 936,
+    "hsk": 5,
+    "ch": "天真",
+    "py": "tiān zhēn",
+    "vi": "hồn nhiên"
+  },
+  {
+    "id": 937,
+    "hsk": 5,
+    "ch": "调皮",
+    "py": "tiáo pí",
+    "vi": "nghịch ngợm"
+  },
+  {
+    "id": 938,
+    "hsk": 5,
+    "ch": "调整",
+    "py": "tiáo zhěng",
+    "vi": "điều chỉnh"
+  },
+  {
+    "id": 939,
+    "hsk": 5,
+    "ch": "挑战",
+    "py": "tiǎo zhàn",
+    "vi": "thách thức, thử thách, thách"
+  },
+  {
+    "id": 940,
+    "hsk": 5,
+    "ch": "通常",
+    "py": "tōng cháng",
+    "vi": "thông thường"
+  },
+  {
+    "id": 941,
+    "hsk": 5,
+    "ch": "统一",
+    "py": "tǒng yī",
+    "vi": "thống nhất"
+  },
+  {
+    "id": 942,
+    "hsk": 5,
+    "ch": "痛苦",
+    "py": "tòng kǔ",
+    "vi": "đau khổ"
+  },
+  {
+    "id": 943,
+    "hsk": 5,
+    "ch": "痛快",
+    "py": "tòng kuài",
+    "vi": "sung sướng"
+  },
+  {
+    "id": 944,
+    "hsk": 5,
+    "ch": "偷",
+    "py": "tōu",
+    "vi": "ăn trộm"
+  },
+  {
+    "id": 945,
+    "hsk": 5,
+    "ch": "投入",
+    "py": "tóu rù",
+    "vi": "đút vào, đầu tư vào,"
+  },
+  {
+    "id": 946,
+    "hsk": 5,
+    "ch": "投资",
+    "py": "tóu zī",
+    "vi": "đầu tư"
+  },
+  {
+    "id": 947,
+    "hsk": 5,
+    "ch": "透明",
+    "py": "tòu míng",
+    "vi": "trong suốt"
+  },
+  {
+    "id": 948,
+    "hsk": 5,
+    "ch": "突出",
+    "py": "tū chū",
+    "vi": "làm nổi bật"
+  },
+  {
+    "id": 949,
+    "hsk": 5,
+    "ch": "土地",
+    "py": "tǔ dì",
+    "vi": "đất đai"
+  },
+  {
+    "id": 950,
+    "hsk": 5,
+    "ch": "土豆",
+    "py": "tǔ dòu",
+    "vi": "khoai tây"
+  },
+  {
+    "id": 951,
+    "hsk": 5,
+    "ch": "吐",
+    "py": "tǔ/tù",
+    "vi": "nhổ, nôn"
+  },
+  {
+    "id": 952,
+    "hsk": 5,
+    "ch": "兔子",
+    "py": "tù zi",
+    "vi": "con thỏ"
+  },
+  {
+    "id": 953,
+    "hsk": 5,
+    "ch": "团",
+    "py": "tuán",
+    "vi": "cuộn"
+  },
+  {
+    "id": 954,
+    "hsk": 5,
+    "ch": "推辞",
+    "py": "tuī cí",
+    "vi": "từ chối"
+  },
+  {
+    "id": 955,
+    "hsk": 5,
+    "ch": "推广",
+    "py": "tuī guǎng",
+    "vi": "cuộn (danh từ)"
+  },
+  {
+    "id": 956,
+    "hsk": 5,
+    "ch": "推荐",
+    "py": "tuī jiàn",
+    "vi": "tiến cử"
+  },
+  {
+    "id": 957,
+    "hsk": 5,
+    "ch": "退",
+    "py": "tuì",
+    "vi": "lùi"
+  },
+  {
+    "id": 958,
+    "hsk": 5,
+    "ch": "退步",
+    "py": "tuì bù",
+    "vi": "lùi bước"
+  },
+  {
+    "id": 959,
+    "hsk": 5,
+    "ch": "退休",
+    "py": "tuì xiū",
+    "vi": "nghỉ hưu"
+  },
+  {
+    "id": 960,
+    "hsk": 5,
+    "ch": "歪",
+    "py": "wāi",
+    "vi": "xiên (nghiêng)"
+  },
+  {
+    "id": 961,
+    "hsk": 5,
+    "ch": "外公",
+    "py": "wài gōng",
+    "vi": "ông ngoại"
+  },
+  {
+    "id": 962,
+    "hsk": 5,
+    "ch": "外交",
+    "py": "wài jiāo",
+    "vi": "ngoại giao"
+  },
+  {
+    "id": 963,
+    "hsk": 5,
+    "ch": "完美",
+    "py": "wán měi",
+    "vi": "hoàn hảo"
+  },
+  {
+    "id": 964,
+    "hsk": 5,
+    "ch": "完善",
+    "py": "wán shàn",
+    "vi": "hoàn thiện"
+  },
+  {
+    "id": 965,
+    "hsk": 5,
+    "ch": "完整",
+    "py": "wán zhěng",
+    "vi": "hoàn chỉnh"
+  },
+  {
+    "id": 966,
+    "hsk": 5,
+    "ch": "玩具",
+    "py": "wán jù",
+    "vi": "đồ chơi"
+  },
+  {
+    "id": 967,
+    "hsk": 5,
+    "ch": "万一",
+    "py": "wàn yī",
+    "vi": "vạn nhất, nhỡ"
+  },
+  {
+    "id": 968,
+    "hsk": 5,
+    "ch": "王子",
+    "py": "wáng zǐ",
+    "vi": "vua"
+  },
+  {
+    "id": 969,
+    "hsk": 5,
+    "ch": "网络",
+    "py": "wǎng luò",
+    "vi": "mạng internet"
+  },
+  {
+    "id": 970,
+    "hsk": 5,
+    "ch": "往返",
+    "py": "wǎng fǎn",
+    "vi": "khứ hồi"
+  },
+  {
+    "id": 971,
+    "hsk": 5,
+    "ch": "危害",
+    "py": "wēi hài",
+    "vi": "nguy hại"
+  },
+  {
+    "id": 972,
+    "hsk": 5,
+    "ch": "威胁",
+    "py": "wēi xié",
+    "vi": "uy hiếp"
+  },
+  {
+    "id": 973,
+    "hsk": 5,
+    "ch": "微笑",
+    "py": "wēi xiào",
+    "vi": "mỉm cười"
+  },
+  {
+    "id": 974,
+    "hsk": 5,
+    "ch": "违反",
+    "py": "wéi fǎn",
+    "vi": "vi phạm"
+  },
+  {
+    "id": 975,
+    "hsk": 5,
+    "ch": "围巾",
+    "py": "wéi jīn",
+    "vi": "khăn"
+  },
+  {
+    "id": 976,
+    "hsk": 5,
+    "ch": "围绕",
+    "py": "wéi rào",
+    "vi": "xoay quanh, bao quanh, quay quanh"
+  },
+  {
+    "id": 977,
+    "hsk": 5,
+    "ch": "唯一",
+    "py": "wéi yī",
+    "vi": "duy nhất"
+  },
+  {
+    "id": 978,
+    "hsk": 5,
+    "ch": "维修",
+    "py": "wéi xiū",
+    "vi": "sửa chữa"
+  },
+  {
+    "id": 979,
+    "hsk": 5,
+    "ch": "伟大",
+    "py": "wěi dà",
+    "vi": "vĩ đại"
+  },
+  {
+    "id": 980,
+    "hsk": 5,
+    "ch": "尾巴",
+    "py": "wěi bā",
+    "vi": "cái đuôi"
+  },
+  {
+    "id": 981,
+    "hsk": 5,
+    "ch": "委屈",
+    "py": "wěi qu",
+    "vi": "tủi thân"
+  },
+  {
+    "id": 982,
+    "hsk": 5,
+    "ch": "未必",
+    "py": "wèi bì",
+    "vi": "chưa chắc"
+  },
+  {
+    "id": 983,
+    "hsk": 5,
+    "ch": "未来",
+    "py": "wèi lái",
+    "vi": "tương lai"
+  },
+  {
+    "id": 984,
+    "hsk": 5,
+    "ch": "位于",
+    "py": "wèi yú",
+    "vi": "nằm ở (vị trí địa lý)"
+  },
+  {
+    "id": 985,
+    "hsk": 5,
+    "ch": "位置",
+    "py": "wèi zhì",
+    "vi": "vị trí"
+  },
+  {
+    "id": 986,
+    "hsk": 5,
+    "ch": "胃",
+    "py": "wèi",
+    "vi": "dạ dày"
+  },
+  {
+    "id": 987,
+    "hsk": 5,
+    "ch": "胃口",
+    "py": "wèi kǒu",
+    "vi": "khẩu vị"
+  },
+  {
+    "id": 988,
+    "hsk": 5,
+    "ch": "温暖",
+    "py": "wēn nuǎn",
+    "vi": "ấm áp"
+  },
+  {
+    "id": 989,
+    "hsk": 5,
+    "ch": "温柔",
+    "py": "wēn róu",
+    "vi": "hiền dịu"
+  },
+  {
+    "id": 990,
+    "hsk": 5,
+    "ch": "文件",
+    "py": "wén jiàn",
+    "vi": "tài liệu"
+  },
+  {
+    "id": 991,
+    "hsk": 5,
+    "ch": "文具",
+    "py": "wén jù",
+    "vi": "đồ dùng học tập"
+  },
+  {
+    "id": 992,
+    "hsk": 5,
+    "ch": "文明",
+    "py": "wén míng",
+    "vi": "văn minh"
+  },
+  {
+    "id": 993,
+    "hsk": 5,
+    "ch": "文学",
+    "py": "wén xué",
+    "vi": "văn học"
+  },
+  {
+    "id": 994,
+    "hsk": 5,
+    "ch": "文字",
+    "py": "wén zì",
+    "vi": "văn tự"
+  },
+  {
+    "id": 995,
+    "hsk": 5,
+    "ch": "闻",
+    "py": "wén",
+    "vi": "ngửi"
+  },
+  {
+    "id": 996,
+    "hsk": 5,
+    "ch": "吻",
+    "py": "wěn",
+    "vi": "hôn"
+  },
+  {
+    "id": 997,
+    "hsk": 5,
+    "ch": "稳定",
+    "py": "wěn dìng",
+    "vi": "ổn định"
+  },
+  {
+    "id": 998,
+    "hsk": 5,
+    "ch": "问候",
+    "py": "wèn hòu",
+    "vi": "hỏi thăm"
+  },
+  {
+    "id": 999,
+    "hsk": 5,
+    "ch": "卧室",
+    "py": "wò shì",
+    "vi": "phòng ngủ"
+  },
+  {
+    "id": 1000,
+    "hsk": 5,
+    "ch": "握手",
+    "py": "wò shǒu",
+    "vi": "bắt tay"
+  },
+  {
+    "id": 1001,
+    "hsk": 5,
+    "ch": "屋子",
+    "py": "wū zi",
+    "vi": "căn nhà"
+  },
+  {
+    "id": 1002,
+    "hsk": 5,
+    "ch": "无奈",
+    "py": "wú nài",
+    "vi": "bó tay, không có cách nào"
+  },
+  {
+    "id": 1003,
+    "hsk": 5,
+    "ch": "无数",
+    "py": "wú shù",
+    "vi": "vô số"
+  },
+  {
+    "id": 1004,
+    "hsk": 5,
+    "ch": "无所谓",
+    "py": "wú suǒ wèi",
+    "vi": "không quan tâm, không để ý"
+  },
+  {
+    "id": 1005,
+    "hsk": 5,
+    "ch": "武术",
+    "py": "wǔ shù",
+    "vi": "võ thuật"
+  },
+  {
+    "id": 1006,
+    "hsk": 5,
+    "ch": "勿",
+    "py": "wù",
+    "vi": "đừng"
+  },
+  {
+    "id": 1007,
+    "hsk": 5,
+    "ch": "物理",
+    "py": "wù lǐ",
+    "vi": "vật lý"
+  },
+  {
+    "id": 1008,
+    "hsk": 5,
+    "ch": "物质",
+    "py": "wù zhì",
+    "vi": "vật chất"
+  },
+  {
+    "id": 1009,
+    "hsk": 5,
+    "ch": "雾",
+    "py": "wù",
+    "vi": "sương mù"
+  },
+  {
+    "id": 1010,
+    "hsk": 5,
+    "ch": "吸取",
+    "py": "xī qǔ",
+    "vi": "hút, rút ra (bài học kinh nghiệm)"
+  },
+  {
+    "id": 1011,
+    "hsk": 5,
+    "ch": "吸收",
+    "py": "xī shōu",
+    "vi": "thẩm thấu, ngấm"
+  },
+  {
+    "id": 1012,
+    "hsk": 5,
+    "ch": "戏剧",
+    "py": "xì jù",
+    "vi": "kịch"
+  },
+  {
+    "id": 1013,
+    "hsk": 5,
+    "ch": "系",
+    "py": "xì",
+    "vi": "khoa, hệ"
+  },
+  {
+    "id": 1014,
+    "hsk": 5,
+    "ch": "系统",
+    "py": "xì tǒng",
+    "vi": "hệ thống"
+  },
+  {
+    "id": 1015,
+    "hsk": 5,
+    "ch": "细节",
+    "py": "xì jié",
+    "vi": "tình tiết"
+  },
+  {
+    "id": 1016,
+    "hsk": 5,
+    "ch": "瞎",
+    "py": "xiā",
+    "vi": "mù"
+  },
+  {
+    "id": 1017,
+    "hsk": 5,
+    "ch": "下载",
+    "py": "xià zǎi",
+    "vi": "tải"
+  },
+  {
+    "id": 1018,
+    "hsk": 5,
+    "ch": "吓",
+    "py": "xià",
+    "vi": "dọa"
+  },
+  {
+    "id": 1019,
+    "hsk": 5,
+    "ch": "夏令营",
+    "py": "xià lìng yíng",
+    "vi": "trại"
+  },
+  {
+    "id": 1020,
+    "hsk": 5,
+    "ch": "鲜艳",
+    "py": "xiān yàn",
+    "vi": "tươi tắn"
+  },
+  {
+    "id": 1021,
+    "hsk": 5,
+    "ch": "显得",
+    "py": "xiǎn dé",
+    "vi": "lộ rõ"
+  },
+  {
+    "id": 1022,
+    "hsk": 5,
+    "ch": "显然",
+    "py": "xiǎn rán",
+    "vi": "hiển nhiên, rõ ràng"
+  },
+  {
+    "id": 1023,
+    "hsk": 5,
+    "ch": "显示",
+    "py": "xiǎn shì",
+    "vi": "hiển thị, cho thấy, tôn lên"
+  },
+  {
+    "id": 1024,
+    "hsk": 5,
+    "ch": "县",
+    "py": "xiàn",
+    "vi": "huyện"
+  },
+  {
+    "id": 1025,
+    "hsk": 5,
+    "ch": "现代",
+    "py": "xiàn dài",
+    "vi": "hiện đại"
+  },
+  {
+    "id": 1026,
+    "hsk": 5,
+    "ch": "现实",
+    "py": "xiàn shí",
+    "vi": "hiện thực"
+  },
+  {
+    "id": 1027,
+    "hsk": 5,
+    "ch": "现象",
+    "py": "xiàn xiàng",
+    "vi": "hiện tượng"
+  },
+  {
+    "id": 1028,
+    "hsk": 5,
+    "ch": "限制",
+    "py": "xiàn zhì",
+    "vi": "hạn chế, giới hạn"
+  },
+  {
+    "id": 1029,
+    "hsk": 5,
+    "ch": "相处",
+    "py": "xiāng chǔ",
+    "vi": "ở cùng nhau, tiếp xúc nhiều"
+  },
+  {
+    "id": 1030,
+    "hsk": 5,
+    "ch": "相当",
+    "py": "xiāng dāng",
+    "vi": "tương đối"
+  },
+  {
+    "id": 1031,
+    "hsk": 5,
+    "ch": "相对",
+    "py": "xiāng duì",
+    "vi": "tương đối"
+  },
+  {
+    "id": 1032,
+    "hsk": 5,
+    "ch": "相关",
+    "py": "xiāng guān",
+    "vi": "liên quan"
+  },
+  {
+    "id": 1033,
+    "hsk": 5,
+    "ch": "相似",
+    "py": "xiāng sì",
+    "vi": "giống"
+  },
+  {
+    "id": 1034,
+    "hsk": 5,
+    "ch": "香肠",
+    "py": "xiāng cháng",
+    "vi": "xúc xích"
+  },
+  {
+    "id": 1035,
+    "hsk": 5,
+    "ch": "享受",
+    "py": "xiǎng shòu",
+    "vi": "hưởng thụ"
+  },
+  {
+    "id": 1036,
+    "hsk": 5,
+    "ch": "想念",
+    "py": "xiǎng niàn",
+    "vi": "nhớ nhung"
+  },
+  {
+    "id": 1037,
+    "hsk": 5,
+    "ch": "想象",
+    "py": "xiǎng xiàng",
+    "vi": "tưởng tượng"
+  },
+  {
+    "id": 1038,
+    "hsk": 5,
+    "ch": "项",
+    "py": "xiàng",
+    "vi": "hạng, môn (thể thao)"
+  },
+  {
+    "id": 1039,
+    "hsk": 5,
+    "ch": "项链",
+    "py": "xiàng liàn",
+    "vi": "dây chuyền"
+  },
+  {
+    "id": 1040,
+    "hsk": 5,
+    "ch": "项目",
+    "py": "xiàng mù",
+    "vi": "hạng mục"
+  },
+  {
+    "id": 1041,
+    "hsk": 5,
+    "ch": "象棋",
+    "py": "xiàng qí",
+    "vi": "cờ tướng"
+  },
+  {
+    "id": 1042,
+    "hsk": 5,
+    "ch": "象征",
+    "py": "xiàng zhēng",
+    "vi": "tượng trưng"
+  },
+  {
+    "id": 1043,
+    "hsk": 5,
+    "ch": "消费",
+    "py": "xiāo fèi",
+    "vi": "tiêu dùng"
+  },
+  {
+    "id": 1044,
+    "hsk": 5,
+    "ch": "消化",
+    "py": "xiāo huà",
+    "vi": "tiêu hóa"
+  },
+  {
+    "id": 1045,
+    "hsk": 5,
+    "ch": "消极",
+    "py": "xiāo jí",
+    "vi": "tiêu cực"
+  },
+  {
+    "id": 1046,
+    "hsk": 5,
+    "ch": "消失",
+    "py": "xiāo shī",
+    "vi": "biến mất"
+  },
+  {
+    "id": 1047,
+    "hsk": 5,
+    "ch": "销售",
+    "py": "xiāo shòu",
+    "vi": "bán"
+  },
+  {
+    "id": 1048,
+    "hsk": 5,
+    "ch": "小麦",
+    "py": "xiǎo mài",
+    "vi": "lúa mạch"
+  },
+  {
+    "id": 1049,
+    "hsk": 5,
+    "ch": "小气",
+    "py": "xiǎo qì",
+    "vi": "keo kiệt"
+  },
+  {
+    "id": 1050,
+    "hsk": 5,
+    "ch": "孝顺",
+    "py": "xiào shùn",
+    "vi": "hiếu thảo"
+  },
+  {
+    "id": 1051,
+    "hsk": 5,
+    "ch": "效率",
+    "py": "xiào lǜ",
+    "vi": "hiệu suất"
+  },
+  {
+    "id": 1052,
+    "hsk": 5,
+    "ch": "歇",
+    "py": "xiē",
+    "vi": "nghỉ ngơi"
+  },
+  {
+    "id": 1053,
+    "hsk": 5,
+    "ch": "斜",
+    "py": "xié",
+    "vi": "nghiêng, chéo"
+  },
+  {
+    "id": 1054,
+    "hsk": 5,
+    "ch": "写作",
+    "py": "xiě zuò",
+    "vi": "viết"
+  },
+  {
+    "id": 1055,
+    "hsk": 5,
+    "ch": "血",
+    "py": "xiě",
+    "vi": "máu"
+  },
+  {
+    "id": 1056,
+    "hsk": 5,
+    "ch": "心理",
+    "py": "xīn lǐ",
+    "vi": "tâm lý"
+  },
+  {
+    "id": 1057,
+    "hsk": 5,
+    "ch": "心脏",
+    "py": "xīn zàng",
+    "vi": "tim"
+  },
+  {
+    "id": 1058,
+    "hsk": 5,
+    "ch": "欣赏",
+    "py": "xīn shǎng",
+    "vi": "thưởng thức, đánh giá cao"
+  },
+  {
+    "id": 1059,
+    "hsk": 5,
+    "ch": "信号",
+    "py": "xìn hào",
+    "vi": "tín hiệu"
+  },
+  {
+    "id": 1060,
+    "hsk": 5,
+    "ch": "信任",
+    "py": "xìn rèn",
+    "vi": "tín nhiệm"
+  },
+  {
+    "id": 1061,
+    "hsk": 5,
+    "ch": "行动",
+    "py": "xíng dòng",
+    "vi": "hành động"
+  },
+  {
+    "id": 1062,
+    "hsk": 5,
+    "ch": "行人",
+    "py": "xíng rén",
+    "vi": "người đi đường"
+  },
+  {
+    "id": 1063,
+    "hsk": 5,
+    "ch": "行为",
+    "py": "xíng wéi",
+    "vi": "hành vi"
+  },
+  {
+    "id": 1064,
+    "hsk": 5,
+    "ch": "形成",
+    "py": "xíng chéng",
+    "vi": "hình thành"
+  },
+  {
+    "id": 1065,
+    "hsk": 5,
+    "ch": "形容",
+    "py": "xíng róng",
+    "vi": "hình dung"
+  },
+  {
+    "id": 1066,
+    "hsk": 5,
+    "ch": "形式",
+    "py": "xíng shì",
+    "vi": "hình thức"
+  },
+  {
+    "id": 1067,
+    "hsk": 5,
+    "ch": "形势",
+    "py": "xíng shì",
+    "vi": "tình hình"
+  },
+  {
+    "id": 1068,
+    "hsk": 5,
+    "ch": "形象",
+    "py": "xíng xiàng",
+    "vi": "hình tượng"
+  },
+  {
+    "id": 1069,
+    "hsk": 5,
+    "ch": "形状",
+    "py": "xíng zhuàng",
+    "vi": "hình dáng, dáng"
+  },
+  {
+    "id": 1070,
+    "hsk": 5,
+    "ch": "幸亏",
+    "py": "xìng kuī",
+    "vi": "may mà"
+  },
+  {
+    "id": 1071,
+    "hsk": 5,
+    "ch": "幸运",
+    "py": "xìng yùn",
+    "vi": "may mắn"
+  },
+  {
+    "id": 1072,
+    "hsk": 5,
+    "ch": "性质",
+    "py": "xìng zhì",
+    "vi": "tính chất"
+  },
+  {
+    "id": 1073,
+    "hsk": 5,
+    "ch": "兄弟",
+    "py": "xiōng dì",
+    "vi": "huynh đệ"
+  },
+  {
+    "id": 1074,
+    "hsk": 5,
+    "ch": "胸",
+    "py": "xiōng",
+    "vi": "ngực"
+  },
+  {
+    "id": 1075,
+    "hsk": 5,
+    "ch": "休闲",
+    "py": "xiū xián",
+    "vi": "nhàn hạ, thoải mái"
+  },
+  {
+    "id": 1076,
+    "hsk": 5,
+    "ch": "修改",
+    "py": "xiū gǎi",
+    "vi": "sửa lỗi (văn bản)"
+  },
+  {
+    "id": 1077,
+    "hsk": 5,
+    "ch": "虚心",
+    "py": "xū xīn",
+    "vi": "khiêm tốn"
+  },
+  {
+    "id": 1078,
+    "hsk": 5,
+    "ch": "叙述",
+    "py": "xù shù",
+    "vi": "kể, thuật"
+  },
+  {
+    "id": 1079,
+    "hsk": 5,
+    "ch": "宣布",
+    "py": "xuān bù",
+    "vi": "tuyên bố"
+  },
+  {
+    "id": 1080,
+    "hsk": 5,
+    "ch": "宣传",
+    "py": "xuān chuán",
+    "vi": "tuyên truyền"
+  },
+  {
+    "id": 1081,
+    "hsk": 5,
+    "ch": "学历",
+    "py": "xué lì",
+    "vi": "trình độ"
+  },
+  {
+    "id": 1082,
+    "hsk": 5,
+    "ch": "学术",
+    "py": "xué shù",
+    "vi": "học thuật"
+  },
+  {
+    "id": 1083,
+    "hsk": 5,
+    "ch": "学问",
+    "py": "xué wèn",
+    "vi": "học vấn"
+  },
+  {
+    "id": 1084,
+    "hsk": 5,
+    "ch": "寻找",
+    "py": "xún zhǎo",
+    "vi": "tìm kiếm"
+  },
+  {
+    "id": 1085,
+    "hsk": 5,
+    "ch": "询问",
+    "py": "xún wèn",
+    "vi": "hỏi han"
+  },
+  {
+    "id": 1086,
+    "hsk": 5,
+    "ch": "训练",
+    "py": "xùn liàn",
+    "vi": "huấn luyện"
+  },
+  {
+    "id": 1087,
+    "hsk": 5,
+    "ch": "迅速",
+    "py": "xùn sù",
+    "vi": "nhanh chóng, nhanh"
+  },
+  {
+    "id": 1088,
+    "hsk": 5,
+    "ch": "押金",
+    "py": "yā jīn",
+    "vi": "tiền cọc"
+  },
+  {
+    "id": 1089,
+    "hsk": 5,
+    "ch": "牙齿",
+    "py": "yá chǐ",
+    "vi": "răng"
+  },
+  {
+    "id": 1090,
+    "hsk": 5,
+    "ch": "延长",
+    "py": "yán cháng",
+    "vi": "kéo dài (thời gian)"
+  },
+  {
+    "id": 1091,
+    "hsk": 5,
+    "ch": "严肃",
+    "py": "yán sù",
+    "vi": "nghiêm túc"
+  },
+  {
+    "id": 1092,
+    "hsk": 5,
+    "ch": "演讲",
+    "py": "yǎn jiǎng",
+    "vi": "diễn thuyết"
+  },
+  {
+    "id": 1093,
+    "hsk": 5,
+    "ch": "宴会",
+    "py": "yàn huì",
+    "vi": "yến tiệc"
+  },
+  {
+    "id": 1094,
+    "hsk": 5,
+    "ch": "阳台",
+    "py": "yáng tái",
+    "vi": "ban công"
+  },
+  {
+    "id": 1095,
+    "hsk": 5,
+    "ch": "痒",
+    "py": "yǎng",
+    "vi": "ngứa"
+  },
+  {
+    "id": 1096,
+    "hsk": 5,
+    "ch": "样式",
+    "py": "yàng shì",
+    "vi": "kiểu dáng"
+  },
+  {
+    "id": 1097,
+    "hsk": 5,
+    "ch": "腰",
+    "py": "yāo",
+    "vi": "lưng"
+  },
+  {
+    "id": 1098,
+    "hsk": 5,
+    "ch": "摇",
+    "py": "yáo",
+    "vi": "lắc"
+  },
+  {
+    "id": 1099,
+    "hsk": 5,
+    "ch": "咬",
+    "py": "yǎo",
+    "vi": "cắn"
+  },
+  {
+    "id": 1100,
+    "hsk": 5,
+    "ch": "要不",
+    "py": "yào bù",
+    "vi": "nếu không thì"
+  },
+  {
+    "id": 1101,
+    "hsk": 5,
+    "ch": "业务",
+    "py": "yè wù",
+    "vi": "nghiệp vụ"
+  },
+  {
+    "id": 1102,
+    "hsk": 5,
+    "ch": "业余",
+    "py": "yè yú",
+    "vi": "nghiệp dư"
+  },
+  {
+    "id": 1103,
+    "hsk": 5,
+    "ch": "夜",
+    "py": "yè",
+    "vi": "đêm"
+  },
+  {
+    "id": 1104,
+    "hsk": 5,
+    "ch": "一辈子",
+    "py": "yí bèi zi",
+    "vi": "một đời người"
+  },
+  {
+    "id": 1105,
+    "hsk": 5,
+    "ch": "一旦",
+    "py": "yí dàn",
+    "vi": "một khi"
+  },
+  {
+    "id": 1106,
+    "hsk": 5,
+    "ch": "一律",
+    "py": "yí lǜ",
+    "vi": "nhất loạt"
+  },
+  {
+    "id": 1107,
+    "hsk": 5,
+    "ch": "一再",
+    "py": "yí zài",
+    "vi": "nhiều lần"
+  },
+  {
+    "id": 1108,
+    "hsk": 5,
+    "ch": "一致",
+    "py": "yí zhì",
+    "vi": "thống nhất"
+  },
+  {
+    "id": 1109,
+    "hsk": 5,
+    "ch": "依然",
+    "py": "yī rán",
+    "vi": "vẫn như xưa"
+  },
+  {
+    "id": 1110,
+    "hsk": 5,
+    "ch": "移动",
+    "py": "yí dòng",
+    "vi": "di động"
+  },
+  {
+    "id": 1111,
+    "hsk": 5,
+    "ch": "移民",
+    "py": "yí mín",
+    "vi": "di dân"
+  },
+  {
+    "id": 1112,
+    "hsk": 5,
+    "ch": "遗憾",
+    "py": "yí hàn",
+    "vi": "hối tiếc"
+  },
+  {
+    "id": 1113,
+    "hsk": 5,
+    "ch": "疑问",
+    "py": "yí wèn",
+    "vi": "nghi vấn, nghi ngờ"
+  },
+  {
+    "id": 1114,
+    "hsk": 5,
+    "ch": "乙",
+    "py": "yǐ",
+    "vi": "ất"
+  },
+  {
+    "id": 1115,
+    "hsk": 5,
+    "ch": "以及",
+    "py": "yǐ jí",
+    "vi": "và"
+  },
+  {
+    "id": 1116,
+    "hsk": 5,
+    "ch": "以来",
+    "py": "yǐ lái",
+    "vi": "trở lại đây (thời gian)"
+  },
+  {
+    "id": 1117,
+    "hsk": 5,
+    "ch": "亿",
+    "py": "yì",
+    "vi": "trăm triệu"
+  },
+  {
+    "id": 1118,
+    "hsk": 5,
+    "ch": "义务",
+    "py": "yì wù",
+    "vi": "nghĩa vụ"
+  },
+  {
+    "id": 1119,
+    "hsk": 5,
+    "ch": "议论",
+    "py": "yì lùn",
+    "vi": "nghị luận"
+  },
+  {
+    "id": 1120,
+    "hsk": 5,
+    "ch": "意外",
+    "py": "yì wài",
+    "vi": "ngoài ý muốn"
+  },
+  {
+    "id": 1121,
+    "hsk": 5,
+    "ch": "意义",
+    "py": "yì yì",
+    "vi": "ý nghĩa"
+  },
+  {
+    "id": 1122,
+    "hsk": 5,
+    "ch": "因而",
+    "py": "yīn ér",
+    "vi": "cho nên"
+  },
+  {
+    "id": 1123,
+    "hsk": 5,
+    "ch": "因素",
+    "py": "yīn sù",
+    "vi": "nhân tố"
+  },
+  {
+    "id": 1124,
+    "hsk": 5,
+    "ch": "银",
+    "py": "yín",
+    "vi": "bạc"
+  },
+  {
+    "id": 1125,
+    "hsk": 5,
+    "ch": "印刷",
+    "py": "yìn shuā",
+    "vi": "in ấn"
+  },
+  {
+    "id": 1126,
+    "hsk": 5,
+    "ch": "英俊",
+    "py": "yīng jùn",
+    "vi": "tuấn tú"
+  },
+  {
+    "id": 1127,
+    "hsk": 5,
+    "ch": "英雄",
+    "py": "yīng xióng",
+    "vi": "anh hùng"
+  },
+  {
+    "id": 1128,
+    "hsk": 5,
+    "ch": "迎接",
+    "py": "yíng jiē",
+    "vi": "nghênh đón"
+  },
+  {
+    "id": 1129,
+    "hsk": 5,
+    "ch": "营养",
+    "py": "yíng yǎng",
+    "vi": "dinh dưỡng"
+  },
+  {
+    "id": 1130,
+    "hsk": 5,
+    "ch": "营业",
+    "py": "yíng yè",
+    "vi": "kinh doanh"
+  },
+  {
+    "id": 1131,
+    "hsk": 5,
+    "ch": "影子",
+    "py": "yǐng zi",
+    "vi": "cái bóng"
+  },
+  {
+    "id": 1132,
+    "hsk": 5,
+    "ch": "应付",
+    "py": "yìng fù",
+    "vi": "ứng phó"
+  },
+  {
+    "id": 1133,
+    "hsk": 5,
+    "ch": "应用",
+    "py": "yìng yòng",
+    "vi": "ứng dụng"
+  },
+  {
+    "id": 1134,
+    "hsk": 5,
+    "ch": "硬",
+    "py": "yìng",
+    "vi": "cứng"
+  },
+  {
+    "id": 1135,
+    "hsk": 5,
+    "ch": "硬件",
+    "py": "yìng jiàn",
+    "vi": "phần cứng"
+  },
+  {
+    "id": 1136,
+    "hsk": 5,
+    "ch": "拥抱",
+    "py": "yōng bào",
+    "vi": "ôm, ôm ấp"
+  },
+  {
+    "id": 1137,
+    "hsk": 5,
+    "ch": "拥挤",
+    "py": "yōng jǐ",
+    "vi": "chen chúc, đông đúc"
+  },
+  {
+    "id": 1138,
+    "hsk": 5,
+    "ch": "勇气",
+    "py": "yǒng qì",
+    "vi": "dũng khí"
+  },
+  {
+    "id": 1139,
+    "hsk": 5,
+    "ch": "用功",
+    "py": "yòng gōng",
+    "vi": "dụng công, công phu"
+  },
+  {
+    "id": 1140,
+    "hsk": 5,
+    "ch": "用途",
+    "py": "yòng tú",
+    "vi": "cách dùng"
+  },
+  {
+    "id": 1141,
+    "hsk": 5,
+    "ch": "优惠",
+    "py": "yōu huì",
+    "vi": "ưu đãi"
+  },
+  {
+    "id": 1142,
+    "hsk": 5,
+    "ch": "优美",
+    "py": "yōu měi",
+    "vi": "trang nhã, thanh lịch, thanh nhã, đẹp, xinh xắn"
+  },
+  {
+    "id": 1143,
+    "hsk": 5,
+    "ch": "优势",
+    "py": "yōu shì",
+    "vi": "ưu thế"
+  },
+  {
+    "id": 1144,
+    "hsk": 5,
+    "ch": "悠久",
+    "py": "yōu jiǔ",
+    "vi": "lâu đời"
+  },
+  {
+    "id": 1145,
+    "hsk": 5,
+    "ch": "犹豫",
+    "py": "yóu yù",
+    "vi": "do dự"
+  },
+  {
+    "id": 1146,
+    "hsk": 5,
+    "ch": "油炸",
+    "py": "yóu zhá",
+    "vi": "chiên giòn"
+  },
+  {
+    "id": 1147,
+    "hsk": 5,
+    "ch": "游览",
+    "py": "yóu lǎn",
+    "vi": "du ngoạn, thưởng ngoạn"
+  },
+  {
+    "id": 1148,
+    "hsk": 5,
+    "ch": "有利",
+    "py": "yǒu lì",
+    "vi": "có lợi"
+  },
+  {
+    "id": 1149,
+    "hsk": 5,
+    "ch": "幼儿园",
+    "py": "yòu ér yuán",
+    "vi": "nhà trẻ"
+  },
+  {
+    "id": 1150,
+    "hsk": 5,
+    "ch": "娱乐",
+    "py": "yú lè",
+    "vi": "giải trí"
+  },
+  {
+    "id": 1151,
+    "hsk": 5,
+    "ch": "与其",
+    "py": "yǔ qí",
+    "vi": "thà rằng, chi bằng"
+  },
+  {
+    "id": 1152,
+    "hsk": 5,
+    "ch": "语气",
+    "py": "yǔ qì",
+    "vi": "ngữ khí"
+  },
+  {
+    "id": 1153,
+    "hsk": 5,
+    "ch": "玉米",
+    "py": "yù mǐ",
+    "vi": "ngô"
+  },
+  {
+    "id": 1154,
+    "hsk": 5,
+    "ch": "预报",
+    "py": "yù bào",
+    "vi": "dự báo"
+  },
+  {
+    "id": 1155,
+    "hsk": 5,
+    "ch": "预订",
+    "py": "yù dìng",
+    "vi": "đặt trước, dự định trước"
+  },
+  {
+    "id": 1156,
+    "hsk": 5,
+    "ch": "预防",
+    "py": "yù fáng",
+    "vi": "phòng, phòng chống"
+  },
+  {
+    "id": 1157,
+    "hsk": 5,
+    "ch": "元旦",
+    "py": "yuán dàn",
+    "vi": "nguyên đán"
+  },
+  {
+    "id": 1158,
+    "hsk": 5,
+    "ch": "员工",
+    "py": "yuán gōng",
+    "vi": "nhân công"
+  },
+  {
+    "id": 1159,
+    "hsk": 5,
+    "ch": "原料",
+    "py": "yuán liào",
+    "vi": "nguyên liệu"
+  },
+  {
+    "id": 1160,
+    "hsk": 5,
+    "ch": "原则",
+    "py": "yuán zé",
+    "vi": "nguyên tắc"
+  },
+  {
+    "id": 1161,
+    "hsk": 5,
+    "ch": "圆",
+    "py": "yuán",
+    "vi": "hình tròn"
+  },
+  {
+    "id": 1162,
+    "hsk": 5,
+    "ch": "愿望",
+    "py": "yuàn wàng",
+    "vi": "nguyện vọng"
+  },
+  {
+    "id": 1163,
+    "hsk": 5,
+    "ch": "乐器",
+    "py": "yuè qì",
+    "vi": "nhạc cụ"
+  },
+  {
+    "id": 1164,
+    "hsk": 5,
+    "ch": "晕",
+    "py": "yūn",
+    "vi": "say (xe)"
+  },
+  {
+    "id": 1165,
+    "hsk": 5,
+    "ch": "运气",
+    "py": "yùn qì",
+    "vi": "vận may"
+  },
+  {
+    "id": 1166,
+    "hsk": 5,
+    "ch": "运输",
+    "py": "yùn shū",
+    "vi": "vận tải"
+  },
+  {
+    "id": 1167,
+    "hsk": 5,
+    "ch": "运用",
+    "py": "yùn yòng",
+    "vi": "vận dụng"
+  },
+  {
+    "id": 1168,
+    "hsk": 5,
+    "ch": "灾害",
+    "py": "zāi hài",
+    "vi": "thiên tai"
+  },
+  {
+    "id": 1169,
+    "hsk": 5,
+    "ch": "再三",
+    "py": "zài sān",
+    "vi": "hết lần này đến lần khác"
+  },
+  {
+    "id": 1170,
+    "hsk": 5,
+    "ch": "在乎",
+    "py": "zài hū",
+    "vi": "để ý"
+  },
+  {
+    "id": 1171,
+    "hsk": 5,
+    "ch": "在于",
+    "py": "zài yú",
+    "vi": "ở chỗ"
+  },
+  {
+    "id": 1172,
+    "hsk": 5,
+    "ch": "赞成",
+    "py": "zàn chéng",
+    "vi": "tán thành"
+  },
+  {
+    "id": 1173,
+    "hsk": 5,
+    "ch": "赞美",
+    "py": "zàn měi",
+    "vi": "ca tụng"
+  },
+  {
+    "id": 1174,
+    "hsk": 5,
+    "ch": "糟糕",
+    "py": "zāo gāo",
+    "vi": "tồi tệ"
+  },
+  {
+    "id": 1175,
+    "hsk": 5,
+    "ch": "造成",
+    "py": "zào chéng",
+    "vi": "gây nên"
+  },
+  {
+    "id": 1176,
+    "hsk": 5,
+    "ch": "则",
+    "py": "zé",
+    "vi": "qui tắc, qui phạm"
+  },
+  {
+    "id": 1177,
+    "hsk": 5,
+    "ch": "责备",
+    "py": "zé bèi",
+    "vi": "trách cứ"
+  },
+  {
+    "id": 1178,
+    "hsk": 5,
+    "ch": "摘",
+    "py": "zhāi",
+    "vi": "hái"
+  },
+  {
+    "id": 1179,
+    "hsk": 5,
+    "ch": "窄",
+    "py": "zhǎi",
+    "vi": "hẹp"
+  },
+  {
+    "id": 1180,
+    "hsk": 5,
+    "ch": "粘贴",
+    "py": "zhān tiē",
+    "vi": "dính, dán"
+  },
+  {
+    "id": 1181,
+    "hsk": 5,
+    "ch": "展开",
+    "py": "zhǎn kāi",
+    "vi": "xòe ra, triển khai"
+  },
+  {
+    "id": 1182,
+    "hsk": 5,
+    "ch": "展览",
+    "py": "zhǎn lǎn",
+    "vi": "triển lãm"
+  },
+  {
+    "id": 1183,
+    "hsk": 5,
+    "ch": "占",
+    "py": "zhàn",
+    "vi": "chiếm"
+  },
+  {
+    "id": 1184,
+    "hsk": 5,
+    "ch": "战争",
+    "py": "zhàn zhēng",
+    "vi": "chiến tranh"
+  },
+  {
+    "id": 1185,
+    "hsk": 5,
+    "ch": "长辈",
+    "py": "zhǎng bèi",
+    "vi": "tiền bối"
+  },
+  {
+    "id": 1186,
+    "hsk": 5,
+    "ch": "涨",
+    "py": "zhàng",
+    "vi": "tăng lên (giá cả, lương)"
+  },
+  {
+    "id": 1187,
+    "hsk": 5,
+    "ch": "掌握",
+    "py": "zhǎng wò",
+    "vi": "nắm vững"
+  },
+  {
+    "id": 1188,
+    "hsk": 5,
+    "ch": "账户",
+    "py": "zhàng hù",
+    "vi": "tài khoản"
+  },
+  {
+    "id": 1189,
+    "hsk": 5,
+    "ch": "招待",
+    "py": "zhāo dài",
+    "vi": "chiêu đãi"
+  },
+  {
+    "id": 1190,
+    "hsk": 5,
+    "ch": "着火",
+    "py": "zháo huǒ",
+    "vi": "bắt lửa, bén lửa"
+  },
+  {
+    "id": 1191,
+    "hsk": 5,
+    "ch": "着凉",
+    "py": "zháo liáng",
+    "vi": "nhiễm lạnh"
+  },
+  {
+    "id": 1192,
+    "hsk": 5,
+    "ch": "召开",
+    "py": "zhào kāi",
+    "vi": "triệu tập (cuộc họp)"
+  },
+  {
+    "id": 1193,
+    "hsk": 5,
+    "ch": "照常",
+    "py": "zhào cháng",
+    "vi": "như thường lệ"
+  },
+  {
+    "id": 1194,
+    "hsk": 5,
+    "ch": "哲学",
+    "py": "zhé xué",
+    "vi": "triết học"
+  },
+  {
+    "id": 1195,
+    "hsk": 5,
+    "ch": "针对",
+    "py": "zhēn duì",
+    "vi": "nhằm (tổ chức, người, vấn đề)"
+  },
+  {
+    "id": 1196,
+    "hsk": 5,
+    "ch": "珍惜",
+    "py": "zhēn xī",
+    "vi": "trân trọng"
+  },
+  {
+    "id": 1197,
+    "hsk": 5,
+    "ch": "真实",
+    "py": "zhēn shí",
+    "vi": "chân thực"
+  },
+  {
+    "id": 1198,
+    "hsk": 5,
+    "ch": "诊断",
+    "py": "zhěn duàn",
+    "vi": "chẩn đoán"
+  },
+  {
+    "id": 1199,
+    "hsk": 5,
+    "ch": "阵",
+    "py": "zhèn",
+    "vi": "trận (chiến đấu, chiến tranh), khoảng thời gian, mùi hương"
+  },
+  {
+    "id": 1200,
+    "hsk": 5,
+    "ch": "振动",
+    "py": "zhèn dòng",
+    "vi": "trấn động"
+  },
+  {
+    "id": 1201,
+    "hsk": 5,
+    "ch": "争论",
+    "py": "zhēng lùn",
+    "vi": "tranh luận"
+  },
+  {
+    "id": 1202,
+    "hsk": 5,
+    "ch": "争取",
+    "py": "zhēng qǔ",
+    "vi": "tranh thủ (ủng hộ, ý kiến)"
+  },
+  {
+    "id": 1203,
+    "hsk": 5,
+    "ch": "征求",
+    "py": "zhēng qiú",
+    "vi": "trưng cầu (ý kiến, ý kiến phản hồi), xin (ý kiến lãnh đạo, đồng"
+  },
+  {
+    "id": 1204,
+    "hsk": 5,
+    "ch": "睁",
+    "py": "zhēng",
+    "vi": "mở to mắt, trợn mắt"
+  },
+  {
+    "id": 1205,
+    "hsk": 5,
+    "ch": "整个",
+    "py": "zhěng gè",
+    "vi": "cả, toàn bộ"
+  },
+  {
+    "id": 1206,
+    "hsk": 5,
+    "ch": "整齐",
+    "py": "zhěng qí",
+    "vi": "gọn gàng, ngăn nắp"
+  },
+  {
+    "id": 1207,
+    "hsk": 5,
+    "ch": "整体",
+    "py": "zhěng tǐ",
+    "vi": "tổng thể"
+  },
+  {
+    "id": 1208,
+    "hsk": 5,
+    "ch": "正",
+    "py": "zhèng",
+    "vi": "đứng (trái )"
+  },
+  {
+    "id": 1209,
+    "hsk": 5,
+    "ch": "证件",
+    "py": "zhèng jiàn",
+    "vi": "giấy tờ"
+  },
+  {
+    "id": 1210,
+    "hsk": 5,
+    "ch": "证据",
+    "py": "zhèng jù",
+    "vi": "chứng cứ"
+  },
+  {
+    "id": 1211,
+    "hsk": 5,
+    "ch": "政府",
+    "py": "zhèng fǔ",
+    "vi": "chính phủ"
+  },
+  {
+    "id": 1212,
+    "hsk": 5,
+    "ch": "政治",
+    "py": "zhèng zhì",
+    "vi": "chính trị"
+  },
+  {
+    "id": 1213,
+    "hsk": 5,
+    "ch": "挣",
+    "py": "zhèng",
+    "vi": "tranh, giành"
+  },
+  {
+    "id": 1214,
+    "hsk": 5,
+    "ch": "支",
+    "py": "zhī",
+    "vi": "chiếc (lượng từ cho bút…)"
+  },
+  {
+    "id": 1215,
+    "hsk": 5,
+    "ch": "支票",
+    "py": "zhī piào",
+    "vi": "ngân phiếu"
+  },
+  {
+    "id": 1216,
+    "hsk": 5,
+    "ch": "执照",
+    "py": "zhí zhào",
+    "vi": "giấy phép"
+  },
+  {
+    "id": 1217,
+    "hsk": 5,
+    "ch": "直",
+    "py": "zhí",
+    "vi": "thẳng"
+  },
+  {
+    "id": 1218,
+    "hsk": 5,
+    "ch": "指导",
+    "py": "zhǐ dǎo",
+    "vi": "chỉ đạo"
+  },
+  {
+    "id": 1219,
+    "hsk": 5,
+    "ch": "指挥",
+    "py": "zhǐ huī",
+    "vi": "chỉ huy"
+  },
+  {
+    "id": 1220,
+    "hsk": 5,
+    "ch": "至今",
+    "py": "zhì jīn",
+    "vi": "đến nay"
+  },
+  {
+    "id": 1221,
+    "hsk": 5,
+    "ch": "至于",
+    "py": "zhì yú",
+    "vi": "còn như….."
+  },
+  {
+    "id": 1222,
+    "hsk": 5,
+    "ch": "志愿者",
+    "py": "zhì yuàn zhě",
+    "vi": "tình nguyện viên"
+  },
+  {
+    "id": 1223,
+    "hsk": 5,
+    "ch": "制定",
+    "py": "zhì dìng",
+    "vi": "lập ra, xây dựng (qui định, kế hoạch)"
+  },
+  {
+    "id": 1224,
+    "hsk": 5,
+    "ch": "制度",
+    "py": "zhì dù",
+    "vi": "chế độ, chính sách"
+  },
+  {
+    "id": 1225,
+    "hsk": 5,
+    "ch": "制造",
+    "py": "zhì zào",
+    "vi": "sản xuất"
+  },
+  {
+    "id": 1226,
+    "hsk": 5,
+    "ch": "制作",
+    "py": "zhì zuò",
+    "vi": "làm, chế tạo"
+  },
+  {
+    "id": 1227,
+    "hsk": 5,
+    "ch": "治疗",
+    "py": "zhì liáo",
+    "vi": "điều trị"
+  },
+  {
+    "id": 1228,
+    "hsk": 5,
+    "ch": "秩序",
+    "py": "zhì xù",
+    "vi": "trật tự"
+  },
+  {
+    "id": 1229,
+    "hsk": 5,
+    "ch": "智慧",
+    "py": "zhì huì",
+    "vi": "trí tuệ"
+  },
+  {
+    "id": 1230,
+    "hsk": 5,
+    "ch": "中介",
+    "py": "zhōng jiè",
+    "vi": "môi giới, trung gian"
+  },
+  {
+    "id": 1231,
+    "hsk": 5,
+    "ch": "中心",
+    "py": "zhōng xīn",
+    "vi": "trung tâm"
+  },
+  {
+    "id": 1232,
+    "hsk": 5,
+    "ch": "中旬",
+    "py": "zhōng xún",
+    "vi": "trung tuần"
+  },
+  {
+    "id": 1233,
+    "hsk": 5,
+    "ch": "种类",
+    "py": "zhǒng lèi",
+    "vi": "chủng loại"
+  },
+  {
+    "id": 1234,
+    "hsk": 5,
+    "ch": "重大",
+    "py": "zhòng dà",
+    "vi": "trọng đại, lớn"
+  },
+  {
+    "id": 1235,
+    "hsk": 5,
+    "ch": "重量",
+    "py": "zhòng liàng",
+    "vi": "trọng lượng"
+  },
+  {
+    "id": 1236,
+    "hsk": 5,
+    "ch": "周到",
+    "py": "zhōu dào",
+    "vi": "chu đáo"
+  },
+  {
+    "id": 1237,
+    "hsk": 5,
+    "ch": "猪",
+    "py": "zhū",
+    "vi": "con lợn"
+  },
+  {
+    "id": 1238,
+    "hsk": 5,
+    "ch": "竹子",
+    "py": "zhú zi",
+    "vi": "cây trúc"
+  },
+  {
+    "id": 1239,
+    "hsk": 5,
+    "ch": "逐步",
+    "py": "zhú bù",
+    "vi": "từng bước"
+  },
+  {
+    "id": 1240,
+    "hsk": 5,
+    "ch": "逐渐",
+    "py": "zhú jiàn",
+    "vi": "dần dần"
+  },
+  {
+    "id": 1241,
+    "hsk": 5,
+    "ch": "主持",
+    "py": "zhǔ chí",
+    "vi": "dẫn (chương trình),"
+  },
+  {
+    "id": 1242,
+    "hsk": 5,
+    "ch": "主动",
+    "py": "zhǔ dòng",
+    "vi": "chủ động"
+  },
+  {
+    "id": 1243,
+    "hsk": 5,
+    "ch": "主观",
+    "py": "zhǔ guān",
+    "vi": "chủ quan"
+  },
+  {
+    "id": 1244,
+    "hsk": 5,
+    "ch": "主人",
+    "py": "zhǔ rén",
+    "vi": "chủ nhân"
+  },
+  {
+    "id": 1245,
+    "hsk": 5,
+    "ch": "主任",
+    "py": "zhǔ rèn",
+    "vi": "chủ nhiệm"
+  },
+  {
+    "id": 1246,
+    "hsk": 5,
+    "ch": "主题",
+    "py": "zhǔ tí",
+    "vi": "chủ đề"
+  },
+  {
+    "id": 1247,
+    "hsk": 5,
+    "ch": "主席",
+    "py": "zhǔ xí",
+    "vi": "chủ tịch"
+  },
+  {
+    "id": 1248,
+    "hsk": 5,
+    "ch": "主张",
+    "py": "zhǔ zhāng",
+    "vi": "ý tưởng, ý kiến"
+  },
+  {
+    "id": 1249,
+    "hsk": 5,
+    "ch": "煮",
+    "py": "zhǔ",
+    "vi": "luộc, đun"
+  },
+  {
+    "id": 1250,
+    "hsk": 5,
+    "ch": "注册",
+    "py": "zhù cè",
+    "vi": "đăng kí"
+  },
+  {
+    "id": 1251,
+    "hsk": 5,
+    "ch": "祝福",
+    "py": "zhù fú",
+    "vi": "chúc phúc"
+  },
+  {
+    "id": 1252,
+    "hsk": 5,
+    "ch": "抓",
+    "py": "zhuā",
+    "vi": "bắt, véo"
+  },
+  {
+    "id": 1253,
+    "hsk": 5,
+    "ch": "抓紧",
+    "py": "zhuā jǐn",
+    "vi": "(tay) nắm chắc, tranh thủ (thời gian)"
+  },
+  {
+    "id": 1254,
+    "hsk": 5,
+    "ch": "专家",
+    "py": "zhuān jiā",
+    "vi": "chuyên gia"
+  },
+  {
+    "id": 1255,
+    "hsk": 5,
+    "ch": "专心",
+    "py": "zhuān xīn",
+    "vi": "chuyên tâm"
+  },
+  {
+    "id": 1256,
+    "hsk": 5,
+    "ch": "转变",
+    "py": "zhuǎn biàn",
+    "vi": "chuyển biến"
+  },
+  {
+    "id": 1257,
+    "hsk": 5,
+    "ch": "转告",
+    "py": "zhuǎn gào",
+    "vi": "chuyển lời"
+  },
+  {
+    "id": 1258,
+    "hsk": 5,
+    "ch": "装",
+    "py": "zhuāng",
+    "vi": "đựng, chứa"
+  },
+  {
+    "id": 1259,
+    "hsk": 5,
+    "ch": "装饰",
+    "py": "zhuāng shì",
+    "vi": "trang hoàng, trang trí"
+  },
+  {
+    "id": 1260,
+    "hsk": 5,
+    "ch": "装修",
+    "py": "zhuāng xiū",
+    "vi": "sửa nội thất"
+  },
+  {
+    "id": 1261,
+    "hsk": 5,
+    "ch": "状况",
+    "py": "zhuàng kuàng",
+    "vi": "tình trạng"
+  },
+  {
+    "id": 1262,
+    "hsk": 5,
+    "ch": "状态",
+    "py": "zhuàng tài",
+    "vi": "trạng thái"
+  },
+  {
+    "id": 1263,
+    "hsk": 5,
+    "ch": "撞",
+    "py": "zhuàng",
+    "vi": "va vào, đâm vào"
+  },
+  {
+    "id": 1264,
+    "hsk": 5,
+    "ch": "追",
+    "py": "zhuī",
+    "vi": "đuổi theo"
+  },
+  {
+    "id": 1265,
+    "hsk": 5,
+    "ch": "追求",
+    "py": "zhuī qiú",
+    "vi": "theo đuổi"
+  },
+  {
+    "id": 1266,
+    "hsk": 5,
+    "ch": "咨询",
+    "py": "zī xún",
+    "vi": "tư vấn"
+  },
+  {
+    "id": 1267,
+    "hsk": 5,
+    "ch": "姿势",
+    "py": "zī shì",
+    "vi": "tư thế"
+  },
+  {
+    "id": 1268,
+    "hsk": 5,
+    "ch": "资格",
+    "py": "zī gé",
+    "vi": "tư cách"
+  },
+  {
+    "id": 1269,
+    "hsk": 5,
+    "ch": "资金",
+    "py": "zī jīn",
+    "vi": "vốn (tiền)"
+  },
+  {
+    "id": 1270,
+    "hsk": 5,
+    "ch": "资料",
+    "py": "zī liào",
+    "vi": "tư liệu"
+  },
+  {
+    "id": 1271,
+    "hsk": 5,
+    "ch": "资源",
+    "py": "zī yuán",
+    "vi": "nguồn tài nguyên"
+  },
+  {
+    "id": 1272,
+    "hsk": 5,
+    "ch": "紫",
+    "py": "zǐ",
+    "vi": "màu tím"
+  },
+  {
+    "id": 1273,
+    "hsk": 5,
+    "ch": "自从",
+    "py": "zì cóng",
+    "vi": "từ khi…."
+  },
+  {
+    "id": 1274,
+    "hsk": 5,
+    "ch": "自动",
+    "py": "zì dòng",
+    "vi": "tự động"
+  },
+  {
+    "id": 1275,
+    "hsk": 5,
+    "ch": "自豪",
+    "py": "zì háo",
+    "vi": "tự hào, kiêu ngạo"
+  },
+  {
+    "id": 1276,
+    "hsk": 5,
+    "ch": "自觉",
+    "py": "zì jué",
+    "vi": "tự giác"
+  },
+  {
+    "id": 1277,
+    "hsk": 5,
+    "ch": "自私",
+    "py": "zì sī",
+    "vi": "ích kỉ"
+  },
+  {
+    "id": 1278,
+    "hsk": 5,
+    "ch": "自由",
+    "py": "zì yóu",
+    "vi": "tự do"
+  },
+  {
+    "id": 1279,
+    "hsk": 5,
+    "ch": "自愿",
+    "py": "zì yuàn",
+    "vi": "tình nguyện, tự nguyện"
+  },
+  {
+    "id": 1280,
+    "hsk": 5,
+    "ch": "字母",
+    "py": "zì mǔ",
+    "vi": "chữ cái"
+  },
+  {
+    "id": 1281,
+    "hsk": 5,
+    "ch": "字幕",
+    "py": "zì mù",
+    "vi": "phụ đề"
+  },
+  {
+    "id": 1282,
+    "hsk": 5,
+    "ch": "综合",
+    "py": "zōng hé",
+    "vi": "tổng hợp"
+  },
+  {
+    "id": 1283,
+    "hsk": 5,
+    "ch": "总裁",
+    "py": "zǒng cái",
+    "vi": "giám đốc"
+  },
+  {
+    "id": 1284,
+    "hsk": 5,
+    "ch": "总共",
+    "py": "zǒng gòng",
+    "vi": "tổng cộng"
+  },
+  {
+    "id": 1285,
+    "hsk": 5,
+    "ch": "总理",
+    "py": "zǒng lǐ",
+    "vi": "thủ tướng"
+  },
+  {
+    "id": 1286,
+    "hsk": 5,
+    "ch": "总算",
+    "py": "zǒng suàn",
+    "vi": "rốt cuộc"
+  },
+  {
+    "id": 1287,
+    "hsk": 5,
+    "ch": "总统",
+    "py": "zǒng tǒng",
+    "vi": "tổng thống"
+  },
+  {
+    "id": 1288,
+    "hsk": 5,
+    "ch": "总之",
+    "py": "zǒng zhī",
+    "vi": "tóm lại"
+  },
+  {
+    "id": 1289,
+    "hsk": 5,
+    "ch": "阻止",
+    "py": "zǔ zhī",
+    "vi": "ngăn chặn, ngăn cản"
+  },
+  {
+    "id": 1290,
+    "hsk": 5,
+    "ch": "组",
+    "py": "zǔ",
+    "vi": "tổ, cụm, nhóm"
+  },
+  {
+    "id": 1291,
+    "hsk": 5,
+    "ch": "组成",
+    "py": "zǔ chéng",
+    "vi": "tổ thành"
+  },
+  {
+    "id": 1292,
+    "hsk": 5,
+    "ch": "组合",
+    "py": "zǔ hé",
+    "vi": "tổ hợp, tổ hợp thành, nhóm"
+  },
+  {
+    "id": 1293,
+    "hsk": 5,
+    "ch": "组织",
+    "py": "zǔ zhī",
+    "vi": "tổ chức"
+  },
+  {
+    "id": 1294,
+    "hsk": 5,
+    "ch": "最初",
+    "py": "zuì chū",
+    "vi": "ban đầu"
+  },
+  {
+    "id": 1295,
+    "hsk": 5,
+    "ch": "醉",
+    "py": "zuì",
+    "vi": "say, say đắm"
+  },
+  {
+    "id": 1296,
+    "hsk": 5,
+    "ch": "尊敬",
+    "py": "zūn jìng",
+    "vi": "tôn kính, kính trọng"
+  },
+  {
+    "id": 1297,
+    "hsk": 5,
+    "ch": "遵守",
+    "py": "zūn shǒu",
+    "vi": "tuân thủ"
+  },
+  {
+    "id": 1298,
+    "hsk": 5,
+    "ch": "作品",
+    "py": "zuò pǐn",
+    "vi": "tác phẩm"
+  },
+  {
+    "id": 1299,
+    "hsk": 5,
+    "ch": "作为",
+    "py": "zuò wéi",
+    "vi": "coi là, làm, là"
+  },
+  {
+    "id": 1300,
+    "hsk": 5,
+    "ch": "作文",
+    "py": "zuò wén",
+    "vi": "bài viết"
+  }
+];
+
+const GRAMMAR = [
+  {
+    id: "g1",
+    pattern: "越……越……",
+    name: "Câu trúc chỉ mức độ tỉ lệ thuận",
+    explain: "Diễn tả hai sự việc thay đổi cùng chiều: vế sau tăng/giảm theo vế trước. Dịch là \"càng... càng...\".",
+    examples: [
+      { ch: "休息得越多，好得越快。", py: "Xiūxi de yuè duō, hǎo de yuè kuài.", vi: "Nghỉ ngơi càng nhiều thì khỏi bệnh càng nhanh." },
+      { ch: "天气越冷，人越想吃火锅。", py: "Tiānqì yuè lěng, rén yuè xiǎng chī huǒguō.", vi: "Trời càng lạnh, người ta càng muốn ăn lẩu." },
+    ],
+  },
+  {
+    id: "g2",
+    pattern: "给 + người + động từ",
+    name: "Làm gì đó cho ai",
+    explain: "\u201c给\u201d là giới từ nghĩa \"cho\", đứng trước động từ chính để chỉ người nhận lợi ích của hành động: 给 + người + động từ + vật.",
+    examples: [
+      { ch: "她经常给我买吃的。", py: "Tā jīngcháng gěi wǒ mǎi chī de.", vi: "Cô ấy thường xuyên mua đồ ăn cho tôi." },
+      { ch: "我给他打了一个电话。", py: "Wǒ gěi tā dǎle yí ge diànhuà.", vi: "Tôi đã gọi điện cho anh ấy." },
+    ],
+  },
+  {
+    id: "g3",
+    pattern: "动词 + 的",
+    name: "Danh từ hoá động từ",
+    explain: "Thêm \"的\" sau động từ để biến thành danh từ chỉ loại đồ vật/việc liên quan đến hành động đó: 吃的 (đồ ăn), 喝的 (đồ uống), 穿的 (đồ mặc).",
+    examples: [
+      { ch: "冰箱里有很多吃的。", py: "Bīngxiāng lǐ yǒu hěn duō chī de.", vi: "Trong tủ lạnh có nhiều đồ ăn." },
+      { ch: "这是给你穿的。", py: "Zhè shì gěi nǐ chuān de.", vi: "Đây là đồ để bạn mặc." },
+    ],
+  },
+  {
+    id: "g4",
+    pattern: "把 + tân ngữ + động từ",
+    name: "Câu chữ 把",
+    explain: "Đưa tân ngữ lên trước động từ để nhấn mạnh kết quả xử lí lên tân ngữ đó: Chủ ngữ + 把 + tân ngữ + động từ + bổ ngữ/thành phần khác.",
+    examples: [
+      { ch: "请把门关上。", py: "Qǐng bǎ mén guānshàng.", vi: "Làm ơn đóng cửa lại." },
+      { ch: "他把作业写完了。", py: "Tā bǎ zuòyè xiěwán le.", vi: "Anh ấy đã viết xong bài tập." },
+    ],
+  },
+  {
+    id: "g5",
+    pattern: "被 + (người) + động từ",
+    name: "Câu bị động",
+    explain: "Diễn tả chủ thể chịu tác động của hành động: Chủ ngữ (bị tác động) + 被 + (người/vật gây tác động) + động từ.",
+    examples: [
+      { ch: "我的手机被弟弟弄坏了。", py: "Wǒ de shǒujī bèi dìdi nòng huài le.", vi: "Điện thoại của tôi bị em trai làm hỏng." },
+      { ch: "这本书被翻译成了很多语言。", py: "Zhè běn shū bèi fānyì chéngle hěn duō yǔyán.", vi: "Cuốn sách này đã được dịch ra nhiều thứ tiếng." },
+    ],
+  },
+  {
+    id: "g6",
+    pattern: "尽管……但是……",
+    name: "Nhượng bộ",
+    explain: "Nêu một điều kiện bất lợi nhưng kết quả vẫn không thay đổi: \"mặc dù... nhưng...\".",
+    examples: [
+      { ch: "尽管很忙，但是他每天都锻炼。", py: "Jǐnguǎn hěn máng, dànshì tā měitiān dōu duànliàn.", vi: "Mặc dù rất bận, nhưng anh ấy vẫn tập thể dục mỗi ngày." },
+      { ch: "尽管下雨，但是比赛照常进行。", py: "Jǐnguǎn xiàyǔ, dànshì bǐsài zhàocháng jìnxíng.", vi: "Mặc dù trời mưa, nhưng trận đấu vẫn diễn ra như bình thường." },
+    ],
+  },
+  {
+    id: "g7",
+    pattern: "不但……而且……",
+    name: "Tăng tiến",
+    explain: "Nêu hai điều cùng đúng, vế sau bổ sung/nâng cao hơn vế trước: \"không những... mà còn...\".",
+    examples: [
+      { ch: "她不但聪明，而且很努力。", py: "Tā búdàn cōngmíng, érqiě hěn nǔlì.", vi: "Cô ấy không những thông minh mà còn rất chăm chỉ." },
+      { ch: "这个方法不但简单，而且有效。", py: "Zhège fāngfǎ búdàn jiǎndān, érqiě yǒuxiào.", vi: "Phương pháp này không những đơn giản mà còn hiệu quả." },
+    ],
+  },
+  {
+    id: "g8",
+    pattern: "一……就……",
+    name: "Nối tiếp lập tức",
+    explain: "Diễn tả hành động sau xảy ra ngay khi hành động trước vừa xong: \"vừa... đã...\".",
+    examples: [
+      { ch: "他一到家就开始做作业。", py: "Tā yí dào jiā jiù kāishǐ zuò zuòyè.", vi: "Anh ấy vừa về đến nhà đã bắt đầu làm bài tập." },
+      { ch: "我一看就明白了。", py: "Wǒ yí kàn jiù míngbái le.", vi: "Tôi vừa nhìn đã hiểu ngay." },
+    ],
+  },
+];
+
+const QUIZ = [
+  { id: "q1", type: "vocab", prompt: "情况 (qíngkuàng) nghĩa là gì?", options: ["tình hình, tình huống", "môi trường", "cơ hội", "ảnh hưởng"], answer: 0 },
+  { id: "q2", type: "vocab", prompt: "领域 (lǐngyù) nghĩa là gì?", options: ["lĩnh vực", "củng cố", "do dự", "nhấn mạnh"], answer: 0 },
+  { id: "q3", type: "vocab", prompt: "Từ nào có nghĩa là \"dần dần\"?", options: ["陆续", "逐渐", "显著", "承担"], answer: 1 },
+  { id: "q4", type: "vocab", prompt: "Từ nào có nghĩa là \"xem nhẹ, bỏ qua\"?", options: ["强调", "反映", "忽视", "采取"], answer: 2 },
+  { id: "q5", type: "vocab", prompt: "\"坚持\" (jiānchí) nghĩa là gì?", options: ["thích nghi", "kiên trì", "tin tưởng", "nâng cao"], answer: 1 },
+  { id: "q6", type: "grammar", prompt: "Chọn từ đúng: 休息得___多，好得___快。", options: ["越……越", "一……就", "不但……而且", "被"], answer: 0 },
+  { id: "q7", type: "grammar", prompt: "Chọn cách nói đúng cho \"Mua đồ ăn cho tôi\":", options: ["买给我吃的", "给我买吃的", "我买给吃的", "吃的给我买"], answer: 1 },
+  { id: "q8", type: "grammar", prompt: "Câu nào là câu chữ 把 đúng ngữ pháp?", options: ["他把作业写完了。", "他写把作业完了。", "把他作业写完了。", "他写完了把作业。"], answer: 0 },
+  { id: "q9", type: "grammar", prompt: "Chọn từ đúng: 尽管很忙，___他每天都锻炼。", options: ["而且", "但是", "何况", "就"], answer: 1 },
+  { id: "q10", type: "grammar", prompt: "Chọn từ đúng: 他___到家___开始做作业。", options: ["一 / 就", "越 / 越", "不但 / 而且", "被 / 了"], answer: 0 },
+];
+
+const SENTENCES = [
+  { id: "s1", tokens: ["他", "一", "到家", "就", "开始", "做作业。"], vi: "Anh ấy vừa về đến nhà đã bắt đầu làm bài tập." },
+  { id: "s2", tokens: ["我", "一", "看", "就", "明白了。"], vi: "Tôi vừa nhìn đã hiểu ngay." },
+  { id: "s3", tokens: ["她", "经常", "给我", "买", "吃的。"], vi: "Cô ấy thường xuyên mua đồ ăn cho tôi." },
+  { id: "s4", tokens: ["我", "给他", "打了", "一个", "电话。"], vi: "Tôi đã gọi điện cho anh ấy." },
+  { id: "s5", tokens: ["请", "把门", "关上。"], vi: "Làm ơn đóng cửa lại." },
+  { id: "s6", tokens: ["他", "把作业", "写完了。"], vi: "Anh ấy đã viết xong bài tập." },
+  { id: "s7", tokens: ["尽管", "很忙，", "但是", "他", "每天都", "锻炼。"], vi: "Mặc dù rất bận, nhưng anh ấy vẫn tập thể dục mỗi ngày." },
+  { id: "s8", tokens: ["她", "不但", "聪明，", "而且", "很努力。"], vi: "Cô ấy không những thông minh mà còn rất chăm chỉ." },
+  { id: "s9", tokens: ["休息得", "越多，", "好得", "越快。"], vi: "Nghỉ ngơi càng nhiều thì khỏi bệnh càng nhanh." },
+  { id: "s10", tokens: ["我的手机", "被", "弟弟", "弄坏了。"], vi: "Điện thoại của tôi bị em trai làm hỏng." },
+];
+
+const STYLE = `
+.zw-root{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:#EAE3D2;color:#28241E;padding:28px 20px 48px;border-radius:14px;max-width:920px;margin:0 auto;}
+.zw-root *{box-sizing:border-box;}
+.zw-header{text-align:center;margin-bottom:18px;}
+.zw-cn-title{font-family:'Noto Serif SC',serif;font-weight:700;font-size:44px;color:#26221D;letter-spacing:4px;margin:0;}
+.zw-vi-title{font-size:14px;letter-spacing:2px;color:#7A6E52;margin:6px 0 0;text-transform:uppercase;}
+.zw-swash{display:block;margin:16px auto 20px;width:180px;height:14px;}
+.zw-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:26px;flex-wrap:wrap;}
+.zw-tab{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;padding:9px 20px;border:none;cursor:pointer;color:#F3E9DA;background:#8C332A;border-radius:2px;transition:transform .15s ease, background .15s ease;}
+.zw-tab:hover{background:#7A2B23;}
+.zw-tab.zw-active{background:#26221D;transform:translateY(-2px);}
+.zw-tab-vi{display:block;font-family:'Be Vietnam Pro',sans-serif;font-weight:400;font-size:10px;letter-spacing:1px;margin-top:2px;opacity:.85;}
+
+.zw-searchbar{display:flex;justify-content:center;margin-bottom:8px;}
+.zw-search{width:100%;max-width:360px;border:1px solid #C7BB9E;background:#F5EFE0;color:#28241E;font-size:14px;padding:9px 14px;border-radius:999px;outline:none;}
+.zw-search:focus{border-color:#8C332A;}
+.zw-count{text-align:center;font-size:12px;color:#7A6E52;margin:6px 0 18px;letter-spacing:.5px;}
+
+.zw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
+.zw-card{background:#F5EFE0;border:1px solid #D9CCA9;border-radius:8px;padding:16px 10px;text-align:center;cursor:pointer;min-height:100px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;}
+.zw-card:hover{border-color:#A13328;}
+.zw-hsktag{position:absolute;top:6px;right:8px;font-size:10px;color:#A9822C;font-weight:700;letter-spacing:1px;}
+.zw-speak-btn{position:absolute;top:4px;left:6px;background:none;border:none;cursor:pointer;color:#8C332A;padding:4px;display:flex;align-items:center;justify-content:center;}
+.zw-speak-btn:hover{color:#5C1E17;}
+.zw-speak-btn svg{width:15px;height:15px;}
+.zw-gex-speak{background:none;border:none;cursor:pointer;color:#8C332A;padding:2px 4px 2px 0;vertical-align:-2px;}
+.zw-gex-speak:hover{color:#5C1E17;}
+.zw-gex-speak svg{width:13px;height:13px;}
+.zw-ch{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:700;color:#26221D;line-height:1.1;}
+.zw-py{font-size:12px;color:#8A7E5F;margin-top:4px;}
+.zw-vi{font-size:13px;color:#47695A;margin-top:8px;font-weight:500;line-height:1.4;}
+.zw-ex{font-size:11px;color:#7A6E52;margin-top:6px;line-height:1.4;}
+
+.zw-loadmore-wrap{display:flex;justify-content:center;margin-top:22px;}
+.zw-loadmore{background:#26221D;color:#F3EFE3;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:13px;}
+.zw-loadmore:hover{background:#3A342B;}
+.zw-empty{text-align:center;color:#7A6E52;font-size:14px;padding:30px 0;}
+
+.zw-glist{display:flex;flex-direction:column;gap:14px;}
+.zw-gcard{background:#F5EFE0;border:1px solid #D9CCA9;border-radius:8px;padding:18px 20px;position:relative;}
+.zw-gseal{position:absolute;top:16px;right:16px;background:#8C332A;color:#F3E9DA;font-family:'Noto Serif SC',serif;font-weight:700;font-size:13px;padding:6px 10px;border-radius:2px;line-height:1.3;text-align:center;}
+.zw-gname{font-size:13px;color:#A9822C;font-weight:700;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;}
+.zw-gexplain{font-size:14px;color:#3C3628;line-height:1.6;margin:6px 0 12px;max-width:70%;}
+.zw-gex{border-left:3px solid #47695A;padding-left:12px;margin-bottom:8px;}
+.zw-gex-ch{font-family:'Noto Serif SC',serif;font-size:16px;color:#26221D;}
+.zw-gex-py{font-size:12px;color:#8A7E5F;margin-top:2px;}
+.zw-gex-vi{font-size:13px;color:#47695A;margin-top:2px;}
+
+.zw-filters{display:flex;justify-content:center;gap:8px;margin-bottom:22px;flex-wrap:wrap;}
+.zw-chip{border:1px solid #C7BB9E;background:transparent;color:#5C5340;font-size:13px;padding:7px 16px;border-radius:999px;cursor:pointer;}
+.zw-chip.zw-chipActive{background:#47695A;color:#F3EFE3;border-color:#47695A;}
+
+.zw-quiz-wrap{max-width:560px;margin:0 auto;}
+.zw-qprogress{font-size:12px;color:#7A6E52;text-align:center;margin-bottom:10px;letter-spacing:1px;}
+.zw-qcard{background:#F5EFE0;border:1px solid #D9CCA9;border-radius:10px;padding:26px 24px;}
+.zw-qprompt{font-family:'Noto Serif SC',serif;font-size:19px;color:#26221D;margin:0 0 20px;text-align:center;line-height:1.5;}
+.zw-qopt{display:block;width:100%;text-align:left;background:#FBF7EE;border:1px solid #D9CCA9;border-radius:6px;padding:12px 16px;margin-bottom:10px;font-size:14px;cursor:pointer;color:#28241E;}
+.zw-qopt:hover{border-color:#8C332A;}
+.zw-qopt.zw-correct{background:#DEE9DE;border-color:#47695A;color:#254234;font-weight:600;}
+.zw-qopt.zw-wrong{background:#F3DBD8;border-color:#A13328;color:#6B211C;font-weight:600;}
+.zw-qnext{display:block;margin:16px auto 0;background:#26221D;color:#F3EFE3;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px;}
+.zw-qscore{text-align:center;}
+.zw-qscore-num{font-family:'Noto Serif SC',serif;font-size:52px;color:#8C332A;margin:0;}
+.zw-qscore-label{color:#5C5340;font-size:14px;margin:4px 0 20px;}
+.zw-restart{background:#47695A;color:#F3EFE3;border:none;padding:10px 22px;border-radius:6px;cursor:pointer;font-size:14px;}
+
+.zw-match-grid{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto;}
+.zw-match-col{display:flex;flex-direction:column;gap:10px;min-width:150px;}
+.zw-match-btn{background:#F5EFE0;border:1px solid #D9CCA9;border-radius:6px;padding:11px 14px;font-size:14px;cursor:pointer;text-align:center;color:#28241E;font-family:'Be Vietnam Pro',sans-serif;}
+.zw-match-col:first-child .zw-match-btn{font-family:'Noto Serif SC',serif;font-size:18px;}
+.zw-match-btn:hover{border-color:#8C332A;}
+.zw-match-btn.zw-msel{border-color:#8C332A;background:#F3DBD8;}
+.zw-match-btn.zw-mmatched{background:#DEE9DE;border-color:#47695A;color:#254234;cursor:default;}
+.zw-match-btn.zw-mwrong{background:#F3DBD8;border-color:#A13328;}
+.zw-match-done{text-align:center;color:#254234;font-weight:600;font-size:15px;margin-top:18px;}
+
+.zw-order-vi{text-align:center;color:#47695A;font-size:13px;margin-bottom:14px;}
+.zw-order-target{min-height:56px;border:1px dashed #C7BB9E;border-radius:8px;padding:12px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;background:#F5EFE0;align-items:center;}
+.zw-order-placeholder{color:#B0A688;font-size:13px;}
+.zw-order-pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px;}
+.zw-order-token{font-family:'Noto Serif SC',serif;background:#FBF7EE;border:1px solid #D9CCA9;border-radius:6px;padding:8px 12px;font-size:16px;cursor:pointer;}
+.zw-order-token.zw-usedToken{opacity:.3;pointer-events:none;}
+.zw-order-feedback{text-align:center;font-size:14px;margin-top:14px;font-weight:600;}
+.zw-order-feedback.ok{color:#254234;}
+.zw-order-feedback.bad{color:#6B211C;}
+.zw-order-actions{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap;}
+
+.zw-stat{text-align:center;font-size:12px;color:#7A6E52;margin-top:22px;letter-spacing:.5px;}
+`;
+
+function Swash() {
+  return (
+    <svg className="zw-swash" viewBox="0 0 180 14" fill="none">
+      <path
+        d="M2 8 C 30 2, 60 13, 90 7 S 150 1, 178 8"
+        stroke="#A13328"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function speak(text) {
+  if (typeof window === "undefined" || !window.speechSynthesis) return;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "zh-CN";
+  utter.rate = 0.85;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utter);
+}
+
+function SpeakIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="4 8 8 8 12 4 12 20 8 16 4 16 4 8"></polygon>
+      <path d="M16 8.5c1 1 1 6 0 7"></path>
+      <path d="M18.5 6.5c2 2 2 9 0 11"></path>
+    </svg>
+  );
+}
+
+const PAGE_SIZE = 60;
+
+function VocabTab() {
+  const [query, setQuery] = useState("");
+  const [visible, setVisible] = useState(PAGE_SIZE);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return VOCAB;
+    return VOCAB.filter(
+      (v) =>
+        v.ch.includes(query.trim()) ||
+        v.py.toLowerCase().includes(q) ||
+        v.vi.toLowerCase().includes(q)
+    );
+  }, [query]);
+
+  const shown = filtered.slice(0, visible);
+
+  function handleQuery(e) {
+    setQuery(e.target.value);
+    setVisible(PAGE_SIZE);
+  }
+
+  return (
+    <div>
+      <div className="zw-searchbar">
+        <input
+          className="zw-search"
+          type="text"
+          placeholder="Tìm theo chữ Hán, pinyin hoặc nghĩa..."
+          value={query}
+          onChange={handleQuery}
+        />
+      </div>
+      <div className="zw-count">
+        {filtered.length} / {VOCAB.length} từ HSK 5 · chạm vào thẻ để xem nghĩa
+      </div>
+      {shown.length === 0 ? (
+        <div className="zw-empty">Không tìm thấy từ nào phù hợp.</div>
+      ) : (
+        <FlashGrid words={shown} />
+      )}
+      {visible < filtered.length && (
+        <div className="zw-loadmore-wrap">
+          <button
+            className="zw-loadmore"
+            onClick={() => setVisible((v) => v + PAGE_SIZE)}
+          >
+            Xem thêm {Math.min(PAGE_SIZE, filtered.length - visible)} từ
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FlashGrid({ words }) {
+  const [flipped, setFlipped] = useState({});
+  function toggle(id) {
+    setFlipped((f) => ({ ...f, [id]: !f[id] }));
+  }
+  return (
+    <div className="zw-grid">
+      {words.map((v) => (
+        <div className="zw-card" key={v.id} onClick={() => toggle(v.id)}>
+          <button
+            className="zw-speak-btn"
+            aria-label={"Phát âm " + v.ch}
+            onClick={(e) => {
+              e.stopPropagation();
+              speak(v.ch);
+            }}
+          >
+            <SpeakIcon />
+          </button>
+          <span className="zw-hsktag">HSK{v.hsk}</span>
+          {!flipped[v.id] ? (
+            <>
+              <div className="zw-ch">{v.ch}</div>
+              <div className="zw-py">{v.py}</div>
+            </>
+          ) : (
+            <div className="zw-vi">{v.vi}</div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function GrammarTab() {
+  return (
+    <div className="zw-glist">
+      {GRAMMAR.map((g) => (
+        <div className="zw-gcard" key={g.id}>
+          <div className="zw-gseal">{g.pattern}</div>
+          <p className="zw-gname">{g.name}</p>
+          <p className="zw-gexplain">{g.explain}</p>
+          {g.examples.map((ex, i) => (
+            <div className="zw-gex" key={i}>
+              <div className="zw-gex-ch">
+                <button className="zw-gex-speak" aria-label={"Phát âm " + ex.ch} onClick={() => speak(ex.ch)}>
+                  <SpeakIcon />
+                </button>
+                {ex.ch}
+              </div>
+              <div className="zw-gex-py">{ex.py}</div>
+              <div className="zw-gex-vi">{ex.vi}</div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function shuffleArr(arr) {
+  return [...arr]
+    .map((v) => [Math.random(), v])
+    .sort((a, b) => a[0] - b[0])
+    .map(([, v]) => v);
+}
+
+function buildVocabQuestions(n) {
+  const idxs = new Set();
+  while (idxs.size < n && idxs.size < VOCAB.length) {
+    idxs.add(Math.floor(Math.random() * VOCAB.length));
+  }
+  return Array.from(idxs).map((vi) => {
+    const item = VOCAB[vi];
+    const distractors = [];
+    let guard = 0;
+    while (distractors.length < 3 && guard < 200) {
+      guard++;
+      const di = Math.floor(Math.random() * VOCAB.length);
+      const cand = VOCAB[di];
+      if (cand.id === item.id) continue;
+      if (distractors.some((d) => d.vi === cand.vi)) continue;
+      distractors.push(cand);
+    }
+    const optionItems = shuffleArr([item, ...distractors]);
+    const options = optionItems.map((o) => o.vi);
+    const answer = optionItems.findIndex((o) => o.id === item.id);
+    return {
+      id: "vq-" + item.id,
+      prompt: item.ch + "（" + item.py + "）",
+      options,
+      answer,
+    };
+  });
+}
+
+function QuizVocabRandom() {
+  const [questions, setQuestions] = useState(() => buildVocabQuestions(8));
+  const [idx, setIdx] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(false);
+
+  const q = questions[idx];
+
+  function choose(i) {
+    if (selected !== null) return;
+    setSelected(i);
+    if (i === q.answer) setScore((s) => s + 1);
+  }
+  function next() {
+    if (idx + 1 >= questions.length) {
+      setDone(true);
+      return;
+    }
+    setIdx((n) => n + 1);
+    setSelected(null);
+  }
+  function restart() {
+    setQuestions(buildVocabQuestions(8));
+    setIdx(0);
+    setSelected(null);
+    setScore(0);
+    setDone(false);
+  }
+
+  if (done) {
+    return (
+      <div className="zw-quiz-wrap">
+        <div className="zw-qcard zw-qscore">
+          <p className="zw-qscore-num">
+            {score}/{questions.length}
+          </p>
+          <p className="zw-qscore-label">Câu trả lời đúng</p>
+          <button className="zw-restart" onClick={restart}>
+            Làm ván mới
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="zw-quiz-wrap">
+      <div className="zw-qprogress">
+        CÂU {idx + 1} / {questions.length} · ĐIỂM {score}
+      </div>
+      <div className="zw-qcard">
+        <p className="zw-qprompt">{q.prompt}</p>
+        {q.options.map((opt, i) => {
+          let cls = "zw-qopt";
+          if (selected !== null) {
+            if (i === q.answer) cls += " zw-correct";
+            else if (i === selected) cls += " zw-wrong";
+          }
+          return (
+            <button key={i} className={cls} onClick={() => choose(i)}>
+              {opt}
+            </button>
+          );
+        })}
+        {selected !== null && (
+          <button className="zw-qnext" onClick={next}>
+            {idx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function pickMatchSet() {
+  const idxs = new Set();
+  while (idxs.size < 6) idxs.add(Math.floor(Math.random() * VOCAB.length));
+  return Array.from(idxs).map((i) => VOCAB[i]);
+}
+
+function MatchGame() {
+  const [items, setItems] = useState(() => pickMatchSet());
+  const [leftOrder, setLeftOrder] = useState(() => shuffleArr(items));
+  const [rightOrder, setRightOrder] = useState(() => shuffleArr(items));
+  const [selLeft, setSelLeft] = useState(null);
+  const [matched, setMatched] = useState({});
+  const [wrongPair, setWrongPair] = useState(null);
+
+  function clickLeft(id) {
+    if (matched[id]) return;
+    setSelLeft(id);
+    setWrongPair(null);
+  }
+  function clickRight(id) {
+    if (!selLeft || matched[id]) return;
+    if (selLeft === id) {
+      setMatched((m) => ({ ...m, [id]: true }));
+      setSelLeft(null);
+    } else {
+      setWrongPair(id);
+      setTimeout(() => {
+        setWrongPair(null);
+        setSelLeft(null);
+      }, 500);
+    }
+  }
+  function newRound() {
+    const next = pickMatchSet();
+    setItems(next);
+    setLeftOrder(shuffleArr(next));
+    setRightOrder(shuffleArr(next));
+    setMatched({});
+    setSelLeft(null);
+    setWrongPair(null);
+  }
+
+  const done = Object.keys(matched).length === items.length;
+
+  return (
+    <div>
+      <div className="zw-count">Chạm 1 từ bên trái rồi chạm nghĩa đúng bên phải</div>
+      <div className="zw-match-grid">
+        <div className="zw-match-col">
+          {leftOrder.map((it) => (
+            <button
+              key={it.id}
+              className={
+                "zw-match-btn" +
+                (selLeft === it.id ? " zw-msel" : "") +
+                (matched[it.id] ? " zw-mmatched" : "")
+              }
+              onClick={() => clickLeft(it.id)}
+              disabled={!!matched[it.id]}
+            >
+              {it.ch}
+            </button>
+          ))}
+        </div>
+        <div className="zw-match-col">
+          {rightOrder.map((it) => (
+            <button
+              key={it.id}
+              className={
+                "zw-match-btn" +
+                (wrongPair === it.id ? " zw-mwrong" : "") +
+                (matched[it.id] ? " zw-mmatched" : "")
+              }
+              onClick={() => clickRight(it.id)}
+              disabled={!!matched[it.id]}
+            >
+              {it.vi}
+            </button>
+          ))}
+        </div>
+      </div>
+      {done && <div className="zw-match-done">Hoàn thành cả 6 cặp!</div>}
+      <div className="zw-loadmore-wrap">
+        <button className="zw-loadmore" onClick={newRound}>
+          Ván mới
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function tokenizeSentence(sentence) {
+  return sentence.tokens.map((t, i) => ({ t, i }));
+}
+
+function SentenceOrder() {
+  const [idx, setIdx] = useState(0);
+  const sentence = SENTENCES[idx];
+  const [pool, setPool] = useState(() => shuffleArr(tokenizeSentence(sentence)));
+  const [chosen, setChosen] = useState([]);
+  const [feedback, setFeedback] = useState(null);
+
+  function pick(tok) {
+    setChosen((c) => [...c, tok]);
+    setFeedback(null);
+  }
+  function removeChosen(pos) {
+    setChosen((c) => c.filter((_, i) => i !== pos));
+    setFeedback(null);
+  }
+  function check() {
+    const built = chosen.map((c) => c.t).join("");
+    const correct = sentence.tokens.join("");
+    setFeedback(built === correct ? "ok" : "bad");
+  }
+  function loadSentence(n) {
+    setIdx(n);
+    setPool(shuffleArr(tokenizeSentence(SENTENCES[n])));
+    setChosen([]);
+    setFeedback(null);
+  }
+  function next() {
+    loadSentence((idx + 1) % SENTENCES.length);
+  }
+  function reset() {
+    setPool(shuffleArr(tokenizeSentence(sentence)));
+    setChosen([]);
+    setFeedback(null);
+  }
+
+  const usedSet = new Set(chosen.map((c) => c.i));
+
+  return (
+    <div className="zw-quiz-wrap">
+      <div className="zw-qprogress">
+        CÂU {idx + 1} / {SENTENCES.length}
+      </div>
+      <div className="zw-order-vi">{sentence.vi}</div>
+      <div className="zw-order-target">
+        {chosen.length === 0 && (
+          <span className="zw-order-placeholder">
+            Chạm vào các từ bên dưới theo đúng thứ tự
+          </span>
+        )}
+        {chosen.map((c, pos) => (
+          <span
+            key={pos}
+            className="zw-order-token"
+            onClick={() => removeChosen(pos)}
+          >
+            {c.t}
+          </span>
+        ))}
+      </div>
+      <div className="zw-order-pool">
+        {pool.map((c) => (
+          <span
+            key={c.i}
+            className={"zw-order-token" + (usedSet.has(c.i) ? " zw-usedToken" : "")}
+            onClick={() => !usedSet.has(c.i) && pick(c)}
+          >
+            {c.t}
+          </span>
+        ))}
+      </div>
+      {feedback && (
+        <div className={"zw-order-feedback " + (feedback === "ok" ? "ok" : "bad")}>
+          {feedback === "ok"
+            ? "Chính xác!"
+            : "Chưa đúng thứ tự. Câu đúng: " + sentence.tokens.join("")}
+        </div>
+      )}
+      <div className="zw-order-actions">
+        <button className="zw-restart" onClick={check}>
+          Kiểm tra
+        </button>
+        <button className="zw-loadmore" onClick={reset}>
+          Làm lại
+        </button>
+        <button className="zw-loadmore" onClick={next}>
+          Câu tiếp theo
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function QuizStatic() {
+  const [idx, setIdx] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(false);
+
+  const q = QUIZ[idx];
+
+  function choose(i) {
+    if (selected !== null) return;
+    setSelected(i);
+    if (i === q.answer) setScore((s) => s + 1);
+  }
+
+  function next() {
+    if (idx + 1 >= QUIZ.length) {
+      setDone(true);
+      return;
+    }
+    setIdx((n) => n + 1);
+    setSelected(null);
+  }
+
+  function restart() {
+    setIdx(0);
+    setSelected(null);
+    setScore(0);
+    setDone(false);
+  }
+
+  if (done) {
+    return (
+      <div className="zw-quiz-wrap">
+        <div className="zw-qcard zw-qscore">
+          <p className="zw-qscore-num">
+            {score}/{QUIZ.length}
+          </p>
+          <p className="zw-qscore-label">Câu trả lời đúng</p>
+          <button className="zw-restart" onClick={restart}>
+            Làm lại
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="zw-quiz-wrap">
+      <div className="zw-qprogress">
+        CÂU {idx + 1} / {QUIZ.length} · ĐIỂM {score}
+      </div>
+      <div className="zw-qcard">
+        <p className="zw-qprompt">{q.prompt}</p>
+        {q.options.map((opt, i) => {
+          let cls = "zw-qopt";
+          if (selected !== null) {
+            if (i === q.answer) cls += " zw-correct";
+            else if (i === selected) cls += " zw-wrong";
+          }
+          return (
+            <button key={i} className={cls} onClick={() => choose(i)}>
+              {opt}
+            </button>
+          );
+        })}
+        {selected !== null && (
+          <button className="zw-qnext" onClick={next}>
+            {idx + 1 >= QUIZ.length ? "Xem kết quả" : "Câu tiếp theo"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function PracticeTab() {
+  const [mode, setMode] = useState("vocabq");
+  const MODES = [
+    ["vocabq", "Trắc nghiệm từ vựng"],
+    ["match", "Nối từ"],
+    ["order", "Sắp xếp câu"],
+    ["mixed", "Tổng hợp"],
+  ];
+  return (
+    <div>
+      <div className="zw-filters">
+        {MODES.map(([key, label]) => (
+          <button
+            key={key}
+            className={"zw-chip" + (mode === key ? " zw-chipActive" : "")}
+            onClick={() => setMode(key)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      {mode === "vocabq" && <QuizVocabRandom />}
+      {mode === "match" && <MatchGame />}
+      {mode === "order" && <SentenceOrder />}
+      {mode === "mixed" && <QuizStatic />}
+    </div>
+  );
+}
+
+function App() {
+  const [tab, setTab] = useState("vocab");
+
+  const TABS = [
+    { key: "vocab", cn: "词汇", vi: "Từ vựng" },
+    { key: "grammar", cn: "语法", vi: "Ngữ pháp" },
+    { key: "practice", cn: "练习", vi: "Luyện tập" },
+  ];
+
+  return (
+    <div className="zw-root">
+      <style>{STYLE}</style>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap"
+      />
+      <div className="zw-header">
+        <h1 className="zw-cn-title">学中文</h1>
+        <p className="zw-vi-title">Học tiếng Trung · Từ vựng HSK 5</p>
+        <Swash />
+      </div>
+
+      <div className="zw-tabs">
+        {TABS.map((t) => (
+          <button
+            key={t.key}
+            className={"zw-tab" + (tab === t.key ? " zw-active" : "")}
+            onClick={() => setTab(t.key)}
+          >
+            {t.cn}
+            <span className="zw-tab-vi">{t.vi}</span>
+          </button>
+        ))}
+      </div>
+
+      {tab === "vocab" && <VocabTab />}
+      {tab === "grammar" && <GrammarTab />}
+      {tab === "practice" && <PracticeTab />}
+    </div>
+  );
+}
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>
+</body>
+</html>
